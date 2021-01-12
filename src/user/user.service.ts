@@ -5,6 +5,10 @@ import { PrismaService } from 'src/prisma.service';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  async getUser() {
+    return this.prisma.user.findMany();
+  }
+
   async createUser(createUserDto) {
     const user = this.prisma.user.create({
       data: {
