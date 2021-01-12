@@ -8,7 +8,7 @@ datasource db {
 }
 
 model admin {
-  id       Int    @id
+  id       Int    @id @default(autoincrement())
   name     String
   password String
 }
