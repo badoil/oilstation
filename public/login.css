@@ -1,0 +1,95 @@
+.container {
+}
+.loginContainer {
+  width: 600px;
+  height: 600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginForm {
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.loginTitle {
+  width: 192px;
+  height: 51px;
+  font-family: Montserrat;
+  font-size: 49px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: 1.07;
+  letter-spacing: -1.23px;
+  text-align: center;
+  color: #26242d;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginDescription {
+  width: 275px;
+  height: 38px;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.37;
+  letter-spacing: -0.38px;
+  text-align: center;
+  color: #676767;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginId {
+  width: 402px;
+  height: 41px;
+  border-radius: 8px;
+  border: solid 1px #d0d0d0;
+  background-color: #ffffff;
+}
+.ID {
+  width: 16px;
+  height: 13px;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 17px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -0.43px;
+  text-align: left;
+  color: #676767;
+}
+.loginPassword {
+  width: 402px;
+  height: 41px;
+  border-radius: 8px;
+  border: solid 1px #d0d0d0;
+  background-color: #ffffff;
+}
+.Password {
+  width: 72px;
+  height: 14px;
+  font-family: AppleSDGothicNeoB00;
+  font-size: 17px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -0.43px;
+  text-align: left;
+  color: #676767;
+}
+.loginBtn {
+  width: 402px;
+  height: 41px;
+  padding: 14px 182px 12px 181px;
+  border-radius: 8px;
+  background-color: #ffcc04;
+}

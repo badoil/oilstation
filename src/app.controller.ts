@@ -1,4 +1,5 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Query, Render } from '@nestjs/common';
+import { get } from 'http';
 import { AppService } from './app.service';
 
 @Controller()
@@ -9,5 +10,16 @@ export class AppController {
   @Render('index')
   root() {
     return { message: '오일 스테이션 서버 입니다.' };
+  }
+
+  @Get('login')
+  @Render('login')
+  login() {
+    return {};
+  }
+
+  @Get('auth')
+  auth(@Query() login) {
+    return this.appService.auth(login);
   }
 }
