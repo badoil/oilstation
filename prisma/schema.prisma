@@ -7,16 +7,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model admin {
-  id       Int    @id @default(autoincrement())
-  name     String
-  password String
+model ADMIN {
+  ADMIN_KEY Int       @id @default(autoincrement())
+  ID        String?
+  PASSWORD  String?
+  REG_ID    String
+  REG_DT    DateTime
+  UPD_ID    String?
+  UPD_DT    DateTime?
 }
 
-model user {
-  id          Int     @id @default(autoincrement())
-  name        String
-  phoneNumber String?
-  oilAmount   Int
-  bikeNumber  String?
+model BIKE_NUMBER {
+  BIKE_NUMBER_KEY Int       @id @default(autoincrement())
+  USER_KEY        Int?
+  BIKE_NUMBER     String?
+  REG_ID          String
+  REG_DT          DateTime
+  UPD_ID          String?
+  UPD_DT          DateTime?
+  USER            USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
+
+  @@index([USER_KEY], name: "FK_USER_TO_BIKE_NUMBER")
+}
+
+model OIL_HISTORY {
+  OIL_KEY    Int       @id @default(autoincrement())
+  USER_KEY   Int?
+  SHOP_KEY   Int?
+  PLUS_MINUS Int?
+  REG_ID     String
+  REG_DT     DateTime
+  UPD_ID     String?
+  UPD_DT     DateTime?
+  SHOP       SHOP?     @relation(fields: [SHOP_KEY], references: [SHOP_KEY])
+  USER       USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
+
+  @@index([SHOP_KEY], name: "FK_SHOP_TO_OIL_HISTORY")
+  @@index([USER_KEY], name: "FK_USER_TO_OIL_HISTORY")
+}
+
+model SHOP {
+  SHOP_KEY    Int           @id @default(autoincrement())
+  SHOP_NAME   String?
+  PASSWORD    String?
+  REG_ID      String
+  REG_DT      DateTime
+  UPD_ID      String?
+  UPD_DT      DateTime?
+  OIL_HISTORY OIL_HISTORY[]
+}
+
+model USER {
+  USER_KEY     Int           @id
+  NAME         String?
+  PHONE_NUMBER String?
+  PASSWORD     String?
+  OIL_L        Int?
+  REG_ID       String
+  REG_DT       DateTime
+  UPD_ID       String?
+  UPD_DT       DateTime?
+  BIKE_NUMBER  BIKE_NUMBER[]
+  OIL_HISTORY  OIL_HISTORY[]
 }
