@@ -7,20 +7,4 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
-
-  auth(login) {
-    const user = this.prisma.uSER.findFirst({
-      // where: {
-      //   phoneNumber: login.id,
-      //   bikeNumber: login.password,
-      // },
-    });
-
-    if (!user) {
-      console.log('dwdw');
-      throw new HttpException('NO_AUTH', HttpStatus.FORBIDDEN);
-    }
-
-    return user;
-  }
 }

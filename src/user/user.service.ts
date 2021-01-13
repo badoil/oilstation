@@ -15,11 +15,10 @@ export class UserService {
 
     return user;
   }
-
   async findOne(name: string): Promise<USER | undefined> {
     return this.prisma.uSER.findFirst({
       where: {
-        NAME: name,
+        PHONE_NUMBER: name,
       },
     });
   }
