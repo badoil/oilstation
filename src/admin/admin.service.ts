@@ -6,11 +6,15 @@ export class AdminService {
   constructor(private prisma: PrismaService) {}
 
   createAdmin(adminData) {
-    return this.prisma.admin.create({
-      data: {
-        name: adminData.name,
-        password: adminData.password,
-      },
-    });
+    // return this.prisma.aDMIN.create({
+    //   data: {
+    //     name: adminData.name,
+    //     password: adminData.password,
+    //   },
+    // });
+  }
+
+  createShop(shopData) {
+    return this.prisma.sHOP;
   }
 }

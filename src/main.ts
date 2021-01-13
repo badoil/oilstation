@@ -19,7 +19,7 @@ async function bootstrap() {
   dotenv.config();
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
+  app.setViewEngine('pug');
 
   // 예외 처리 필터
   app.useGlobalFilters(new HttpExceptionFilter());

@@ -6,7 +6,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getUser() {
-    const user = this.prisma.user.findMany();
+    const user = this.prisma.uSER.findMany();
 
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
@@ -16,14 +16,14 @@ export class UserService {
   }
 
   async createUser(createUserDto) {
-    const user = this.prisma.user.create({
-      data: {
-        name: createUserDto.name,
-        phoneNumber: createUserDto.phoneNumber,
-        oilAmount: createUserDto.oilAmount,
-        bikeNumber: createUserDto.bikeNumber,
-      },
-    });
-    return user;
+    // const user = this.prisma.uSER.create({
+    //   data: {
+    //     name: createUserDto.name,
+    //     phoneNumber: createUserDto.phoneNumber,
+    //     oilAmount: createUserDto.oilAmount,
+    //     bikeNumber: createUserDto.bikeNumber,
+    //   },
+    // });
+    //return user;
   }
 }

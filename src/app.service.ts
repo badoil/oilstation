@@ -9,11 +9,11 @@ export class AppService {
   }
 
   auth(login) {
-    const user = this.prisma.user.findFirst({
-      where: {
-        phoneNumber: login.id,
-        bikeNumber: login.password,
-      },
+    const user = this.prisma.uSER.findFirst({
+      // where: {
+      //   phoneNumber: login.id,
+      //   bikeNumber: login.password,
+      // },
     });
 
     if (!user) {
