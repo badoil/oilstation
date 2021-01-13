@@ -27,7 +27,7 @@ model BIKE_NUMBER {
   UPD_DT          DateTime?
   USER            USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
 
-  @@index([USER_KEY], name: "FK_USER_TO_BIKE_NUMBER")
+  @@index([USER_KEY], name: "USER_KEY_idx")
 }
 
 model OIL_HISTORY {
@@ -35,6 +35,7 @@ model OIL_HISTORY {
   USER_KEY   Int?
   SHOP_KEY   Int?
   PLUS_MINUS Int?
+  OIL_L      Int?
   REG_ID     String
   REG_DT     DateTime
   UPD_ID     String?
@@ -58,7 +59,7 @@ model SHOP {
 }
 
 model USER {
-  USER_KEY     Int           @id
+  USER_KEY     Int           @id @default(autoincrement())
   NAME         String?
   PHONE_NUMBER String?
   PASSWORD     String?
