@@ -1,6 +1,15 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  Query,
+  Render,
+  UseGuards,
+} from '@nestjs/common';
 import { get } from 'http';
 import { AppService } from './app.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
@@ -14,12 +23,18 @@ export class AppController {
 
   @Get('login')
   @Render('login')
-  login() {
+  getLoginForm() {
     return {};
   }
 
   @Get('auth')
   auth(@Query() login) {
     return this.appService.auth(login);
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Post('auth/login')
+  async login(@Request() req) {
+    return req.user;
   }
 }

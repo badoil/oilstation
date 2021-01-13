@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { USER } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -6,7 +7,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getUser() {
-    const user = this.prisma.User.findMany();
+    const user = this.prisma.uSER.findMany();
 
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
@@ -15,14 +16,13 @@ export class UserService {
     return user;
   }
 
-  async findOne(name) {
-    return this.prisma.User.findFirst({
+  async findOne(name: string): Promise<USER | undefined> {
+    return this.prisma.uSER.findFirst({
       where: {
         NAME: name,
       },
     });
   }
 
-  async createUser(createUserDto) {
-  }
+  async createUser(createUserDto) {}
 }
