@@ -1,9 +1,23 @@
-import { Body, Controller, Post, Query, Get, Render } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Query,
+  Get,
+  Render,
+  Put,
+} from '@nestjs/common';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
+
+  @Get()
+  @Render('user')
+  getAdmin() {
+    return {};
+  }
 
   @Post('signup')
   createAdmin(@Body() adminData) {
@@ -11,11 +25,17 @@ export class AdminController {
   }
 
   @Post('shop')
-  createShop(@Body() shopData) {}
+  createShop(@Body() shopData) {
+    return this.adminService.createShop(shopData);
+  }
 
-  @Get()
-  @Render('user')
-  getAdmin() {
-    return {};
+  @Get('shop')
+  getShop() {
+    return this.adminService.getShop();
+  }
+
+  @Put('shop')
+  updateShop(@Body() bodyData) {
+    return this.adminService.updateShop(bodyData);
   }
 }
