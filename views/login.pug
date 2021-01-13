@@ -10,9 +10,11 @@ html
       .loginContainer
         .loginTitle Sign Up
         .loginDescription Log in with your data that you entered during your registration.
-        form.loginForm(action="auth/login" method="post")
-          .ID ID
-          input.loginId(type="text" name="id")
-          .Password Password
-          input.loginPassword(type="text" name="password" class="loginPassword")
-          button.loginBtn(type="submit") Log In
+        if (!user)
+          form.loginForm(action="auth/login" method="post" enctype="application/json")
+            .ID ID
+            input.loginId(type="text" name="username")
+            .Password Password
+            input.loginPassword(type="text" name="password")
+            button.loginBtn(type="submit") Log In
+          div=message
