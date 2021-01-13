@@ -5,6 +5,10 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import { HttpExceptionFilter } from './http-exception.filter';
 import * as dotenv from 'dotenv';
+import passport from 'passport';
+import session from 'express-session';
+import flash from 'connect-flash';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
@@ -20,6 +24,18 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');
+
+  // Passport 로그인
+  app.use(
+    session({
+      secret: 'changelater',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(flash());
 
   // 예외 처리 필터
   app.useGlobalFilters(new HttpExceptionFilter());
