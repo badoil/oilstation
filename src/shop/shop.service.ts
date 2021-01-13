@@ -18,7 +18,7 @@ export class ShopService {
     //   }
     // })
 
-    const user = await this.prisma.uSER.create({
+    const user = await this.prisma.user.create({
       data: {
         NAME: bodyData.NAME,
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
