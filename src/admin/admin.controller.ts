@@ -13,7 +13,7 @@ import { AdminService } from './admin.service';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Get()
+  @Get('user')
   @Render('user')
   getAdmin() {
     return {};

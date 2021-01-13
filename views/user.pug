@@ -1,7 +1,91 @@
-body
-  table
-    thead
-      th 고객이름
-      th 휴대폰번호
-      th 남은 오일양
-      th 차량번호
+html
+  head
+    meta  
+    title 로그인  
+    link(rel="stylesheet" href="/user.css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+  body
+    div(class='container')
+      div(class='button-group d-inline float-right mb-3 mt-3')
+        button#code-regist(type='submit', class='btn btn-primary btn-lg align-center') 저장
+        button#searchBtn(type='button', class='btn btn-default btn-lg align-center ml-2') 검색
+      table#users(class='table form-table table-bordered')
+        thead(class='bg-warning align-middle')
+          th 고객이름
+          th 휴대폰번호
+          th 남은 오일양
+          th 차량번호
+        tbody
+
+    script.
+        function getUser(){    
+          const xhr = new XMLHttpRequest();
+
+          xhr.onload = function() {
+              if(xhr.status === 200){
+                  let users = JSON.parse(xhr.responseText)
+                  console.log('users:', users)
+                  let tbody = document.querySelector('#users tbody')
+                  console.log('tbody:', tbody)
+                  tbody.innerHTML = '';
+                  users.map(function(user, index) {
+                      let row = document.createElement('tr');
+                      //- row.setAttribute("id", `${index}`)
+                      //- //console.log('row:', row)
+
+                      //- row.addEventListener('click', function(){
+                      //-     getUserDetail(user.cmn_code_id);
+                          
+                      //-     row.style.backgroundColor = "#eeeded"
+                      //-     console.log('row.id:', row.id)
+                      //-     for(let i=0; i<cmnCodes.result.length; i++){
+                      //-         let newRow = document.getElementById(`${i}`)
+                      //-         if(newRow.id !== row.id){
+                      //-             newRow.style.backgroundColor = ""
+                      //-         }
+                      //-     }
+                      //- })
+
+                      let td = document.createElement('td')
+                      td.textContent = user.NAME;
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = user.PHONE_NUMBER;
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = user.OIL_L;
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = user.OIL_L;
+                      row.appendChild(td);
+
+                      tbody.appendChild(row);
+                  })
+                  console.log('tbody:', tbody)
+              } else {
+                  console.error(xhr.responseText);
+              }
+          }
+          //console.log('query:', query)
+          xhr.open('GET', `http://localhost:3000/user`)
+          xhr.send();
+        }
+
+        window.onload = function() {
+        const el = document.getElementById('searchBtn')
+        if(el){
+            el.addEventListener('click', function() {
+              getUser();
+            })
+        }
+
+        const ell = document.getElementById('delRowBtn')
+        if(ell){
+            ell.addEventListener('click', function() {
+            delRow();
+            })
+          }
+        }      
