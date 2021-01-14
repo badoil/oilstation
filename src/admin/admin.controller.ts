@@ -13,12 +13,6 @@ import { AdminService } from './admin.service';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Get('user')
-  @Render('user')
-  getAdmin() {
-    return {};
-  }
-
   @Post('signup')
   createAdmin(@Body() adminData) {
     return this.adminService.createAdmin(adminData);

@@ -7,6 +7,7 @@ import {
   Put,
   Query,
   Res,
+  Render,
 } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { Response } from 'express';
@@ -14,6 +15,12 @@ import { Response } from 'express';
 @Controller('shop')
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
+
+  @Get('user')
+  @Render('web/admin/user/user')
+  getUsers() {
+    return {};
+  }
 
   @Post()
   createUser(@Body() bodyData) {
