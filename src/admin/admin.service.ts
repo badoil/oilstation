@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { ADMIN } from '@prisma/client';
 import { CreateShopDto } from './dto/create.shop.dto';
+import { CreateAdminDto } from './dto/create.admin.dto';
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
@@ -16,7 +17,7 @@ export class AdminService {
     });
   }
 
-  async createAdmin(adminData) {
+  async createAdmin(adminData: CreateAdminDto) {
     const password = await bcrypt.hash(adminData.PASSWORD, 12);
     const date = new Date();
     return this.prisma.aDMIN.create({

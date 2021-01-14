@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import { CreateAdminDto } from './dto/create.admin.dto';
 import { CreateShopDto } from './dto/create.shop.dto';
 
 @Controller('admin')
@@ -15,7 +16,7 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Post('signup')
-  createAdmin(@Body() adminData) {
+  createAdmin(@Body() adminData: CreateAdminDto) {
     return this.adminService.createAdmin(adminData);
   }
 
