@@ -21,7 +21,7 @@ export class AdminService {
     return this.prisma.aDMIN.create({
       data: {
         ID: adminData.ID,
-        PASSWORD: adminData.PASSWORD,
+        PASSWORD: password,
         REG_ID: adminData.REG_ID,
         REG_DT: date,
       },
