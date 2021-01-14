@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
+import { ShopService } from 'src/shop/shop.service';
+import { AdminService } from 'src/admin/admin.service';
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private shopService: ShopService,
+    private adminService: AdminService,
+  ) {}
 
   async validateUser(
     username: string,
@@ -12,23 +18,35 @@ export class AuthService {
   ): Promise<any> {
     if (role === 'user') {
       const user = await this.userService.findOne(username);
-      if (!user) {
+      if (!user || !(await bcrypt.compare(pass, user.PASSWORD))) {
         return null;
       }
-      if (!(await bcrypt.compare(pass, user.PASSWORD))) {
-        return null;
-      }
+
       const { PASSWORD, ...result } = user;
       result['role'] = 'user';
       return result;
     }
 
     if (role === 'shop') {
-      return null;
+      const shop = await this.shopService.findOne(username);
+      if (!shop || !(await bcrypt.compare(pass, shop.PASSWORD))) {
+        return null;
+      }
+      const { PASSWORD, ...result } = shop;
+      result['role'] = 'shop';
+      return result;
     }
 
     if (role === 'admin') {
-      return null;
+      const admin = await this.adminService.findOne(username);
+      if (!admin || !(await bcrypt.compare(pass, admin.PASSWORD))) {
+        return null;
+      }
+      const { PASSWORD, ...result } = admin;
+      result['role'] = 'admin';
+      return result;
     }
+
+    return null;
   }
 }

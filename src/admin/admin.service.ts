@@ -2,11 +2,21 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
+import { ADMIN } from '@prisma/client';
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
 
-  createAdmin(adminData) {
+  async findOne(name: string): Promise<ADMIN | undefined> {
+    return this.prisma.aDMIN.findFirst({
+      where: {
+        ID: name,
+      },
+    });
+  }
+
+  async createAdmin(adminData) {
+    const password = await bcrypt.hash(adminData.PASSWORD, 12);
     const date = new Date();
     return this.prisma.aDMIN.create({
       data: {

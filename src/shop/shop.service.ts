@@ -1,11 +1,19 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { SHOP } from '@prisma/client';
 
 @Injectable()
 export class ShopService {
   constructor(private prisma: PrismaService) {}
 
+  async findOne(name: string): Promise<SHOP | undefined> {
+    return this.prisma.sHOP.findFirst({
+      where: {
+        SHOP_NAME: name,
+      },
+    });
+  }
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash('서울1234', 12);
     const date = new Date();
