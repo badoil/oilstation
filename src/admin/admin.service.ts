@@ -7,12 +7,15 @@ export class AdminService {
   constructor(private prisma: PrismaService) {}
 
   createAdmin(adminData) {
-    // return this.prisma.aDMIN.create({
-    //   data: {
-    //     name: adminData.name,
-    //     password: adminData.password,
-    //   },
-    // });
+    const date = new Date();
+    return this.prisma.aDMIN.create({
+      data: {
+        ID: adminData.ID,
+        PASSWORD: adminData.PASSWORD,
+        REG_ID: adminData.REG_ID,
+        REG_DT: date,
+      },
+    });
   }
 
   async createShop(shopData) {
