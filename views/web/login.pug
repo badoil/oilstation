@@ -1,0 +1,19 @@
+extends ../layout/layout
+
+block link
+  link(rel="stylesheet" href="/login.css")
+    
+block content
+  .loginContainer
+    .loginTitle 어드민 & 매장 로그인
+    .loginDescription Log in with your data that you entered during your registration.
+    if (!user)
+      form.loginForm(action="login" method="post" enctype="application/json")
+        .ID ID
+        input.loginId(type="text" name="username" required autofocus)
+        .Password Password
+        input.loginPassword(type="text" name="password" required)
+        input(name="role" value="user" type="hidden")
+        button.loginBtn(type="submit") Log in
+      div=message
+    

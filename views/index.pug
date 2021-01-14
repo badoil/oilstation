@@ -1,9 +1,11 @@
-doctype
-html
-  head
-    meta  
-    title App  
-    link(rel="stylesheet" href="index.css")
+extends ./web/layout/layout
+
+block link
+  link(rel="stylesheet" href="index.css")
     
-  body
-    .message=message
+block content
+  .message=message
+  if user
+    input(type="button", value="로그아웃" onClick="location.href='/user/logout'")
+  else
+    input(type="button", value="로그인" onClick="location.href='/user/auth'")
