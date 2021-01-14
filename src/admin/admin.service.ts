@@ -24,7 +24,7 @@ export class AdminService {
       data: {
         ID: adminData.ID,
         PASSWORD: password,
-        REG_ID: adminData.REG_ID,
+        REG_ID: 'SYSTEM',
         REG_DT: date,
       },
     });

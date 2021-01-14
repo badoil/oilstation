@@ -43,8 +43,9 @@ export class UserController {
 
   @UseGuards(RolesGuard)
   @Roles('user')
-  @Get('test')
-  getUserPage(@Request() req) {
+  @Get('oil')
+  @Render('web/user/oil')
+  getOil(@Request() req) {
     return { user: req.user };
   }
 
@@ -53,6 +54,6 @@ export class UserController {
   logout(@Request() req, @Res() res: Response) {
     req.logout();
     req.flash('auth', '로그아웃 되었습니다.');
-    res.redirect('/user/auth');
+    res.redirect('/');
   }
 }

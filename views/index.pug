@@ -7,6 +7,9 @@ block content
   .message 오일스테이션 서버입니다.
   if user
     input.btn(type="button", value="로그아웃" onClick="location.href='/user/logout'")
+    input.btn(type="button", value="내 정보" onClick="location.href='/data'")
+    if (user.role === 'user')
+      input.btn(type="button", value="오일 확인" onClick="location.href='/user/oil'")
   else
     input.btn(type="button", value="로그인" onClick="location.href='/user/auth'")
     input.btn(type="button", value="관리자/매장 로그인" onClick="location.href='/auth'")

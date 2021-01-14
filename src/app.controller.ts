@@ -13,6 +13,7 @@ import { AppService } from './app.service';
 import { Response } from 'express';
 import { AuthExceptionFilter } from './common/filter/auth-exceptions.filter';
 import { LoginGuard } from './common/guards/login.guard';
+import { RolesGuard } from './common/guards/roles.guard';
 
 @UseFilters(AuthExceptionFilter)
 @Controller()
@@ -37,6 +38,11 @@ export class AppController {
     };
   }
 
+  @UseGuards(RolesGuard)
+  @Get('data')
+  getData(@Req() req) {
+    return req.user;
+  }
   @UseGuards(LoginGuard)
   @Post('auth/login')
   login(@Res() res: Response) {

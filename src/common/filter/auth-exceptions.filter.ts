@@ -24,7 +24,7 @@ export class AuthExceptionFilter implements ExceptionFilter {
     }
     if (exception.message === 'NOT_LOGIN') {
       request.flash('auth', '로그인을 해주세요.');
-      return response.redirect('/user/auth');
+      return response.redirect('/');
     }
 
     if (exception.message === 'NO_AUTH') {
