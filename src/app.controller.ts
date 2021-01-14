@@ -1,6 +1,20 @@
-import { Controller, Get, Query, Render, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Query,
+  Render,
+  Req,
+  Res,
+  UseFilters,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
+import { AuthExceptionFilter } from './common/filter/auth-exceptions.filter';
+import { LoginGuard } from './common/guards/login.guard';
 
+@UseFilters(AuthExceptionFilter)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -9,8 +23,23 @@ export class AppController {
   @Render('index')
   root(@Req() req) {
     return {
-      message: '오일 스테이션 서버 입니다.',
+      message: req.flash('auth'),
       user: req.user,
     };
+  }
+
+  @Get('auth')
+  @Render('web/login')
+  auth(@Req() req) {
+    return {
+      user: req.user,
+      message: req.flash('auth'),
+    };
+  }
+
+  @UseGuards(LoginGuard)
+  @Post('auth/login')
+  login(@Res() res: Response) {
+    res.redirect('/');
   }
 }

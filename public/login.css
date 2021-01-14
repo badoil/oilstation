@@ -47,6 +47,13 @@
   padding-bottom: 14px;
 }
 
+.adminLoginTitle {
+  font-family: AppleSDGothicNeoB00;
+  font-size: 40px;
+  color: #26242d;
+  padding-bottom: 20px;
+}
+
 .loginDescription {
   width: 275px;
   height: 38px;
@@ -65,7 +72,7 @@
 }
 
 .loginId {
-  width: 394px;
+  width: 408px;
   height: 41px;
   border-radius: 8px;
   border: solid 1px #d0d0d0;
@@ -88,7 +95,7 @@
   padding-bottom: 11px;
 }
 .loginPassword {
-  width: 394px;
+  width: 408px;
   height: 41px;
   border-radius: 8px;
   border: solid 1px #d0d0d0;
@@ -163,6 +170,10 @@
   letter-spacing: -0.38px;
   text-align: center;
   color: #858484;
+}
+
+.radio {
+  margin-bottom: 20px;
 }
 
 input::placeholder {

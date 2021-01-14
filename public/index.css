@@ -1,3 +1,16 @@
 .message {
   font-size: 32px;
 }
+
+.btn {
+  width: 200px;
+  height: 45px;
+  border-radius: 8px;
+  border-style: none;
+  background-color: #ffcc04;
+  font-size: 18px;
+  line-height: 2.31;
+  letter-spacing: -0.45px;
+  font-family: AppleSDGothicNeoM00;
+  margin: 10px;
+}

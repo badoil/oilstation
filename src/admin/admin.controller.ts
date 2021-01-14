@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import { CreateShopDto } from './dto/create.shop.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -19,15 +20,13 @@ export class AdminController {
   }
 
   @Post('shop')
-  createShop(@Body() shopData) {
+  createShop(@Body() shopData: CreateShopDto) {
     return this.adminService.createShop(shopData);
   }
 
   @Get('shop')
   getShop() {
-    const shop = this.adminService.getShop();
-    console.log('shop:', shop);
-    return shop;
+    return this.adminService.getShop();
   }
 
   @Put('shop')
