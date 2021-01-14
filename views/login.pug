@@ -8,15 +8,18 @@ html
   body
     .container
       .loginContainer
-        .loginTitle Sign Up
+        .loginTitle Sign up
         .loginDescription Log in with your data that you entered during your registration.
         if (!user)
           form.loginForm(action="auth/login" method="post" enctype="application/json")
             .ID ID
-            input.loginId(type="text" name="username")
+            input.loginId(type="text" name="username" placeholder="Phone Number" required autofocus)
+            .id-description ex. 01023456789
             .Password Password
-            input.loginPassword(type="text" name="password")
+            input.loginPassword(type="text" name="password" placeholder="등록된 차량 번호" required)
+            .pw-description ex. 서울종로가 1234
             input(name="role" value="user" type="hidden")
-            button.loginBtn(type="submit") Log In
+            button.loginBtn(type="submit") Log in
+            .descript * 오일스테이션 고객 회원가입은 매장으로 문의해주세요
           div=message
           
