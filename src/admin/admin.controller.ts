@@ -25,7 +25,9 @@ export class AdminController {
 
   @Get('shop')
   getShop() {
-    return this.adminService.getShop();
+    const shop = this.adminService.getShop();
+    console.log('shop:', shop);
+    return shop;
   }
 
   @Put('shop')

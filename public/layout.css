@@ -1,0 +1,12 @@
+html,
+body {
+  min-height: 100%;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f3f4f7;
+}
+.wrapper {
+  height: 100%;
+  min-width: 1000px;
+}

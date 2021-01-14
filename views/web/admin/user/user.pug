@@ -1,15 +1,35 @@
 extends ../../layout/layout
 
+//- block link
+//-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 block link
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  link(rel="stylesheet" href="/users.css")
 block content
-  div(class='container')
-    div(class='button-group d-inline float-right mb-3 mt-3')
-      button#code-regist(type='submit', class='btn btn-primary btn-lg align-center') 저장
-      button#searchBtn(type='button', class='btn btn-default btn-lg align-center ml-2') 검색
-    table#users(class='table form-table table-bordered')
-      thead(class='bg-warning align-middle')
+  div
+    div(class="contents")
+      form(method="get" id="listForm")
+        input(type="hidden" name="page" id="page" value="")
+        fieldset(class="search-field")
+          legend 라이더 검색
+          div(class="row")
+            div(class="col")
+              label(for="keyword") 텍스트 검색
+                span(style="font-size: x-small") 단어 포함 검색, ID/상호/대표자/담당자
+                  div(class="input-group-select")
+                    input(type="text" id="keyword" name="keyword" placeholder="검색어 입력")
+          div(class="btn-group")
+            button( type="button" class="btn btn-success-md btn-search submit") 검색
+    div(class="contents")
+      div(class="table-wrap")
+        div(class="table-option")
+          div(class="right")
+            button(type="button" class="btn btn-primary-sm delete") 거래처 삭제
+            button(type="button" class="btn btn-success-sm write") 거래처 등록
+    div
+      button#code-regist(type='submit') 저장
+      button#searchBtn(type='button') 검색
+    table.table
+      thead
         th 고객이름
         th 휴대폰번호
         th 남은 오일양
@@ -17,4 +37,24 @@ block content
       tbody
       
   block scripts
-    include ../../../scripts/user_script.pug
+    include ./user_script.pug
+
+
+
+
+
+//- block link
+//-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+//- block content
+//-   div(class='container')
+//-     div(class='button-group d-inline float-right mb-3 mt-3')
+//-       button#code-regist(type='submit', class='btn btn-primary btn-lg align-center') 저장
+//-       button#searchBtn(type='button', class='btn btn-default btn-lg align-center ml-2') 검색
+//-     table#usersTable(class='table form-table table-bordered')
+//-       thead(class='bg-warning align-middle')
+//-         th 고객이름
+//-         th 휴대폰번호
+//-         th 남은 오일양
+//-         th 차량번호
+//-       tbody

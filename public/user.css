@@ -1,0 +1,298 @@
+.table {
+  width: 100%;
+  border-top: 2px solid #f0f3ff;
+  font-size: 13px;
+  color: #595d6e;
+}
+.table + .table {
+  margin-top: 20px;
+}
+.table thead th {
+  height: 25px;
+  padding: 5px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f3ff;
+  white-space: nowrap;
+  text-align: inherit;
+}
+.table tbody th,
+.table tbody td {
+  height: 30px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #f0f3ff;
+  vertical-align: middle;
+}
+.table tbody th {
+  text-align: inherit;
+}
+.table tbody td {
+}
+.table tr.active {
+  background-color: #f0f3ff;
+}
+.table .gotham {
+  color: #222;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fbfcfd;
+}
+
+.table .child > td {
+  padding: 20px;
+  background-color: #f0f3ff;
+}
+
+.border-box {
+  border: 10px solid #edeff7;
+}
+.line-table {
+  width: 100%;
+  border-top: 1px solid #bec0c5;
+  font-size: 13px;
+  background-color: #fff;
+  color: #595d6e;
+}
+.line-table thead th {
+  height: 25px;
+  padding: 10px 10px;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: inherit;
+  background-color: #f3f4f7;
+  color: #263150;
+  font-weight: 100;
+  border-bottom: 1px solid #e4e8f1;
+}
+.line-table tbody th,
+.line-table tbody td {
+  height: 30px;
+  padding: 5px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e4e8f1;
+}
+.line-table tbody th {
+  text-align: inherit;
+  font-weight: 100;
+  background-color: #f3f4f7;
+  color: #263150;
+}
+.line-table tbody td {
+}
+.line-table .col {
+  padding: 0;
+}
+.line-table .col + .col {
+  padding-left: 30px;
+}
+.line-table .btn-link {
+  text-decoration: underline;
+}
+
+.table.text-sm tbody th,
+.table.text-sm tbody td {
+  font-size: 12px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f3f5f7;
+  cursor: pointer;
+}
+.table tbody tr.is-active {
+  background-color: #fffcbe;
+}
+.table thead .checkbox,
+.table thead .radio {
+  vertical-align: top;
+}
+
+.table .color-primary {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.table.view {
+  border-top: 1px solid #dfe8f1;
+}
+.table.view tbody th,
+.table.view tbody td {
+  padding: 3px 10px;
+  border-bottom: 1px solid #dfe8f1;
+}
+.table.view tbody th {
+  font-weight: bold;
+  color: #666b70;
+  font-size: 13px;
+  background-color: #f9fafe;
+}
+.table.view tbody td {
+  font-size: 13px;
+  color: #80939c;
+}
+.table.view a {
+  color: #2398d0;
+  text-decoration: underline;
+}
+
+.table-option {
+  position: relative;
+  margin-top: 10px;
+  min-height: 26px;
+}
+.table-option + .table {
+  margin-top: 15px;
+}
+.table-option:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.table-option .left {
+  float: left;
+}
+.table-option .right {
+  float: right;
+}
+.table-option .left {
+  left: 0;
+}
+.table-option .right {
+  right: 0;
+}
+.table-option .select select {
+  height: 34px;
+}
+.table-option [class^='btn'] {
+  vertical-align: middle;
+}
+.table-option .text {
+  margin-top: 3px;
+}
+.table-total-info {
+  font-size: 14px;
+  color: #646c9a;
+  font-family: 'Gotham', 'Noto Sans KR', sans-serif;
+}
+.table-option .pagination {
+}
+.table-option .pagination a {
+  display: inline-block;
+  color: #93a2dd;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+.table-option .pagination a.current {
+  background-color: #5d78ff;
+  color: #fff;
+}
+.pagination .page-arrow:before {
+  font-size: 14px;
+  line-height: 1;
+  font-family: 'FontAwesome', sans-serif;
+}
+.pagination .page-arrow.first:before {
+  content: '\f100';
+}
+.pagination .page-arrow.prev:before {
+  content: '\f104';
+}
+.pagination .page-arrow.next:before {
+  content: '\f105';
+}
+.pagination .page-arrow.last:before {
+  content: '\f101';
+}
+.pagination .page-arrow.disabled {
+  opacity: 0.4;
+}
+
+.table-option .pagination i,
+.table-option .pagination i:before {
+  margin: 6px 0 0;
+  padding: 0 2px;
+  vertical-align: top !important;
+  font-size: 18px;
+}
+.table-option .pagination .btn-page {
+  display: inline-block;
+  height: 30px;
+  vertical-align: top;
+}
+
+.table-option .paging {
+  display: inline-block;
+  height: 26px;
+  box-sizing: border-box;
+  font-size: 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.table-option .paging li {
+  display: inline-block;
+}
+.table-option .paging a {
+  display: inline-block;
+  height: 26px;
+  line-height: 25px;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #337ab7;
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+}
+.table-option .paging .active a,
+.table-option .paging a:hover i,
+.table-option .paging a:hover {
+  background-color: #337ab7;
+  color: #fff;
+}
+.table-option .paging i {
+  margin: 0;
+  padding: 0;
+  color: #337ab7;
+}
+.table-option .paging li:first-child a {
+  border-left: none;
+}
+
+.table-option .select-default select {
+  height: 30px;
+}
+
+button {
+  box-sizing: border-box;
+  color: #555;
+}
+
+/* input*/
+[class^='input-group'] {
+  display: flex;
+}
+span[class^='input-group'] {
+  display: inline-flex;
+  vertical-align: middle;
+}
+.input-group-select {
+}
+.input-group-button .select,
+.input-group-select .select {
+  flex: 1 0 auto;
+  min-width: 100px;
+  border-radius: 3px 0 0 3px;
+}
+.input-group-select .select {
+  border-right: none;
+}
+.input-group-select input {
+  flex: 0 1 auto;
+}
+.inputWrapper {
+  margin-bottom: 3px;
+}

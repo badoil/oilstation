@@ -6,7 +6,7 @@ script.
               if(xhr.status === 200){
                   let users = JSON.parse(xhr.responseText)
                   console.log('users:', users)
-                  let tbody = document.querySelector('#users tbody')
+                  let tbody = document.querySelector('.table tbody')
                   console.log('tbody:', tbody)
                   tbody.innerHTML = '';
                   users.map(function(user, index) {
