@@ -2,14 +2,14 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
-import { ADMIN } from '@prisma/client';
+//import { ADMIN } from '@prisma/client';
 import { CreateShopDto } from './dto/create.shop.dto';
 import { CreateAdminDto } from './dto/create.admin.dto';
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(name: string): Promise<ADMIN | undefined> {
+  async findOne(name: string): Promise<any | undefined> {
     return this.prisma.aDMIN.findFirst({
       where: {
         ID: name,

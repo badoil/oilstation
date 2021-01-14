@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { USER } from '@prisma/client';
+//import { USER } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserService {
 
     return user;
   }
-  async findOne(name: string): Promise<USER | undefined> {
+  async findOne(name: string): Promise<any | undefined> {
     return this.prisma.uSER.findFirst({
       where: {
         PHONE_NUMBER: name,

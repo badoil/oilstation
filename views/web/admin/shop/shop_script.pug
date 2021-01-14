@@ -1,0 +1,67 @@
+script.
+        function getUser(){    
+          const xhr = new XMLHttpRequest();
+
+          xhr.onload = function() {
+              if(xhr.status === 200){
+                  let shops = JSON.parse(xhr.responseText)
+                  console.log('users:', shops)
+                  let tbody = document.querySelector('.table tbody')
+                  console.log('tbody:', tbody)
+                  tbody.innerHTML = '';
+                  shops.map(function(shop, index) {
+                      let row = document.createElement('tr');
+                      
+                      let check = document.createElement('input')
+                      check.setAttribute('type', 'checkbox')
+                      check.setAttribute('class', 'chk chkM')
+
+                      let td = document.createElement('td')
+                      td.appendChild(check)
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = shop.SHOP_KEY;
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = shop.SHOP_NAME;
+                      row.appendChild(td);
+
+                      td = document.createElement('td')
+                      td.textContent = shop.REG_DT;
+                      row.appendChild(td);
+
+                      tbody.appendChild(row);
+                  })
+                  console.log('tbody:', tbody)
+              } else {
+                  console.error(xhr.responseText);
+              }
+          }
+          //console.log('query:', query)
+          xhr.open('GET', `http://localhost:3000/admin/shop`)
+          xhr.send();
+        }
+
+
+        window.onload = function() {
+          getUser();
+        }      
+
+
+//- row.setAttribute("id", `${index}`)
+//- //console.log('row:', row)
+
+//- row.addEventListener('click', function(){
+//-     getUserDetail(user.cmn_code_id);
+  
+//-     row.style.backgroundColor = "#eeeded"
+//-     console.log('row.id:', row.id)
+//-     for(let i=0; i<cmnCodes.result.length; i++){
+//-         let newRow = document.getElementById(`${i}`)
+//-         if(newRow.id !== row.id){
+//-             newRow.style.backgroundColor = ""
+//-         }
+//-     }
+//- })

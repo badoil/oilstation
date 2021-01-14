@@ -15,6 +15,12 @@ import { CreateShopDto } from './dto/create.shop.dto';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @Get('list')
+  @Render('web/admin/shop/shop')
+  getShops(){
+    return
+  } 
+
   @Post('signup')
   createAdmin(@Body() adminData: CreateAdminDto) {
     return this.adminService.createAdmin(adminData);

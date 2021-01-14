@@ -1,9 +1,9 @@
 extends ../../layout/layout
 
-//- block link
-//-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 block link
-  link(rel="stylesheet" href="/users.css")
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+block link
+  link(rel="stylesheet" href="/adminShop.css")
 block content
   div
     div(class="contents")
@@ -18,26 +18,29 @@ block content
                   div(class="input-group-select")
                     input(type="text" id="keyword" name="keyword" placeholder="검색어 입력")
           div(class="btn-group")
-            button( type="button" class="btn btn-success-md btn-search submit") 검색
+            button#searchBtn( type="button" class="btn btn-success-md btn-search submit") 검색
     div(class="contents")
       div(class="table-wrap")
         div(class="table-option")
           div(class="right")
-            button(type="button" class="btn btn-primary-sm delete") 거래처 삭제
-            button(type="button" class="btn btn-success-sm write") 거래처 등록
-    div
-      button#code-regist(type='submit') 저장
-      button#searchBtn(type='button') 검색
+            button(type="button" class="btn btn-primary-sm delete") 지점 삭제
+            button(type="button" class="btn btn-success-sm write") 지점 등록
+    //- div
+    //-   button#code-regist(type='submit') 저장
+    //-   button#searchBtn(type='button') 검색
     table.table
       thead
-        th 고객이름
-        th 휴대폰번호
-        th 남은 오일양
-        th 차량번호
+        tr
+          th(scope="col")
+            label(class="checkbox")
+            input(type="checkbox" class="chk chkM")
+          th(scope="col") 인덱스
+          th(scope="col") 지점명
+          th(scope="col") 등록일자
       tbody
       
   block scripts
-    include ./user_script.pug
+    include ./shop_script.pug
 
 
 
