@@ -7,7 +7,7 @@ import {
 import { Request, Response } from 'express';
 import { type } from 'os';
 import { env } from 'process';
-import { ExceptionCode } from './exception.code';
+import { ExceptionCode } from '../exception.code';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {

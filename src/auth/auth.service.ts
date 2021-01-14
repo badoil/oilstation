@@ -5,13 +5,30 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(private userService: UserService) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userService.findOne(username);
-    console.log(user);
-    if (user && (await bcrypt.compare(pass, user.PASSWORD))) {
+  async validateUser(
+    username: string,
+    pass: string,
+    role: string,
+  ): Promise<any> {
+    if (role === 'user') {
+      const user = await this.userService.findOne(username);
+      if (!user) {
+        return null;
+      }
+      if (!(await bcrypt.compare(pass, user.PASSWORD))) {
+        return null;
+      }
       const { PASSWORD, ...result } = user;
+      result['role'] = 'user';
       return result;
     }
-    return null;
+
+    if (role === 'shop') {
+      return null;
+    }
+
+    if (role === 'admin') {
+      return null;
+    }
   }
 }

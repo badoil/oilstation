@@ -12,8 +12,9 @@ import {
 import { UserService } from './user.service';
 import { LoginGuard } from 'src/common/guards/login.guard';
 import { Response } from 'express';
-import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 import { AuthExceptionFilter } from 'src/common/filter/auth-exceptions.filter';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorator/roles.decorator';
 
 @UseFilters(AuthExceptionFilter)
 @Controller('user')
@@ -30,7 +31,7 @@ export class UserController {
   getLoginForm(@Req() req) {
     return {
       user: req.user,
-      message: req.flash('loginError'),
+      message: req.flash('auth'),
     };
   }
 
@@ -40,17 +41,18 @@ export class UserController {
     res.redirect('/');
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards(RolesGuard)
+  @Roles('user')
   @Get('test')
   getUserPage(@Request() req) {
     return { user: req.user };
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards(RolesGuard)
   @Get('/logout')
   logout(@Request() req, @Res() res: Response) {
     req.logout();
-    req.flash('loginError', '로그아웃 되었습니다.');
+    req.flash('auth', '로그아웃 되었습니다.');
     res.redirect('/user/auth');
   }
 }

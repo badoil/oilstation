@@ -3,7 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { join } from 'path';
-import { HttpExceptionFilter } from './http-exception.filter';
+import { HttpExceptionFilter } from './common/filter/http-exception.filter';
 import * as dotenv from 'dotenv';
 import passport from 'passport';
 import session from 'express-session';
@@ -37,7 +37,7 @@ async function bootstrap() {
   app.use(passport.session());
   app.use(flash());
 
-  // 예외 처리 필터
+  // Http 예외 처리 필터
   app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000);
 }
