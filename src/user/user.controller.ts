@@ -27,7 +27,7 @@ export class UserController {
   }
 
   @Get('auth')
-  @Render('login')
+  @Render('web/user/login')
   getLoginForm(@Req() req) {
     return {
       user: req.user,
