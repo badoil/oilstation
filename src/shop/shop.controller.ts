@@ -5,24 +5,35 @@ import {
   Get,
   Post,
   Put,
-  Query,
-  Res,
-  Render,
-} from '@nestjs/common';
+  Query, Render,
+  Res
+} from "@nestjs/common";
 import { ShopService } from './shop.service';
-import { Response } from 'express';
+import {SearchShopDto} from './search.shop.dto';
 
 @Controller('shop')
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
 
-  @Get('user')
-  @Render('web/admin/user/user')
-  getUsers() {
+
+  @Get('/insert')
+  @Render('shop/insert')
+  getInsert(){
     return {};
   }
 
-  @Post()
+  @Get('/list')
+  @Render('web/shop/list')
+  async getList(@Query() query: SearchShopDto){
+    const shopList = await this.shopService.getShop(query);
+    console.log("shoplist contorller > ", shopList);
+    return {
+      query:query,
+      shopList: shopList
+    };
+  }
+
+  /*@Post()
   createUser(@Body() bodyData) {
     return this.shopService.createUser(bodyData);
   }
@@ -40,5 +51,5 @@ export class ShopController {
   @Delete()
   deleteUser(@Query('phoneNumber') phoneNumber: string, @Res() res: Response) {
     return this.shopService.deleteUser(phoneNumber, res);
-  }
+  }*/
 }

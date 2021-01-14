@@ -1,11 +1,12 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { SHOP } from '@prisma/client';
+import {SHOP} from '@prisma/client';
 
 @Injectable()
 export class ShopService {
   constructor(private prisma: PrismaService) {}
+
 
   async findOne(name: string): Promise<SHOP | undefined> {
     return this.prisma.sHOP.findFirst({
@@ -14,9 +15,17 @@ export class ShopService {
       },
     });
   }
+
+  async getShop(query){
+    const shopList = await this.prisma.sHOP.findMany();
+    console.log("shopList > ", shopList);
+    return shopList;
+  }
+
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash('서울1234', 12);
     const date = new Date();
+
 
     // const oilHistory = await this.prisma.oIL_HISTORY.findFirst({
     //   where: {
@@ -26,6 +35,14 @@ export class ShopService {
     //   }
     // })
 
+/*    this.prisma.sHOP.create({
+      data : {
+        SHOP_NAME: bodyData.shopName,
+        PASSWORD:'',
+        REG_ID
+
+      }
+    });*/
     const user = await this.prisma.uSER.create({
       data: {
         NAME: bodyData.NAME,
