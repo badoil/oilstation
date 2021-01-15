@@ -80,7 +80,7 @@ body {background-color:#f3f4f7;}
 .nav-enable .nav-menu a:hover .txt {display:inline-block;}
 
 /* contents */
-.container {height:100%; margin-top:50px; margin-left:240px; padding:20px; -webkit-transition:all .2s ease-out; transition:all .2s ease-out}
+.container {height:100%; margin-top:50px; padding:20px; -webkit-transition:all .2s ease-out; transition:all .2s ease-out}
 .nav-enable .container {margin-left:90px;}
 .contents {min-width:1200px; max-width:1600px; overflow:hidden; padding:20px; box-sizing:border-box; background-color:#fff; border-radius:4px; -webkit-box-shadow:0 0 13px 0 rgba(82, 63, 105, 0.05); box-shadow:0 0 13px 0 rgba(82, 63, 105, 0.05);}
 .contents2 {max-width:1600px; overflow:hidden; padding:20px; box-sizing:border-box; background-color:#fff; border-radius:4px; -webkit-box-shadow:0 0 13px 0 rgba(82, 63, 105, 0.05); box-shadow:0 0 13px 0 rgba(82, 63, 105, 0.05);}
