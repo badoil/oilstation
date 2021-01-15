@@ -12,12 +12,13 @@ block content
           tr.shopName
             th.name 매장 이름
             td
-              input.name-input(type="text", name="shopName" placeholder="매장 이름 입력")
+              input.name-input(type="text", name="SHOP_NAME" placeholder="매장 이름 입력")
+              input.hidden-name(type="hidden" name="SHOP_NAME")
               input.check(type="button" onClick="duplicateCheck()" value="중복 체크")
           tr.shopPassword
             th.password 비밀번호
             td
-              input.password-input(type="text", name="password" placeholder="비밀번호 입력")
+              input.password-input(type="text", name="PASSWORD" placeholder="비밀번호 입력")
         button.submit(type="submit" style="display: none") 등록 
 block scripts
   script.
@@ -57,6 +58,7 @@ block scripts
               document.querySelector('.submit').style.display = "block";
               document.querySelector('.name-input').disabled = true;
               document.querySelector('.check').style.display = "none";
+              document.querySelector('.hidden-name').value = nameInput;
             }
           } else {
             alert("중복된 아이디 입니다.");
