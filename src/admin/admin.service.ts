@@ -1,10 +1,10 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {PrismaService} from 'src/prisma.service';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import {Response} from 'express';
+import { request, Response } from 'express';
 //import { ADMIN } from '@prisma/client';
-import {CreateShopDto} from './dto/create.shop.dto';
-import {CreateAdminDto} from './dto/create.admin.dto';
+import { CreateShopDto } from './dto/create.shop.dto';
+import { CreateAdminDto } from './dto/create.admin.dto';
 
 @Injectable()
 export class AdminService {
@@ -31,7 +31,7 @@ export class AdminService {
     });
   }
 
-  async createShop(shopData: CreateShopDto) {
+  async createShop(shopData: CreateShopDto, adminID?: string) {
     const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
@@ -39,7 +39,7 @@ export class AdminService {
       data: {
         SHOP_NAME: shopData.SHOP_NAME,
         PASSWORD: password,
-        REG_ID: 'SYSTEM',
+        REG_ID: adminID || 'SYSTEM',
         REG_DT: date,
       },
     });
@@ -48,12 +48,12 @@ export class AdminService {
   async getShop(query) {
     // where 조건
     let where;
-    console.log("query.keyword > ", query.keyword);
+    console.log('query.keyword > ', query.keyword);
     if (query.keyword != '') {
-      where = {SHOP_NAME: query.keyword};
+      where = { SHOP_NAME: query.keyword };
     }
     const shopList = await this.prisma.sHOP.findMany({
-      where: where
+      where: where,
     });
     return shopList;
   }

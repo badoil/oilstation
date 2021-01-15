@@ -6,15 +6,25 @@ import {
   Put,
   Query,
   Render,
+  Req,
+  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create.admin.dto';
 import { CreateShopDto } from './dto/create.shop.dto';
 import { SearchShopDto } from './dto/search.shop.dto';
-
+import { ShopService } from '../shop/shop.service';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorator/roles.decorator';
+import { AuthExceptionFilter } from 'src/common/filter/auth-exceptions.filter';
 @Controller('admin')
+@UseFilters(AuthExceptionFilter)
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly shopService: ShopService,
+  ) {}
 
   @Get('/list')
   @Render('web/shop/list')
@@ -31,6 +41,13 @@ export class AdminController {
   @Render('web/shop/view')
   async getView(@Query() query: SearchShopDto) {
     return { query: query };
+  }
+
+  @Get('list')
+  @Render('web/admin/shop/shop')
+  getShops(@Query('searchText') searchText: string) {
+    console.log('searchText:', searchText);
+    return this.adminService.getShop(searchText);
   }
 
   @Post('signup')
@@ -51,5 +68,32 @@ export class AdminController {
   @Put('shop')
   updateShop(@Body() bodyData) {
     return this.adminService.updateShop(bodyData);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('admin')
+  @Get('registerShop')
+  @Render('web/admin/user/registerShop')
+  registerShopRender() {
+    return {};
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('admin')
+  @Get('registerShop/duplicate')
+  async duplicate(@Query('name') name: string) {
+    const shop = await this.shopService.findOne(name);
+
+    return shop ? false : true;
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('admin')
+  @Post('registerShop')
+  async registerShop(@Body() shopData: CreateShopDto, @Req() req) {
+    console.log(shopData);
+    const data = await this.adminService.createShop(shopData, req.user.ID);
+
+    return data ? true : false;
   }
 }
