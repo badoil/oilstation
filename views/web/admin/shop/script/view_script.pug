@@ -1,4 +1,43 @@
 script.
-      function saveView(){
-        location.href = '/shop/view';
-      }
+	function goToList() {
+		let frm = document.getElementById('listFrm');
+		console.log(frm);
+		frm.submit();
+	}
+
+	async function save() {
+		try{
+
+			if(document.getElementById('shopNameCheck').value == 'N') {
+				alert('지졈명을 중복 체크 하세요 ');
+				return;
+			}
+
+
+			const response = await axios.post('/shop/save', {
+
+			});
+			console.log(response);
+		} catch (err){
+			console.log(err);
+		}
+
+	}
+
+	async function duplicateCheck() {
+		try {
+			let shopName = document.getElementById('shopName').value;
+			if(shopName=='') {
+				alert('지점명을 입력하세요');
+				return false;
+			}
+			const res = await axios.get('/admin/shop/duplicate?shopName='+ shopName);
+			if(res.data.length > 0) {
+				alert('중복된 지점명이 있습니다.');
+			}else {
+				document.getElementById('shopNameCheck').value = 'Y';
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}

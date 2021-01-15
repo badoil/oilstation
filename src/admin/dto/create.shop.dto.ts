@@ -1,6 +1,6 @@
 export class CreateShopDto {
-  SHOP_NAME: string;
-  PASSWORD: string;
+  shopName: string;
+  password: string;
   REG_ID: string;
   REG_DT: Date;
 }

@@ -6,24 +6,24 @@
     font-style:normal;
     font-weight:400;
     src:local('Gotham Book'), local('Gotham-Book'),
-    url('../fonts/Gotham-Book.woff2') format('woff2'),
-    url('../fonts/Gotham-Book.woff') format('woff');
+    url('../font/Gotham-Book.woff2') format('woff2'),
+    url('../font/Gotham-Book.woff') format('woff');
 }
 @font-face {
     font-family:'Gotham';
     font-style:normal;
     font-weight:500;
     src:local('Gotham Medium'), local('Gotham-Medium'),
-    url('../fonts/Gotham-Medium.woff2') format('woff2'),
-    url('../fonts/Gotham-Medium.woff') format('woff');
+    url('../font/Gotham-Medium.woff2') format('woff2'),
+    url('../font/Gotham-Medium.woff') format('woff');
 }
 @font-face {
     font-family:'Gotham';
     font-style:normal;
     font-weight:700;
     src:local('Gotham Bold'), local('Gotham-Bold'),
-    url('../fonts/Gotham-Bold.woff2') format('woff2'),
-    url('../fonts/Gotham-Bold.woff') format('woff');
+    url('../font/Gotham-Bold.woff2') format('woff2'),
+    url('../font/Gotham-Bold.woff') format('woff');
 }
 
 /* Noto Sans KR */
@@ -32,24 +32,24 @@
     font-style:normal;
     font-weight:400;
     src:local('Noto Sans KR Regular'), local('NotoSansKR-Regular'),
-    url('../fonts/NotoSansKR-Regular.woff2') format('woff2'),
-    url('../fonts/NotoSansKR-Regular.woff') format('woff');
+    url('../font/NotoSansKR-Regular.woff2') format('woff2'),
+    url('../font/NotoSansKR-Regular.woff') format('woff');
 }
 @font-face {
     font-family:'Noto Sans KR';
     font-style:normal;
     font-weight:500;
     src:local('Noto Sans KR Medium'), local('NotoSansKR-Medium'),
-    url('../fonts/NotoSansKR-Medium.woff2') format('woff2'),
-    url('../fonts/NotoSansKR-Medium.woff') format('woff');
+    url('../font/NotoSansKR-Medium.woff2') format('woff2'),
+    url('../font/NotoSansKR-Medium.woff') format('woff');
 }
 @font-face {
     font-family:'Noto Sans KR';
     font-style:normal;
     font-weight:700;
     src:local('Noto Sans KR Bold'), local('NotoSansKR-Bold'),
-    url('../fonts/NotoSansKR-Bold.woff2') format('woff2'),
-    url('../fonts/NotoSansKR-Bold.woff') format('woff');
+    url('../font/NotoSansKR-Bold.woff2') format('woff2'),
+    url('../font/NotoSansKR-Bold.woff') format('woff');
 }
 html {overflow-x:auto; overflow-y:scroll;}
 body {font-size:14px; color:#646c9a;}

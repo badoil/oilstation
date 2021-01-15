@@ -18,6 +18,7 @@ import { ShopService } from '../shop/shop.service';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { AuthExceptionFilter } from 'src/common/filter/auth-exceptions.filter';
+
 @Controller('admin')
 @UseFilters(AuthExceptionFilter)
 export class AdminController {
@@ -26,8 +27,9 @@ export class AdminController {
     private readonly shopService: ShopService,
   ) {}
 
-  @Get('/list')
-  @Render('web/shop/list')
+  @Get('/shop/list')
+  @Roles('admin')
+  @Render('web/admin/shop/list')
   async getList(@Query() query: SearchShopDto) {
     const shopList = await this.adminService.getShop(query);
     console.log('shoplist contorller > ', shopList);
@@ -37,10 +39,24 @@ export class AdminController {
     };
   }
 
-  @Get('/view')
-  @Render('web/shop/view')
+  @Get('/shop/view')
+  @Roles('admin')
+  @Render('web/admin/shop/view')
   async getView(@Query() query: SearchShopDto) {
     return { query: query };
+  }
+
+  @Get('/shop/duplicate')
+  async duplicateCheck(@Query('shopName') shopName: string) {
+    console.log(shopName);
+    const shopList = this.adminService.findByShopName(shopName);
+    console.log(shopList);
+    return shopList;
+  }
+
+  @Post('/shop/save')
+  createShop(@Body() shopData: CreateShopDto, @Req() req) {
+    return this.adminService.createShop(shopData, req.user.ID);
   }
 
   @Get('list')
@@ -55,15 +71,10 @@ export class AdminController {
     return this.adminService.createAdmin(adminData);
   }
 
-  @Post('shop')
-  createShop(@Body() shopData: CreateShopDto) {
-    return this.adminService.createShop(shopData);
-  }
-
-  @Get('shop')
-  getShop(@Query('searchText') searchText: string) {
-    return this.adminService.getShop(searchText);
-  }
+  /*@Get('shop')
+	getShop(@Query('searchText') searchText: string) {
+	  return this.adminService.getShop(searchText);
+	}*/
 
   @Put('shop')
   updateShop(@Body() bodyData) {
@@ -72,7 +83,7 @@ export class AdminController {
 
   @UseGuards(RolesGuard)
   @Roles('admin')
-  @Get('registerShop')
+  @Get('/shop/registerShop')
   @Render('web/admin/user/registerShop')
   registerShopRender() {
     return {};
@@ -80,7 +91,7 @@ export class AdminController {
 
   @UseGuards(RolesGuard)
   @Roles('admin')
-  @Get('registerShop/duplicate')
+  @Get('/shop/registerShop/duplicate')
   async duplicate(@Query('name') name: string) {
     const shop = await this.shopService.findOne(name);
 
@@ -89,7 +100,7 @@ export class AdminController {
 
   @UseGuards(RolesGuard)
   @Roles('admin')
-  @Post('registerShop')
+  @Post('/shop/registerShop')
   async registerShop(@Body() shopData: CreateShopDto, @Req() req) {
     console.log(shopData);
     const data = await this.adminService.createShop(shopData, req.user.ID);

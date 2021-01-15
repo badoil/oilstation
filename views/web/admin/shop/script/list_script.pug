@@ -1,6 +1,7 @@
 script.
-      function saveView(){
-        let frm = document.getElementById('listFrm');
-        frm.setAttribute("action","/shop/view");
-        frm.onsubmit();
-      }
+	function saveView() {
+		let frm = document.getElementById('listForm');
+		console.log(frm);
+		frm.setAttribute("action", "/admin/shop/view");
+		frm.submit();
+	}

@@ -1,4 +1,4 @@
-extends ../layout/layout
+extends ../../layout/layout
 
 block content
   section(class='container')
@@ -23,15 +23,21 @@ block content
             tr
               td 지점명
               td
-                input(type='text' name='shopName' placeholder='지점 명')
+                span.col
+                  input#shopName.col-10(type='text' name='shopName' placeholder='지점 명')
+                  input#shopNameCheck(type='hidden' value='N')
+                span.col
+                  button.btn.btn-success-md(type="button" onclick='duplicateCheck()') 중복체크
               td 비밀번호
               td
                 input(type='password' name='password' placeholder='비밀번호')
       .btn-group
-        button#save(class='btn btn-success-md') 등록
-        button#list(class='btn btn-primary-md') 목록
-  from#listFrm
-    input(type='hidden' name='keyword' value=
+        button#save(class='btn btn-success-md', onclick='save()') 등록
+        button#list(class='btn btn-primary-md', onclick='goToList()') 목록
+  form#listFrm(action='/admin/shop/list' method='GET')
+    input(type='hidden' name='keyword' value=query.keyword)
+
+
 
 block scripts
   include ./script/view_script
