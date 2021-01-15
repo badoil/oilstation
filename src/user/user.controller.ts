@@ -27,7 +27,7 @@ export class UserController {
   }
 
   @Get('auth')
-  @Render('web/user/login')
+  @Render('web/front/login')
   getLoginForm(@Req() req) {
     return {
       user: req.user,
@@ -44,7 +44,7 @@ export class UserController {
   @UseGuards(RolesGuard)
   @Roles('user')
   @Get('oil')
-  @Render('web/user/oil')
+  @Render('web/front/oil')
   getOil(@Request() req) {
     return { user: req.user };
   }

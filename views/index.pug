@@ -11,7 +11,7 @@ block content
     if (user.role === 'user')
       input.btn(type="button", value="오일 확인" onClick="location.href='/user/oil'")
     else if (user.role === 'shop')
-      input.btn(type="button", value="라이더 검색" onClick="location.href='/user/oil'")
+      input.btn(type="button", value="라이더 검색" onClick="location.href='/shop/user'")
     else if (user.role === 'admin')
       input.btn(type="button", value="매장 리스트" onClick="location.href='/admin/list'")
   else
