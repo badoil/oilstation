@@ -17,9 +17,10 @@ export class AdminController {
 
   @Get('list')
   @Render('web/admin/shop/shop')
-  getShops(){
-    return
-  } 
+  getShops(@Query('searchText') searchText: string) {
+    console.log('searchText:', searchText);
+    return this.adminService.getShop(searchText);
+  }
 
   @Post('signup')
   createAdmin(@Body() adminData: CreateAdminDto) {
@@ -32,8 +33,8 @@ export class AdminController {
   }
 
   @Get('shop')
-  getShop() {
-    return this.adminService.getShop();
+  getShop(@Query('searchText') searchText: string) {
+    return this.adminService.getShop(searchText);
   }
 
   @Put('shop')

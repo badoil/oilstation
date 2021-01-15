@@ -44,8 +44,15 @@ export class AdminService {
     });
   }
 
-  async getShop() {
-    return this.prisma.sHOP.findMany();
+  async getShop(searchText) {
+    console.log('searchText:', searchText);
+    return this.prisma.sHOP.findMany({
+      where: {
+        SHOP_NAME: {
+          contains: searchText,
+        },
+      },
+    });
   }
 
   async updateShop(shopData) {
