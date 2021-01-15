@@ -1,5 +1,5 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {PrismaService} from 'src/prisma.service';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 
 // import { SHOP } from '@prisma/client';
@@ -7,7 +7,6 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class ShopService {
   constructor(private prisma: PrismaService) {}
-
 
   async findOne(name: string): Promise<any | undefined> {
     return this.prisma.sHOP.findFirst({
@@ -17,11 +16,9 @@ export class ShopService {
     });
   }
 
-
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash('서울1234', 12);
     const date = new Date();
-
 
     // const oilHistory = await this.prisma.oIL_HISTORY.findFirst({
     //   where: {
@@ -31,7 +28,7 @@ export class ShopService {
     //   }
     // })
 
-/*    this.prisma.sHOP.create({
+    /*    this.prisma.sHOP.create({
       data : {
         SHOP_NAME: bodyData.shopName,
         PASSWORD:'',
@@ -51,11 +48,20 @@ export class ShopService {
     });
   }
 
-  async getUser(phoneNumber) {
-    const user = await this.prisma.uSER.findFirst({
-      where: {
-        PHONE_NUMBER: phoneNumber,
-      },
+  async getUser(searchText) {
+    const user = await this.prisma.uSER.findMany({
+      // where: {
+      //   OR: [
+      //     {
+      //       NAME: {
+      //         contains: searchText,
+      //       },
+      //       PHONE_NUMBER: {
+      //         contains: searchText,
+      //       },
+      //     },
+      //   ],
+      // },
     });
 
     return user;

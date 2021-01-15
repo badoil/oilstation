@@ -1,0 +1,71 @@
+extends ../../layout/layout
+
+block append link
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+block append link
+  link(rel="stylesheet" href="/adminShop.css")
+block content
+  div
+    div(class="contents")
+      form(method="get" id="listForm")
+        input(type="hidden" name="page" id="page" value="")
+        fieldset(class="search-field")
+          legend 라이더 검색
+          div(class="row")
+            div(class="col")
+              label(for="keyword") 텍스트 검색
+                span(style="font-size: x-small") 지점명 검색
+                  div(class="input-group-select")
+                    input(type="text", id="keyword", name="keyword", placeholder="검색어 입력", value="")
+          div(class="btn-group")
+            button#searchBtn( type="button" class="btn btn-success-md btn-search submit") 검색
+    div(class="contents")
+      div(class="table-wrap")
+        div(class="table-option")
+          div(class="right")
+            button(type="button" class="btn btn-primary-sm delete") 지점 삭제
+            button(type="button" class="btn btn-success-sm write") 지점 등록
+    
+    table.table
+      thead
+        tr
+          th(scope="col")
+            label(class="checkbox")
+            input(type="checkbox" class="chk chkM")
+          th(scope="col") 이름
+          th(scope="col") 전화번호
+          th(scope="col") 오일양
+          th(scope="col") 등록일
+      tbody
+    nav(aria-label="Page navigation example")
+      ul(class="pagination pagination-sm justify-content-end")
+        li(class="page-item")
+          a(class="page-link", href="#") Previous
+        li(class="page-item")
+          a(class="page-link", href="#") 1
+        
+        li(class="page-item")
+          a(class="page-link", href="#") Next
+      
+  block scripts
+    include ./shop_script.pug
+
+
+
+
+
+//- block link
+//-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+//- block content
+//-   div(class='container')
+//-     div(class='button-group d-inline float-right mb-3 mt-3')
+//-       button#code-regist(type='submit', class='btn btn-primary btn-lg align-center') 저장
+//-       button#searchBtn(type='button', class='btn btn-default btn-lg align-center ml-2') 검색
+//-     table#usersTable(class='table form-table table-bordered')
+//-       thead(class='bg-warning align-middle')
+//-         th 고객이름
+//-         th 휴대폰번호
+//-         th 남은 오일양
+//-         th 차량번호
+//-       tbody
