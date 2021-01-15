@@ -1,19 +1,31 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Query,
-  Get,
-  Render,
-  Put,
-} from '@nestjs/common';
-import { AdminService } from './admin.service';
-import { CreateAdminDto } from './dto/create.admin.dto';
-import { CreateShopDto } from './dto/create.shop.dto';
+import {Body, Controller, Get, Post, Put, Query, Render,} from '@nestjs/common';
+import {AdminService} from './admin.service';
+import {CreateAdminDto} from './dto/create.admin.dto';
+import {CreateShopDto} from './dto/create.shop.dto';
+import {SearchShopDto} from "./dto/search.shop.dto";
 
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
+
+
+  @Get('/list')
+  @Render('web/shop/list')
+  async getList(@Query() query: SearchShopDto) {
+    const shopList = await this.adminService.getShop(query);
+    console.log("shoplist contorller > ", shopList);
+    return {
+      query: query,
+      shopList: shopList
+    };
+  }
+
+  @Get('/view')
+  @Render('web/shop/view')
+  async getView(@Query() query: SearchShopDto) {
+    return {query: query};
+  }
+
 
   @Get('list')
   @Render('web/admin/shop/shop')

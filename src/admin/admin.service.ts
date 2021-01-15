@@ -1,10 +1,11 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {PrismaService} from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
+import {Response} from 'express';
 //import { ADMIN } from '@prisma/client';
-import { CreateShopDto } from './dto/create.shop.dto';
-import { CreateAdminDto } from './dto/create.admin.dto';
+import {CreateShopDto} from './dto/create.shop.dto';
+import {CreateAdminDto} from './dto/create.admin.dto';
+
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
@@ -44,15 +45,17 @@ export class AdminService {
     });
   }
 
-  async getShop(searchText) {
-    console.log('searchText:', searchText);
-    return this.prisma.sHOP.findMany({
-      where: {
-        SHOP_NAME: {
-          contains: searchText,
-        },
-      },
+  async getShop(query) {
+    // where 조건
+    let where;
+    console.log("query.keyword > ", query.keyword);
+    if (query.keyword != '') {
+      where = {SHOP_NAME: query.keyword};
+    }
+    const shopList = await this.prisma.sHOP.findMany({
+      where: where
     });
+    return shopList;
   }
 
   async updateShop(shopData) {

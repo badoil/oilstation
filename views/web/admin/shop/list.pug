@@ -1,0 +1,45 @@
+extends ../../layout/layout
+
+block content
+  section(class='container')
+    .content-header
+      h2(class='title-page') 지점 관리
+      ul(class='bread-crumb')
+        li
+          a(href='/')
+            i(class='fa fa-home')
+        li 지점관리
+        li 지점목록
+    .contents
+      form#listForm(method='get')
+        fieldset(class='search-field')
+          legend 지점 검색
+          .row
+            .col
+              label(for='keyword') 택스트 검색
+              .input-group-select
+                input#keyword(type='text' name='keyword' placeholder='검색어 입력' value=keyword)
+          .btn-group
+            button(type='submit' class='btn btn-success-md btn-search submit') 검색
+    .contents
+      .table-wrap
+        .table-option
+          .right
+            button#save(class='btn btn-success-sm', onclick='saveView()') 지점등록
+        table(class='table')
+          caption 목록 테이블
+          colgroup
+            col
+            col
+          thead
+            tr
+              th(scope='col') 지점 이름
+              th(scope='col') 등록일
+          tbody
+            each item in shopList
+              tr
+                td #{item.SHOP_NAME}
+                td #{item.REG_DT}
+
+block scripts
+  include ./script/list_script

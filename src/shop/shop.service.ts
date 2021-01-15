@@ -1,6 +1,7 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {PrismaService} from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
+
 // import { SHOP } from '@prisma/client';
 
 @Injectable()
@@ -16,11 +17,6 @@ export class ShopService {
     });
   }
 
-  async getShop(query){
-    const shopList = await this.prisma.sHOP.findMany();
-    console.log("shopList > ", shopList);
-    return shopList;
-  }
 
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash('서울1234', 12);

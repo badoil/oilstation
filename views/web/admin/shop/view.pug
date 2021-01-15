@@ -1,0 +1,37 @@
+extends ../layout/layout
+
+block content
+  section(class='container')
+    .content-header
+      h2(class='title-page') 지점 관리
+      ul(class='bread-crumb')
+        li
+          a(href='/')
+            i(class='fa fa-home')
+        li 지점관리
+        li 지점등록
+    .contents
+      form#viewFrm
+        h3(class='font-lg') 지점 등록
+        table(class='line-table')
+          colgroup
+            col
+            col
+            col
+            col
+          tbody
+            tr
+              td 지점명
+              td
+                input(type='text' name='shopName' placeholder='지점 명')
+              td 비밀번호
+              td
+                input(type='password' name='password' placeholder='비밀번호')
+      .btn-group
+        button#save(class='btn btn-success-md') 등록
+        button#list(class='btn btn-primary-md') 목록
+  from#listFrm
+    input(type='hidden' name='keyword' value=
+
+block scripts
+  include ./script/view_script

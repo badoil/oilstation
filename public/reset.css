@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+/* Gotham */
+@font-face {
+    font-family:'Gotham';
+    font-style:normal;
+    font-weight:400;
+    src:local('Gotham Book'), local('Gotham-Book'),
+    url('../fonts/Gotham-Book.woff2') format('woff2'),
+    url('../fonts/Gotham-Book.woff') format('woff');
+}
+@font-face {
+    font-family:'Gotham';
+    font-style:normal;
+    font-weight:500;
+    src:local('Gotham Medium'), local('Gotham-Medium'),
+    url('../fonts/Gotham-Medium.woff2') format('woff2'),
+    url('../fonts/Gotham-Medium.woff') format('woff');
+}
+@font-face {
+    font-family:'Gotham';
+    font-style:normal;
+    font-weight:700;
+    src:local('Gotham Bold'), local('Gotham-Bold'),
+    url('../fonts/Gotham-Bold.woff2') format('woff2'),
+    url('../fonts/Gotham-Bold.woff') format('woff');
+}
+
+/* Noto Sans KR */
+@font-face {
+    font-family:'Noto Sans KR';
+    font-style:normal;
+    font-weight:400;
+    src:local('Noto Sans KR Regular'), local('NotoSansKR-Regular'),
+    url('../fonts/NotoSansKR-Regular.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Regular.woff') format('woff');
+}
+@font-face {
+    font-family:'Noto Sans KR';
+    font-style:normal;
+    font-weight:500;
+    src:local('Noto Sans KR Medium'), local('NotoSansKR-Medium'),
+    url('../fonts/NotoSansKR-Medium.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Medium.woff') format('woff');
+}
+@font-face {
+    font-family:'Noto Sans KR';
+    font-style:normal;
+    font-weight:700;
+    src:local('Noto Sans KR Bold'), local('NotoSansKR-Bold'),
+    url('../fonts/NotoSansKR-Bold.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Bold.woff') format('woff');
+}
+html {overflow-x:auto; overflow-y:scroll;}
+body {font-size:14px; color:#646c9a;}
+body, p, h1, h2, h3, h4, h5, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select, span, a, div, fieldset, button, em, address, label, strong {margin:0;padding:0;font-size:inherit;letter-spacing:-0.05em;color:inherit;outline:none;-webkit-tap-highlight-color:transparent;}
+body, input, textarea, select, button, table {font-family:'Noto Sans KR', 'Gotham', sans-serif; font-size:inherit; font-weight:normal;line-height:1.6;-webkit-text-size-adjust:none;-webkit-font-smoothing:antialiased}
+img, fieldset, button {border:0 none;}
+ul, ol, li {list-style:none}
+img {max-width:100%; vertical-align:top;}
+input, select {font-size:14px}
+input {background:#FFF;}
+em, address, i {font-style:normal}
+a {text-decoration:none;}
+button {margin:0;padding:0;background:none;}
+h1, h2, h3, h4, h5, h6, b {color:#000}
+table {width:100%;border-spacing:0; border-collapse:collapse;}
+td, th {border-spacing:0;border-collapse:collapse;word-wrap:break-word;word-break:break-all}
+caption {position:absolute;overflow:hidden; width:0;height:0;margin:-1px 0;font-size:1px;line-height:0}
+fieldset {display:block;}
+legend {display:none}
+label, button {cursor:pointer}
+label {color:inherit;}
+a,
+span,
+strong,
+em {color:inherit;}
+iframe {border:0;}
+[tabindex] {outline:none;}
+
+label {display:inline-block; margin-bottom:.3rem; font-weight:400; color:#646c9a; font-size:14px;}
+input[type='checkbox'],
+input[type='radio'] {display:inline-block; width:24px; height:24px; vertical-align:middle; margin:0 10px 0 0; cursor:pointer; border:0; border-radius:0; -webkit-appearance:none;}
+input[type='checkbox']:disabled,
+input[type='radio']:disabled {}
+input[type='checkbox']:disabled:checked,
+input[type='radio']:disabled:checked {}
+
+select,
+textarea,
+input[type=text],
+input[type=date],
+input[type=time],
+input[type=tel],
+input[type=search],
+input[type=number],
+input[type=password],
+input[type=email] {
+    display:block;
+    box-sizing:border-box;
+    width:100%;
+    height:39px;
+    padding:0 10px;
+    font-size:15px; line-height:30px; color:#495057;
+    outline:none;
+    transition:border-color 150ms ease-in-out 0s;
+    -webkit-appearance:none;
+    appearance:none;
+    caret-color:#f40009;
+    border-radius:2px;
+    background-color:#fff;
+    border:1px solid #e2e5ec;
+}
+select {height:37px; padding:0 10px; border:none;}
+select::-ms-expand {display:none}
+textarea {overflow:hidden; overflow-y:auto; padding:0; width:100%; height:100px; font-size:14px; border:none; resize:none; vertical-align:top; white-space:pre-line; word-wrap:break-word; word-break:break-all; background:#FFF; font-weight:normal;}
+input:focus,
+select:focus{border-color:#9aabff;}
+fieldset[disabled] input,
+fieldset[disabled] .textarea,
+fieldset[disabled] textarea,
+fieldset[disabled] select,
+input[disabled],
+input[readonly],
+select[disabled],
+select[readonly],
+textarea[disabled],
+textarea[readonly] {cursor:default; background-color:#f7f8fa !important; color:#a3aab1;}
+
+input::-webkit-input-placeholder {font-size:15px;font-weight:normal; color:#bbb !important; font-family:'Noto Sans KR', 'Gotham', sans-serif;}
+input:-ms-input-placeholder {font-size:15px;font-weight:normal; color:#bbb !important; font-family:'Noto Sans KR', 'Gotham', sans-serif;}
+input::placeholder {font-size:15px;font-weight:normal; color:#bbb !important; font-family:'Noto Sans KR', 'Gotham', sans-serif;}
+textarea::placeholder {font-size:14px;font-weight:normal; color:#bbb !important; font-family:'Noto Sans KR', 'Gotham', sans-serif;}
+textarea::-webkit-input-placeholder {font-size:14px;font-weight:normal; color:#bbb !important; font-family:'Noto Sans KR', 'Gotham', sans-serif;}
+::selection {background-color:#5867dd; color:#fff;}
+
+/* input search cancel button */
+input::-webkit-search-cancel-button {display:none;}
+
+/* input number spin button */
+input[type=number] {-moz-appearance:textfield;}
+input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
+
+button {box-sizing:border-box;color:#555;}
+code {padding:0.25rem 0.5rem; background:#f7f8fa; border-radius:2px; color:#e83e8c; letter-spacing:0; font-family:'Consolas', 'Gotham Book', sans-serif;}
+
+.blind {
+    display:inline-block;
+    overflow:hidden;
+    clip:rect(1px, 1px, 1px, 1px);
+    width:1px;
+    height:1px;
+    margin:-1px;
+    border:0;
+    clip-path:inset(50%);
+}
