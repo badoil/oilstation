@@ -1,0 +1,67 @@
+extends ../../layout/layout
+
+block link
+  link(rel="stylesheet" href="/registerShop.css")
+
+block content
+  .container
+    .registerContainer
+      form.informationContainer(action="registerShop", method="post")
+        .title 매장 등록
+        table(width="550px" height="150px" align="center")
+          tr.shopName
+            th.name 매장 이름
+            td
+              input.name-input(type="text", name="shopName" placeholder="매장 이름 입력")
+              input.check(type="button" onClick="duplicateCheck()" value="중복 체크")
+          tr.shopPassword
+            th.password 비밀번호
+            td
+              input.password-input(type="text", name="password" placeholder="비밀번호 입력")
+        button.submit(type="submit" style="display: none") 등록 
+block scripts
+  script.
+    function duplicateCheck() {
+      const nameInput = document.querySelector('.name-input').value;      
+      const submitBtn = document.querySelector('.submit').value;
+      const xhr = new XMLHttpRequest();
+
+      if (!(nameInput.length > 2)) {
+        alert("세 글자 이상 입력해주세요.");
+        document.querySelector('.name-input').value = "";
+        return;
+      }
+
+      const blank_pattern = RegExp(/[\s]/g);
+      if (blank_pattern.test(nameInput)) {
+        alert("공백은 사용할 수 없습니다.");
+        document.querySelector('.name-input').value = "";
+        return
+      }
+
+      const special_patter = RegExp(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+      if (special_patter.test(nameInput)) {
+        alert("특수문자는 사용할 수 없습니다.");
+        document.querySelector('.name-input').value = "";
+        return;
+      }
+      xhr.open('GET', `registerShop/duplicate/?name=${nameInput}`);
+      xhr.send();
+      xhr.onload = function() {
+        if(xhr.status === 200) {
+          const flag = JSON.parse(xhr.responseText);
+          console.log(flag);
+          if (flag) {
+            const result = confirm("정말로 이 아이디를 사용하시겠습니까?");
+            if (result) {
+              document.querySelector('.submit').style.display = "block";
+              document.querySelector('.name-input').disabled = true;
+              document.querySelector('.check').style.display = "none";
+            }
+          } else {
+            alert("중복된 아이디 입니다.");
+            document.querySelector('.name-input').value = "";
+          }
+        }
+      }
+    }

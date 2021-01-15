@@ -1,0 +1,91 @@
+@font-face {
+  font-family: AppleSDGothicNeoL00;
+  src: url('/font/AppleSDGothicNeoL.ttf');
+}
+.registerContainer {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -300px;
+  font-family: AppleSDGothicNeoL00;
+}
+
+.informationContainer {
+  position: absolute;
+  width: 550px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0 0 -275px;
+}
+.title {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.shopName,
+.shopPassword {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+.name,
+.password {
+  width: 120px;
+  background-color: #f3f4f7;
+  font-size: 13px;
+  text-align: left;
+  padding-left: 10px;
+  color: #263150;
+}
+
+.name-input,
+.password-input {
+  font-size: 15px;
+  border: 1px solid #e2e5ec;
+  height: 40px;
+  width: 250px;
+  margin-left: 10px;
+  padding: 0 10px;
+}
+
+.password-input {
+  width: 400px;
+}
+table {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-collapse: collapse;
+}
+td,
+th {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+button,
+.check {
+  color: #fff;
+  background-color: #5867dd;
+  border: 1px solid transparent;
+  min-width: 100px;
+  height: 42px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.check {
+  margin-left: 14px;
+}
+.submit {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+
+input::placeholder {
+  color: #b0b3b7;
+}
