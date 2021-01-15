@@ -10,6 +10,10 @@ block content
     input.btn(type="button", value="내 정보" onClick="location.href='/data'")
     if (user.role === 'user')
       input.btn(type="button", value="오일 확인" onClick="location.href='/user/oil'")
+    else if (user.role === 'shop')
+      input.btn(type="button", value="라이더 검색" onClick="location.href='/user/oil'")
+    else if (user.role === 'admin')
+      input.btn(type="button", value="매장 리스트" onClick="location.href='/admin/list'")
   else
     input.btn(type="button", value="로그인" onClick="location.href='/user/auth'")
     input.btn(type="button", value="관리자/매장 로그인" onClick="location.href='/auth'")
