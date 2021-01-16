@@ -1,3 +1,4 @@
+include ../mixin/mixin
 html
   head
     meta  
@@ -5,11 +6,14 @@ html
     link(rel="stylesheet" href="/layout.css")
     link(rel="stylesheet" href="/reset.css")
     link(rel="stylesheet" href="/ui.admin.css")
+    link(rel="stylesheet" href="/css/library/fontawesome.min.css")
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
-    block link  
+    script(src="/js/common.admin.js")
+    block link
   
   body(class='body')
     div(class='wrap')
       block content
       block scripts
-      
+
+

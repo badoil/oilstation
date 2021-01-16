@@ -1,0 +1,27 @@
+mixin pageing(currntPage,pageSize,totalCount,frm)
+  -let add = 10 // 페이징 노출 갯수
+  -let prev = Math.floor((currntPage - 1) / add * 1) * add;
+  -let next = prev + add + 1;
+  -let totalPage = Math.floor(totalCount / pageSize)  + (totalCount % pageSize > 0 ? 1:0);
+  .table-option
+    .table-total-info.let.totalCount 총 #{totalCount} 건
+      .pagination.right
+        if currntPage > 1
+          -let page = currntPage - 1
+          a.page-arrow.first(href="#",onclick="goToPage(1,'"+frm+"')")
+          a.page-arrow.prev(href="#",onclick="goToPage(" + page + ",'" + frm + "')")
+        else
+          a.page-arrow.first.disabled(href="#",onclick="goToPage(1,'" + frm + "')")
+          a.page-arrow.prev.disabled(href="#",onclick="goToPage(1,'" + frm + "')")
+        -for (let i = 1; i < next && i <= totalPage; i++)
+          if i == currntPage
+            a.number.current #{i}
+          else
+            a.number(href="#",onclick="goToPage(" + i + ",'" + frm + "')") #{i}
+        if totalCount > currntPage
+          -let page = currntPage + 1
+          a.page-arrow.next(href="#",onclick="goToPage(" + page + ",'" + frm + "')")
+          a.page-arrow.last(href="#",onclick="goToPage(" + totalCount + ",'" + frm + "')")
+        else
+          a.page-arrow.next.disabled(href="#",onclick="goToPage(" + totalCount + ",'" + frm + "')")
+          a.page-arrow.last.disabled(href="#",onclick="goToPage(" + totalCount + ",'" + frm + "')")

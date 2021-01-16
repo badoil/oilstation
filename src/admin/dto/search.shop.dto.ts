@@ -1,5 +1,5 @@
-export class SearchShopDto {
-	keyword: string;
-	page: number;
-	pageSize: number;
+import { commonSearchDto } from '../../common/dto/common.search.dto';
+
+export class SearchShopDto extends commonSearchDto {
+  keyword: string;
 }

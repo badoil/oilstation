@@ -7,6 +7,7 @@ import {
   Query,
   Render,
   Req,
+  Res,
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import { ShopService } from '../shop/shop.service';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { AuthExceptionFilter } from 'src/common/filter/auth-exceptions.filter';
+import { Response } from 'express';
 
 @Controller('admin')
 @UseFilters(AuthExceptionFilter)
@@ -27,18 +29,25 @@ export class AdminController {
     private readonly shopService: ShopService,
   ) {}
 
-  @Get('/shop/list')
+  @UseGuards(RolesGuard)
   @Roles('admin')
+  @Get('/shop/list')
   @Render('web/admin/shop/list')
   async getList(@Query() query: SearchShopDto) {
+    console.log('query.page', query.page);
+    if (query.page == null) {
+      query.page = 1;
+    }
+    query.pageSize = 10;
+    console.log('query', query);
     const shopList = await this.adminService.getShop(query);
-    console.log('shoplist contorller > ', shopList);
     return {
       query: query,
-      shopList: shopList,
+      result: shopList,
     };
   }
 
+  // TODO [yth] 테스트용 -- 추후 삭제
   @Get('/shop/view')
   @Roles('admin')
   @Render('web/admin/shop/view')
@@ -46,6 +55,7 @@ export class AdminController {
     return { query: query };
   }
 
+  // TODO [yth] 테스트용 -- 추후 삭제
   @Get('/shop/duplicate')
   async duplicateCheck(@Query('shopName') shopName: string) {
     console.log(shopName);
@@ -54,17 +64,20 @@ export class AdminController {
     return shopList;
   }
 
+  // TODO [yth] 테스트용 -- 추후 삭제
   @Post('/shop/save')
+  @Roles('admin')
   createShop(@Body() shopData: CreateShopDto, @Req() req) {
-    return this.adminService.createShop(shopData, req.user.ID);
+    const data = this.adminService.createShop(shopData, req.user.ID);
+    return data == null ? false : true;
   }
 
-  @Get('list')
+  /*@Get('list')
   @Render('web/admin/shop/shop')
   getShops(@Query('searchText') searchText: string) {
     console.log('searchText:', searchText);
     return this.adminService.getShop(searchText);
-  }
+  }*/
 
   @Post('signup')
   createAdmin(@Body() adminData: CreateAdminDto) {
@@ -76,15 +89,15 @@ export class AdminController {
 	  return this.adminService.getShop(searchText);
 	}*/
 
-  @Put('shop')
+  /*  @Put('shop')
   updateShop(@Body() bodyData) {
     return this.adminService.updateShop(bodyData);
-  }
+  }*/
 
   @UseGuards(RolesGuard)
   @Roles('admin')
   @Get('/shop/registerShop')
-  @Render('web/admin/user/registerShop')
+  @Render('web/admin/shop/registerShop')
   registerShopRender() {
     return {};
   }
@@ -101,10 +114,10 @@ export class AdminController {
   @UseGuards(RolesGuard)
   @Roles('admin')
   @Post('/shop/registerShop')
-  async registerShop(@Body() shopData: CreateShopDto, @Req() req) {
+  async registerShop(@Body() shopData: CreateShopDto, @Req() req, @Res() res) {
     console.log(shopData);
     const data = await this.adminService.createShop(shopData, req.user.ID);
-
-    return data ? true : false;
+    // TODO [YTH] data false 라면???
+    return res.redirect('/admin/shop/list');
   }
 }

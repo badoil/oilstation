@@ -13,10 +13,20 @@ script.
 				return;
 			}
 
+			if(document.getElementById('password').value == ''){
+				alert('비밀번호를 입력하세요');
+				return;
+			}
 
-			const response = await axios.post('/shop/save', {
-
-			});
+			let data= {
+				shopName: document.getElementById('shopName').value,
+				password: document.getElementById('password').value
+			}
+			const response = await axios.post('/admin/shop/save', data);
+			if(response.data) {
+				alert('등록되었습니다.');
+				goToList();
+			}
 			console.log(response);
 		} catch (err){
 			console.log(err);
@@ -36,6 +46,7 @@ script.
 				alert('중복된 지점명이 있습니다.');
 			}else {
 				document.getElementById('shopNameCheck').value = 'Y';
+				alert('사용 가능한 지점명입니다.');
 			}
 		} catch (err) {
 			console.log(err);

@@ -19,16 +19,33 @@ export class AdminService {
   }
 
   async getShop(query) {
+    // 현재 페이지
+    // page = 1
+    // pageSize = 10
+    // page - 1
+    // 2-1 * 10
     // where 조건
     let where;
-    console.log('query.keyword > ', query.keyword);
+    const paging = await this.getPageUtil(query.page, query.pageSize);
+    console.log('paging', paging);
     if (query.keyword != '') {
       where = { SHOP_NAME: query.keyword };
     }
     const shopList = await this.prisma.sHOP.findMany({
       where: where,
+      skip: paging.skip,
+      take: paging.take,
+      orderBy: { REG_DT: 'desc' },
     });
-    return shopList;
+
+    const totalCount = await this.prisma.sHOP.count({
+      where: where,
+    });
+    console.log('shopList', shopList);
+    return {
+      shopList: shopList,
+      totalCount: totalCount,
+    };
   }
 
   async findByShopName(shopName) {
@@ -53,12 +70,13 @@ export class AdminService {
   }
 
   async createShop(shopData: CreateShopDto, adminID?: string) {
-    const password = await bcrypt.hash(shopData.password, 12);
+    console.log('shopData', shopData);
+    const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
     return this.prisma.sHOP.create({
       data: {
-        SHOP_NAME: shopData.shopName,
+        SHOP_NAME: shopData.SHOP_NAME,
         PASSWORD: password,
         REG_ID: adminID || 'SYSTEM',
         REG_DT: date,
@@ -115,5 +133,14 @@ export class AdminService {
       code: 'SUCCESS',
       msg: '삭제 되었습니다.',
     });
+  }
+
+  getPageUtil(page, pageSize) {
+    console.log('page', page);
+    console.log('pageSize', pageSize);
+    return {
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    };
   }
 }
