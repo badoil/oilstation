@@ -8,10 +8,15 @@ import {
   Query,
   Render,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { Response } from 'express';
+import { Roles } from 'src/common/decorator/roles.decorator';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+
 import { SearchShopDto } from '../admin/dto/search.shop.dto';
+import { CreateUserDto } from './dto/create.user.dto';
 
 @Controller('shop')
 export class ShopController {
@@ -36,13 +41,34 @@ export class ShopController {
 
   @Get('user')
   @Render('web/shop/user/shop')
-  getUsers(@Query('searchText') searchText: string) {
+  async getUsers(@Query('searchText') searchText: string) {
     console.log('searchText:', searchText);
-    return this.shopService.getUser(searchText);
+    const userList = await this.shopService.getUser(searchText);
+    console.log('userList:', userList);
+    return {
+      userList: userList,
+    };
   }
 
-  @Post()
-  createUser(@Body() bodyData) {
+  @Get('user/duplicate')
+  async checkName(@Query('userName') userName: string) {
+    console.log('userName:', userName);
+    const name = await this.shopService.checkName(userName);
+    console.log('name:', name);
+    return name;
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('shop')
+  @Get('user/registerUser')
+  @Render('web/shop/user/registerUser')
+  registerUserRender() {
+    return {};
+  }
+
+  @Post('user/registerUser')
+  createUser(@Body() bodyData: CreateUserDto) {
+    console.log('controllerCreateUser: ', bodyData);
     return this.shopService.createUser(bodyData);
   }
 

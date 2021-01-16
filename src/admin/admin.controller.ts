@@ -83,14 +83,6 @@ export class AdminController {
 
   @UseGuards(RolesGuard)
   @Roles('admin')
-  @Get('/shop/registerShop')
-  @Render('web/admin/user/registerShop')
-  registerShopRender() {
-    return {};
-  }
-
-  @UseGuards(RolesGuard)
-  @Roles('admin')
   @Get('/shop/registerShop/duplicate')
   async duplicate(@Query('name') name: string) {
     const shop = await this.shopService.findOne(name);

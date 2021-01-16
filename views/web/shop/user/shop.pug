@@ -37,6 +37,17 @@ block content
           th(scope="col") 오일양
           th(scope="col") 등록일
       tbody
+        each item in userList
+          tr
+            td
+              label(class="checkbox")
+              input(type="checkbox" class="chk chkM")
+            td #{item.NAME}
+            td #{item.PHONE_NUMBER}
+            td #{item.OIL_L}
+            td #{item.REG_DT}
+
+
     nav(aria-label="Page navigation example")
       ul(class="pagination pagination-sm justify-content-end")
         li(class="page-item")
@@ -48,7 +59,7 @@ block content
           a(class="page-link", href="#") Next
       
   block scripts
-    include ./shop_script.pug
+    include ../scripts/shop_script.pug
 
 
 

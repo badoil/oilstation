@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -16,55 +16,30 @@ export class ShopService {
     });
   }
 
+  async getUser(phoneNumber) {}
+
   async createUser(bodyData) {
-    const hashedPassword = await bcrypt.hash('서울1234', 12);
+    const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
 
-    // const oilHistory = await this.prisma.oIL_HISTORY.findFirst({
-    //   where: {
-    //     USER: {
-
-    //     }
-    //   }
-    // })
-
-    /*    this.prisma.sHOP.create({
-      data : {
-        SHOP_NAME: bodyData.shopName,
-        PASSWORD:'',
-        REG_ID
-
-      }
-    });*/
-    const user = await this.prisma.uSER.create({
+    return await this.prisma.uSER.create({
       data: {
         NAME: bodyData.NAME,
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
         PASSWORD: hashedPassword,
-        OIL_L: 50,
+        PHONE_NUMBER: bodyData.PHONE_NUMBER,
+        OIL_L: bodyData.OIL_L,
         REG_ID: 'SYSTEM',
         REG_DT: date,
       },
     });
   }
 
-  async getUser(searchText) {
-    const user = await this.prisma.uSER.findMany({
-      // where: {
-      //   OR: [
-      //     {
-      //       NAME: {
-      //         contains: searchText,
-      //       },
-      //       PHONE_NUMBER: {
-      //         contains: searchText,
-      //       },
-      //     },
-      //   ],
-      // },
+  async checkName(userName) {
+    return await this.prisma.uSER.findFirst({
+      where: {
+        NAME: userName,
+      },
     });
-
-    return user;
   }
 
   async updateUser(bodyData, res) {

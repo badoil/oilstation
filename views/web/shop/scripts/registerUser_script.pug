@@ -1,0 +1,99 @@
+script.
+
+    async function duplicateCheck() {
+      const nameInput = document.querySelector('.name-input').value;      
+      const submitBtn = document.querySelector('.submit').value;
+      //const xhr = new XMLHttpRequest();
+      try{
+        if (!(nameInput.length > 2)) {
+          alert("세 글자 이상 입력해주세요.");
+          document.querySelector('.name-input').value = "";
+          return;
+        }
+
+        const blank_pattern = RegExp(/[\s]/g);
+        if (blank_pattern.test(nameInput)) {
+          alert("공백은 사용할 수 없습니다.");
+          document.querySelector('.name-input').value = "";
+          return
+        }
+
+        const special_patter = RegExp(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        if (special_patter.test(nameInput)) {
+          alert("특수문자는 사용할 수 없습니다.");
+          document.querySelector('.name-input').value = "";
+          return;
+        }
+
+        const checkName = await axios.get(`/shop/user/duplicate?userName=${nameInput}`)
+        console.log('checkName:', checkName)
+      
+        if(checkName){
+          alert('이미 존재하는 이름입니다.')
+        }else{
+          document.querySelector('.hidden-name').value = 'Y'
+        }
+
+      }catch(err){
+        console.error(err)
+      }
+
+    async function saveUser(e){
+      try{
+        e.preventDefault()
+        console.log('e:', e)
+        if(document.querySelector('.hidden-name').value === 'N'){
+          return alert('중복체크가 필요합니다.')
+        }
+
+        const user = {}
+        const name = document.querySelector('.name-input').value
+        const phoneNumber = document.querySelector('.phoneNumber-input').value
+        const password = document.querySelector('.password-input').value
+        const oilLiter = document.querySelector('.oilLiter-input').value
+
+        user.NAME = name
+        user.PHONE_NUMBER = phoneNumber
+        user.PASSWORD = password
+        user.OIL_L = oilLiter
+
+        console.log('user:', user)
+
+        const result = await axios.post('/shop/user/registerUser', user)
+      }catch(err){
+        console.error(err)
+      }
+      
+
+
+      //- let frm = document.querySelector('.informationContainer');
+      //-     console.log('frm:', frm)
+          
+      //-     frm.setAttribute("action","/shop/user/registerUser");
+      //-     console.log('frm2:', frm)
+
+      //-     frm.onsubmit();
+    }      
+
+      
+      //- xhr.open('GET', `registerShop/duplicate/?name=${nameInput}`);
+      //- xhr.send();
+      //- xhr.onload = function() {
+      //-   if(xhr.status === 200) {
+      //-     const flag = JSON.parse(xhr.responseText);
+      //-     console.log(flag);
+      //-     if (flag) {
+      //-       const result = confirm("정말로 이 아이디를 사용하시겠습니까?");
+      //-       if (result) {
+      //-         document.querySelector('.submit').style.display = "block";
+      //-         document.querySelector('.name-input').disabled = true;
+      //-         document.querySelector('.check').style.display = "none";
+      //-         document.querySelector('.hidden-name').value = nameInput;
+      //-       }
+      //-     } else {
+      //-       alert("중복된 아이디 입니다.");
+      //-       document.querySelector('.name-input').value = "";
+      //-     }
+      //-   }
+      //- }
+    }
