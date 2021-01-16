@@ -1,0 +1,37 @@
+extends ../../layout/layout2
+
+block link
+  link(rel="stylesheet" href="/registerShop.css")
+
+block content
+  .container
+    .registerContainer
+      .title 라이더 수정
+      table(width="550px" height="150px" align="center")
+        tr.userName
+          th.name 라이더 이름
+          td
+            input.name-input(type="text", name="SHOP_NAME" placeholder="라이더 이름 입력")
+            input.hidden-name(type="hidden" name="SHOP_NAME", value='N')
+            input.check(type="button" onclick="duplicateCheck()" value="라이더 체크")
+        tr.userPhoneNumber
+          th.phoneNumber 전화번호
+          td
+            input.phoneNumber-input(type="text", name="PHONE_NUMBER", placeholder="전화번호 입력")
+        tr.userPassword
+          th.password 비밀번호
+          td
+            input.password-input(type="text", name="PASSWORD" placeholder="비밀번호 입력")
+        tr.userOilLiter
+          th.oilLiter 오일양
+          td
+            input.oilLiter-input(type="text", name="OIL-LITER", placeholder="오일양 입력")
+      div
+        button.submit(onclick='updateUser()') 수정 
+        button.submit(onclick='goToList()') 목록 
+
+block scripts
+  include ../scripts/updateUser_script.pug
+
+
+        //- form.informationContainer

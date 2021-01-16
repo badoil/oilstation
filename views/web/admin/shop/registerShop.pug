@@ -7,14 +7,14 @@ block content
   .container
     .registerContainer
       form.informationContainer(action="registerShop", method="post")
-        .title 매장 등록
+        .title 라이더 등록
         table(width="550px" height="150px" align="center")
           tr.shopName
-            th.name 매장 이름
+            th.name 라이더 이름
             td
-              input.name-input(type="text", name="SHOP_NAME" placeholder="매장 이름 입력")
+              input.name-input(type="text", name="SHOP_NAME" placeholder="라이더 이름 입력")
               input.hidden-name(type="hidden" name="SHOP_NAME")
-              input.check(type="button" onClick="duplicateCheck()" value="중복 체크")
+              input.check(type="button" onClick="duplicateCheck()" value="라이더 체크")
           tr.shopPassword
             th.password 비밀번호
             td

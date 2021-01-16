@@ -1,0 +1,48 @@
+script.
+
+    function goToList(){
+      try{
+        document.location.href = '/shop/user/list'
+      }
+      catch(err){
+        console.error(err)
+      }
+    }
+
+    async function updateUser(){
+      try{
+        const user = {}
+        const userName = document.querySelector('.name-input').value
+        const phoneNumber = document.querySelector('.phoneNumber-input').value
+        const password = document.querySelector('.password-input').value
+        const oilLiter = document.querySelector('.oilLiter-input').value
+
+        user.NAME = userName
+        user.PHONE_NUMBER = phoneNumber
+        user.PASSWORD = password
+        user.OIL_L = oilLiter
+
+        console.log('user:', user)
+
+        if(!phoneNumber){
+          return alert('전화번호는 꼭 넣으셔야 합니다.')
+        }
+        const exUser = await axios.get(`/shop/user/searchUser?userName=${userName}`)  //나중에 진짜 데이터는 각각 다른 전화번호를 넣으므로 phoneNumber를 이용할 것임
+        if(!exUser){
+          return alert('존재하지 않는 회원입니다.')
+        }
+
+        const updatedUser = await axios.put('/shop/user/updateUser', user)
+        
+        if(updatedUser){
+          const answer =  confirm('정상적으로 수정되었습니다. 목록으로 가시겠습니까?') 
+          console.log('answer:', answer)
+          if(answer){
+            document.location.href = '/shop/user/list'
+          }
+        }
+
+      }catch(err){
+        console.error(err)
+      }
+    }

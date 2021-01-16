@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -16,68 +16,75 @@ export class ShopService {
     });
   }
 
+  async getUsers() {
+    const users = await this.prisma.uSER.findMany(); //  currntPage,totalPage,totalCount
+    return users;
+  }
+
+  async checkName(userName) {
+    return await this.prisma.uSER.findFirst({
+      where: {
+        NAME: userName,
+      },
+    });
+  }
+
+  async getSearchUser(query) {
+    console.log('query:', query);
+    let userName = '';
+    let phoneNumber = '';
+    if (query.userName) {
+      userName = query.userName;
+    } else if (query.phoneNumber) {
+      phoneNumber = query.phoneNumber;
+    }
+    const user = await this.prisma.uSER.findMany({
+      where: {
+        OR: [
+          {
+            NAME: userName,
+          },
+          {
+            PHONE_NUMBER: phoneNumber,
+          },
+        ],
+      },
+    });
+    return user;
+  }
+
   async createUser(bodyData) {
-    const hashedPassword = await bcrypt.hash('서울1234', 12);
+    const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
 
-    // const oilHistory = await this.prisma.oIL_HISTORY.findFirst({
-    //   where: {
-    //     USER: {
-
-    //     }
-    //   }
-    // })
-
-    /*    this.prisma.sHOP.create({
-      data : {
-        SHOP_NAME: bodyData.shopName,
-        PASSWORD:'',
-        REG_ID
-
-      }
-    });*/
-    const user = await this.prisma.uSER.create({
+    return await this.prisma.uSER.create({
       data: {
         NAME: bodyData.NAME,
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
         PASSWORD: hashedPassword,
-        OIL_L: 50,
+        PHONE_NUMBER: bodyData.PHONE_NUMBER,
+        OIL_L: +bodyData.OIL_L,
         REG_ID: 'SYSTEM',
         REG_DT: date,
       },
     });
   }
 
-  async getUser(searchText) {
-    const user = await this.prisma.uSER.findMany({
-      // where: {
-      //   OR: [
-      //     {
-      //       NAME: {
-      //         contains: searchText,
-      //       },
-      //       PHONE_NUMBER: {
-      //         contains: searchText,
-      //       },
-      //     },
-      //   ],
-      // },
-    });
-
-    return user;
-  }
-
   async updateUser(bodyData, res) {
+    let hashedPassword = '';
+    if (bodyData.PASSWORD) {
+      hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
+    }
     const date = new Date();
 
     const user = await this.prisma.uSER.findFirst({
       where: {
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
+        NAME: bodyData.NAME,
       },
     });
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
     }
+    console.log('serviceUser:', user);
 
     const userUpdate = await this.prisma.uSER.update({
       where: {
@@ -86,7 +93,8 @@ export class ShopService {
       data: {
         NAME: bodyData.NAME,
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
-        PASSWORD: bodyData.PASSWORD,
+        PASSWORD: hashedPassword,
+        OIL_L: +bodyData.OIL_L,
         UPD_ID: 'req.shop',
         UPD_DT: date,
       },
