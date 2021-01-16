@@ -26,7 +26,9 @@ block content
           th.oilLiter 오일양
           td
             input.oilLiter-input(type="text", name="OIL-LITER", placeholder="오일양 입력")
-      button.submit(onclick='saveUser()') 등록 
+      div
+        button.submit(onclick='saveUser()') 등록 
+        button.submit(onclick='goToList()') 목록 
 
 block scripts
   include ../scripts/registerUser_script.pug

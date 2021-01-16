@@ -74,26 +74,8 @@ script.
       }catch(err){
         console.error(err)
       }   
+    }
 
-      
-      //- xhr.open('GET', `registerShop/duplicate/?name=${nameInput}`);
-      //- xhr.send();
-      //- xhr.onload = function() {
-      //-   if(xhr.status === 200) {
-      //-     const flag = JSON.parse(xhr.responseText);
-      //-     console.log(flag);
-      //-     if (flag) {
-      //-       const result = confirm("정말로 이 아이디를 사용하시겠습니까?");
-      //-       if (result) {
-      //-         document.querySelector('.submit').style.display = "block";
-      //-         document.querySelector('.name-input').disabled = true;
-      //-         document.querySelector('.check').style.display = "none";
-      //-         document.querySelector('.hidden-name').value = nameInput;
-      //-       }
-      //-     } else {
-      //-       alert("중복된 아이디 입니다.");
-      //-       document.querySelector('.name-input').value = "";
-      //-     }
-      //-   }
-      //- }
+    function goToList(){
+      document.location.href = '/shop/user/list'
     }

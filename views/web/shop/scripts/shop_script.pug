@@ -16,3 +16,10 @@ script.
                 console.error(err)
         }
     }
+
+    async function goToSaveUser(){
+        let frm = document.getElementById('listForm');
+        console.log(frm);
+        frm.setAttribute("action", "/shop/user/registerUser");
+        frm.submit();
+    }
