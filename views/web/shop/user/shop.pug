@@ -25,6 +25,7 @@ block content
           div(class="right")
             .btn-group
               button(type="button" class="btn btn-primary-sm delete") 라이더 삭제
+              button(type="button" class="btn btn-primary-sm delete" onclick="goToUpdateUser()") 라이더 수정
               button(type="button" class="btn btn-success-sm write" onclick="goToSaveUser()") 라이더 등록
     
     table.table
@@ -46,9 +47,21 @@ block content
             td #{item.PHONE_NUMBER}
             td #{item.OIL_L}
             td #{item.REG_DT}
+    +pageing(currentPage,totalPage,totalCount)
+
+mixin pageing(currentPage,totalPage,totalCount)
+  .table-option
+    .table-total-info.let.totalCount 총 #{currentPage} 건
+      .pagination.right
+        if currntPage > 1
+          a.page-arrow.first
+          a.page-arrow.prev
       
-  block scripts
-    include ../scripts/shop_script.pug
+block scripts
+  include ../scripts/shop_script.pug
+
+
+
 
 
     //- nav(aria-label="Page navigation example")

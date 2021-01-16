@@ -17,7 +17,7 @@ export class ShopService {
   }
 
   async getUsers() {
-    const users = await this.prisma.uSER.findMany();
+    const users = await this.prisma.uSER.findMany(); //  currntPage,totalPage,totalCount
     return users;
   }
 
@@ -29,10 +29,25 @@ export class ShopService {
     });
   }
 
-  async getSearchUser(userName) {
+  async getSearchUser(query) {
+    console.log('query:', query);
+    let userName = '';
+    let phoneNumber = '';
+    if (query.userName) {
+      userName = query.userName;
+    } else if (query.phoneNumber) {
+      phoneNumber = query.phoneNumber;
+    }
     const user = await this.prisma.uSER.findMany({
       where: {
-        NAME: userName,
+        OR: [
+          {
+            NAME: userName,
+          },
+          {
+            PHONE_NUMBER: phoneNumber,
+          },
+        ],
       },
     });
     return user;
@@ -55,16 +70,21 @@ export class ShopService {
   }
 
   async updateUser(bodyData, res) {
+    let hashedPassword = '';
+    if (bodyData.PASSWORD) {
+      hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
+    }
     const date = new Date();
 
     const user = await this.prisma.uSER.findFirst({
       where: {
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
+        NAME: bodyData.NAME,
       },
     });
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
     }
+    console.log('serviceUser:', user);
 
     const userUpdate = await this.prisma.uSER.update({
       where: {
@@ -73,7 +93,8 @@ export class ShopService {
       data: {
         NAME: bodyData.NAME,
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
-        PASSWORD: bodyData.PASSWORD,
+        PASSWORD: hashedPassword,
+        OIL_L: +bodyData.OIL_L,
         UPD_ID: 'req.shop',
         UPD_DT: date,
       },

@@ -23,3 +23,11 @@ script.
         frm.setAttribute("action", "/shop/user/registerUser");
         frm.submit();
     }
+
+    async function goToUpdateUser(){
+        try{
+                document.location.href = `/shop/user/updateUser`
+        }catch(err){
+                console.error(err);
+        }
+    }

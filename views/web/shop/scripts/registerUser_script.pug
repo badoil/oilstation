@@ -77,5 +77,10 @@ script.
     }
 
     function goToList(){
-      document.location.href = '/shop/user/list'
+      try{
+        document.location.href = '/shop/user/list'
+      }
+      catch(err){
+        console.error(err)
+      }
     }
