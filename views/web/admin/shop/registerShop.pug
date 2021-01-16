@@ -7,19 +7,19 @@ block content
   .container
     .registerContainer
       form.informationContainer(action="registerShop", method="post")
-        .title 라이더 등록
+        .title 지점 등록
         table(width="550px" height="150px" align="center")
           tr.shopName
-            th.name 라이더 이름
+            th.name 지점 이름
             td
-              input.name-input(type="text", name="SHOP_NAME" placeholder="라이더 이름 입력")
+              input.name-input(type="text", name="SHOP_NAME" placeholder="지점 이름 입력")
               input.hidden-name(type="hidden" name="SHOP_NAME")
-              input.check(type="button" onClick="duplicateCheck()" value="라이더 체크")
+              input.check(type="button" onClick="duplicateCheck()" value="지점 체크")
           tr.shopPassword
             th.password 비밀번호
             td
               input.password-input(type="text", name="PASSWORD" placeholder="비밀번호 입력")
-        button.submit(type="submit" style="display: none") 등록 
+        button.submit(type="button" style="display: none" ,onclick='saveShop()') 등록
 block scripts
   script.
     function duplicateCheck() {
@@ -65,5 +65,23 @@ block scripts
             document.querySelector('.name-input').value = "";
           }
         }
+      }
+    }
+    async function saveShop(){
+      try{
+        console.log('저장!!!')
+        const shop = {};
+        shop.SHOP_NAME = document.querySelector('.name-input').value;
+        shop.PASSWORD = document.querySelector('.password-input').value;
+        const result = await axios.post('/admin/shop/registerShop',shop);
+        console.log(result);
+        if(result) {
+          alert('등록되었습니다.');
+          location.href = '/admin/shop/list';
+        }else {
+          alert('등록중 오류가 발생하였습니다.');
+        }
+      }catch (e) {
+        console.log(e);
       }
     }

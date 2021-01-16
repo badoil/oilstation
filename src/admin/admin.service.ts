@@ -1,10 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { PrismaService } from "src/prisma.service";
+import * as bcrypt from "bcrypt";
+import { Response } from "express";
 //import { ADMIN } from '@prisma/client';
-import { CreateShopDto } from './dto/create.shop.dto';
-import { CreateAdminDto } from './dto/create.admin.dto';
+import { CreateShopDto } from "./dto/create.shop.dto";
+import { CreateAdminDto } from "./dto/create.admin.dto";
 
 @Injectable()
 export class AdminService {
@@ -70,7 +70,6 @@ export class AdminService {
   }
 
   async createShop(shopData: CreateShopDto, adminID?: string) {
-    console.log('shopData', shopData);
     const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Render, Req, Res, UseFilters, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Render, Req, UseFilters, UseGuards } from "@nestjs/common";
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create.admin.dto";
 import { CreateShopDto } from "./dto/create.shop.dto";
@@ -101,10 +101,9 @@ export class AdminController {
   @UseGuards(RolesGuard)
   @Roles('admin')
   @Post('/shop/registerShop')
-  async registerShop(@Body() shopData: CreateShopDto, @Req() req, @Res() res) {
+  async registerShop(@Body() shopData: CreateShopDto, @Req() req) {
     console.log(shopData);
     const data = await this.adminService.createShop(shopData, req.user.ID);
-    // TODO [YTH] data false 라면???
-    return res.redirect('/admin/shop/list');
+    return data;
   }
 }
