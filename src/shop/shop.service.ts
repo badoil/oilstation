@@ -16,7 +16,10 @@ export class ShopService {
     });
   }
 
-  async getUser(phoneNumber) {}
+  async getUser() {
+    const user = await this.prisma.uSER.findMany();
+    return user;
+  }
 
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
@@ -27,7 +30,7 @@ export class ShopService {
         NAME: bodyData.NAME,
         PASSWORD: hashedPassword,
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
-        OIL_L: bodyData.OIL_L,
+        OIL_L: +bodyData.OIL_L,
         REG_ID: 'SYSTEM',
         REG_DT: date,
       },

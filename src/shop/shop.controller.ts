@@ -39,11 +39,10 @@ export class ShopController {
   //   };
   // }
 
-  @Get('user')
+  @Get('user/list')
   @Render('web/shop/user/shop')
-  async getUsers(@Query('searchText') searchText: string) {
-    console.log('searchText:', searchText);
-    const userList = await this.shopService.getUser(searchText);
+  async getUsers() {
+    const userList = await this.shopService.getUser();
     console.log('userList:', userList);
     return {
       userList: userList,
@@ -67,14 +66,11 @@ export class ShopController {
   }
 
   @Post('user/registerUser')
-  createUser(@Body() bodyData: CreateUserDto) {
+  async createUser(@Body() bodyData: CreateUserDto) {
     console.log('controllerCreateUser: ', bodyData);
-    return this.shopService.createUser(bodyData);
-  }
-
-  @Get()
-  getUser(@Query('phoneNumber') phoneNumber: string) {
-    return this.shopService.getUser(phoneNumber);
+    const newUser = await this.shopService.createUser(bodyData);
+    console.log('newUser:', newUser);
+    return newUser;
   }
 
   @Put()

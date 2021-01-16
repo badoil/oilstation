@@ -1,5 +1,42 @@
 script.
 
+    async function saveUser(){
+      try{
+        //- e.preventDefault()
+        //- console.log('e:', e)
+        if(document.querySelector('.hidden-name').value === 'N'){
+          return alert('중복체크가 필요합니다.')
+        }
+
+        const user = {}
+        const name = document.querySelector('.name-input').value
+        const phoneNumber = document.querySelector('.phoneNumber-input').value
+        const password = document.querySelector('.password-input').value
+        const oilLiter = document.querySelector('.oilLiter-input').value
+
+        user.NAME = name
+        user.PHONE_NUMBER = phoneNumber
+        user.PASSWORD = password
+        user.OIL_L = oilLiter
+
+        console.log('user:', user)
+
+        const result = await axios.post('/shop/user/registerUser', user)
+        console.log('result:', result)
+
+        if(result){
+          const answer =  confirm('정상적으로 등록되었습니다. 목록으로 가시겠습니까?') 
+          console.log('answer:', answer)
+          if(answer){
+            document.location.href = '/shop/user/list'
+            
+          }
+        }
+      }catch(err){
+        console.error(err)
+      }
+    }   
+
     async function duplicateCheck() {
       const nameInput = document.querySelector('.name-input').value;      
       const submitBtn = document.querySelector('.submit').value;
@@ -28,7 +65,7 @@ script.
         const checkName = await axios.get(`/shop/user/duplicate?userName=${nameInput}`)
         console.log('checkName:', checkName)
       
-        if(checkName){
+        if(checkName.data !== ""){
           alert('이미 존재하는 이름입니다.')
         }else{
           document.querySelector('.hidden-name').value = 'Y'
@@ -36,44 +73,7 @@ script.
 
       }catch(err){
         console.error(err)
-      }
-
-    async function saveUser(e){
-      try{
-        e.preventDefault()
-        console.log('e:', e)
-        if(document.querySelector('.hidden-name').value === 'N'){
-          return alert('중복체크가 필요합니다.')
-        }
-
-        const user = {}
-        const name = document.querySelector('.name-input').value
-        const phoneNumber = document.querySelector('.phoneNumber-input').value
-        const password = document.querySelector('.password-input').value
-        const oilLiter = document.querySelector('.oilLiter-input').value
-
-        user.NAME = name
-        user.PHONE_NUMBER = phoneNumber
-        user.PASSWORD = password
-        user.OIL_L = oilLiter
-
-        console.log('user:', user)
-
-        const result = await axios.post('/shop/user/registerUser', user)
-      }catch(err){
-        console.error(err)
-      }
-      
-
-
-      //- let frm = document.querySelector('.informationContainer');
-      //-     console.log('frm:', frm)
-          
-      //-     frm.setAttribute("action","/shop/user/registerUser");
-      //-     console.log('frm2:', frm)
-
-      //-     frm.onsubmit();
-    }      
+      }   
 
       
       //- xhr.open('GET', `registerShop/duplicate/?name=${nameInput}`);
