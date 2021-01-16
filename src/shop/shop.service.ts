@@ -16,8 +16,25 @@ export class ShopService {
     });
   }
 
-  async getUser() {
-    const user = await this.prisma.uSER.findMany();
+  async getUsers() {
+    const users = await this.prisma.uSER.findMany();
+    return users;
+  }
+
+  async checkName(userName) {
+    return await this.prisma.uSER.findFirst({
+      where: {
+        NAME: userName,
+      },
+    });
+  }
+
+  async getSearchUser(userName) {
+    const user = await this.prisma.uSER.findMany({
+      where: {
+        NAME: userName,
+      },
+    });
     return user;
   }
 
@@ -33,14 +50,6 @@ export class ShopService {
         OIL_L: +bodyData.OIL_L,
         REG_ID: 'SYSTEM',
         REG_DT: date,
-      },
-    });
-  }
-
-  async checkName(userName) {
-    return await this.prisma.uSER.findFirst({
-      where: {
-        NAME: userName,
       },
     });
   }

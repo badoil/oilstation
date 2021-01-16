@@ -42,7 +42,7 @@ export class ShopController {
   @Get('user/list')
   @Render('web/shop/user/shop')
   async getUsers() {
-    const userList = await this.shopService.getUser();
+    const userList = await this.shopService.getUsers();
     console.log('userList:', userList);
     return {
       userList: userList,
@@ -55,6 +55,22 @@ export class ShopController {
     const name = await this.shopService.checkName(userName);
     console.log('name:', name);
     return name;
+  }
+
+  @Get('user/searchUser')
+  async getSearchUser(@Query('userName') userName: string) {
+    const user = await this.shopService.getSearchUser(userName);
+    console.log('user:', user);
+    return user;
+  }
+
+  @Get('user/searchUser/list')
+  @Render('web/shop/user/searchUser')
+  async getSearchUserList(@Query('userName') userName: string) {
+    const userList = await this.shopService.getSearchUser(userName);
+    return {
+      userList: userList,
+    };
   }
 
   @UseGuards(RolesGuard)
