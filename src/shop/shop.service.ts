@@ -1,6 +1,7 @@
 import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 
 // import { SHOP } from '@prisma/client';
 
@@ -16,9 +17,39 @@ export class ShopService {
     });
   }
 
-  async getUsers() {
-    const users = await this.prisma.uSER.findMany(); //  currntPage,totalPage,totalCount
-    return users;
+  getPageUtil(page, pageSize) {
+    console.log('page', page);
+    console.log('pageSize', pageSize);
+    return {
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    };
+  }
+
+  async getUsers(query) {
+    let where;
+    const paging = await this.getPageUtil(query.page, query.pageSize);
+    console.log('paging', paging);
+    if (query.keyword != '') {
+      where = { NAME: query.keyword };
+    }
+    const userList = await this.prisma.uSER.findMany({
+      where: where,
+      skip: paging.skip,
+      take: paging.take,
+      orderBy: { REG_DT: 'desc' },
+    });
+
+    const totalCount = await this.prisma.uSER.count({
+      where: where,
+    });
+    console.log('userList', userList);
+    return {
+      shopList: userList,
+      totalCount: totalCount,
+    };
+    // const users = await this.prisma.uSER.findMany(); //  currntPage,totalPage,totalCount
+    // return users;
   }
 
   async checkName(userName) {
@@ -195,21 +226,32 @@ export class ShopService {
     //const oilHistory = await this.prisma.oIL_HISTORY.update({});
   }
 
-  async deleteUser(phoneNumber, res) {
-    const user = await this.prisma.uSER.findFirst({
+  async deleteUser(query, res: Response) {
+    // let user;
+    // if (query.phoneNumber) {
+    //   user = await this.prisma.uSER.findFirst({
+    //     where: {
+    //       PHONE_NUMBER: query.phoneNumber,
+    //     },
+    //   });
+    //   if (!user) {
+    //     return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
+    //   }
+    // }
+    const deletedOilHistory = await this.prisma.oIL_HISTORY.deleteMany({
       where: {
-        PHONE_NUMBER: phoneNumber,
+        USER_KEY: 18,
       },
     });
-    if (!user) {
-      return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
-    }
+    console.log('deletedOilHistory:', deletedOilHistory);
 
-    const deletedUser = await this.prisma.uSER.delete({
+    console.log('query:', query);
+    const deletedUser = await this.prisma.uSER.deleteMany({
       where: {
-        USER_KEY: user.USER_KEY,
+        PHONE_NUMBER: '01012341234',
       },
     });
+    console.log('deletedUser:', deletedUser);
 
     return res.status(200).json({
       success: true,

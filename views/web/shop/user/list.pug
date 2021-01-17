@@ -5,10 +5,18 @@ extends ../../layout/layout
 //- block append link
 //-   link(rel="stylesheet" href="/adminShop.css")
 block content
-  div
-    div(class="contents")
+  section(class='container')
+    .content-header
+      h2(class='title-page') 라이더 관리
+      ul(class='bread-crumb')
+        li
+          a(href='/')
+            i(class='fa fa-home')
+        li 라이더 관리
+        li 라이더 목록
+    .contents
       form(method="get" id="listForm")
-        input(type="hidden" name="page" id="page" value="")
+        input(type="hidden" name="page" id="page" value=query.page)
         fieldset(class="search-field")
           legend 라이더 검색
           div(class="row")
@@ -16,7 +24,7 @@ block content
               label(for="keyword") 텍스트 검색
                 span(style="font-size: x-small") 지점명 검색
                   div(class="input-group-select")
-                    input(type="text", id="keyword", name="keyword", placeholder="검색어 입력", value="")
+                    input(type="text", id="keyword", name="keyword", placeholder="검색어 입력", value=query.keyword)
           div(class="btn-group")
             button#searchBtn( type="button" class="btn btn-success-md btn-search submit" onclick='searchUser()') 검색
     div(class="contents")
@@ -24,45 +32,46 @@ block content
         div(class="table-option")
           div(class="right")
             .btn-group
-              button(type="button" class="btn btn-primary-sm delete") 라이더 삭제
               button(type="button" class="btn btn-primary-sm delete" onclick="goToUpdateUser()") 라이더 수정
               button(type="button" class="btn btn-success-sm write" onclick="goToSaveUser()") 라이더 등록
     
-    table.table
-      thead
-        tr
-          th(scope="col")
-            label(class="checkbox")
-            input(type="checkbox" class="chk chkM")
-          th(scope="col") 이름
-          th(scope="col") 전화번호
-          th(scope="col") 오일양
-          th(scope="col") 등록일
-      tbody
-        each item in userList
+      table.table
+        thead
           tr
-            td
-              input#checkedUser(type="checkbox", name=`${item.NAME}`)
-            td #{item.NAME}
-            td #{item.PHONE_NUMBER}
-            td #{item.OIL_L}
-            td #{item.REG_DT}
-    +pageing(currentPage,totalPage,totalCount)
+            th(scope="col")
+              label(class="checkbox")
+              input(type="checkbox" class="chk chkM")
+            th(scope="col") 이름
+            th(scope="col") 전화번호
+            th(scope="col") 오일양
+            th(scope="col") 등록일
+        tbody
+          each item in userList
+            tr
+              td
+                input#checkedUser(type="checkbox", name=`${item.NAME}`)
+              td #{item.NAME}
+              td #{item.PHONE_NUMBER}
+              td #{item.OIL_L}
+              td #{item.REG_DT}
+      +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 
-mixin pageing(currentPage,totalPage,totalCount)
-  .table-option
-    .table-total-info.let.totalCount 총 #{currentPage} 건
-      .pagination.right
-        if currntPage > 1
-          a.page-arrow.first
-          a.page-arrow.prev
+
       
 block scripts
   include ../scripts/list_script.pug
 
 
+//- div
+//-     div(class="contents")
 
-
+//- mixin pageing(currentPage,totalPage,totalCount)
+//-   .table-option
+//-     .table-total-info.let.totalCount 총 #{currentPage} 건
+//-       .pagination.right
+//-         if currntPage > 1
+//-           a.page-arrow.first
+//-           a.page-arrow.prev
 
     //- nav(aria-label="Page navigation example")
     //-   ul(class="pagination pagination-sm justify-content-end")

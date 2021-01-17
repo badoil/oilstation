@@ -31,3 +31,13 @@ script.
                 console.error(err);
         }
     }
+
+    async function deleteUser(){
+        try{
+                //let phoneNumber = '01012341234'
+                const deletedUser = await axios.delete(`/shop/user/deleteUser`)
+                return console.log('deletedUser:', deletedUser)
+        }catch(err){
+                console.error(err)
+        }
+    }

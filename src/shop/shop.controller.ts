@@ -19,6 +19,7 @@ import { SearchShopDto } from '../admin/dto/search.shop.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateOilHistoryDto } from './dto/create.oilHistory.dto';
+import { SearchUserDto } from './dto/search.user.dto';
 
 @Controller('shop')
 export class ShopController {
@@ -45,10 +46,19 @@ export class ShopController {
   @Get('user/list')
   @Roles('shop')
   @Render('web/shop/user/list')
-  async getUsers() {
-    const userList = await this.shopService.getUsers();
+  async getUsers(@Query() query: SearchUserDto) {
+    console.log('controllerGetUsersQuery', query);
+    console.log('query.page', query.page);
+    if (query.page == null) {
+      query.page = 1;
+    }
+    query.pageSize = 10;
+    console.log('query', query);
+
+    const userList = await this.shopService.getUsers(query);
     console.log('userList:', userList);
     return {
+      query: query,
       userList: userList,
     };
   }
@@ -132,8 +142,12 @@ export class ShopController {
 
   @UseGuards(RolesGuard)
   @Roles('shop')
-  @Delete()
-  deleteUser(@Query('phoneNumber') phoneNumber: string, @Res() res: Response) {
-    return this.shopService.deleteUser(phoneNumber, res);
+  @Delete('user/deleteUser')
+  async deleteUser(@Query() query: string, @Res() res: Response) {
+    const deletedUser = await this.shopService.deleteUser(query, res);
+    console.log('controllerDeleteUser:', deletedUser);
+    return {
+      deletedUser,
+    };
   }
 }
