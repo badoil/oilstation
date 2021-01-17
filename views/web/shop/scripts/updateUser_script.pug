@@ -15,22 +15,49 @@ script.
         const userName = document.querySelector('.name-input').value
         const phoneNumber = document.querySelector('.phoneNumber-input').value
         const password = document.querySelector('.password-input').value
-        const oilLiter = document.querySelector('.oilLiter-input').value
+        const plusMinus = document.querySelector('.oilLiter-input').value
 
         user.NAME = userName
         user.PHONE_NUMBER = phoneNumber
         user.PASSWORD = password
-        user.OIL_L = oilLiter
 
         console.log('user:', user)
 
         if(!phoneNumber){
           return alert('전화번호는 꼭 넣으셔야 합니다.')
         }
+
+        if(!password){
+          return alert('회원 비밀번호를 입력하세요')
+        }
+
+        //유저 존재 체크하면서 oil history 데이터 가져오기
         const exUser = await axios.get(`/shop/user/searchUser?userName=${userName}`)  //나중에 진짜 데이터는 각각 다른 전화번호를 넣으므로 phoneNumber를 이용할 것임
-        if(!exUser){
+        console.log('exUser:', exUser)
+
+        if(exUser.data.length === 0){
           return alert('존재하지 않는 회원입니다.')
         }
+
+        // exUser에서 user_key, shop_key 모두 얻을 수 있을것
+
+        const intPlusMinus = +plusMinus
+        const intOilLiter = +exUser.data[0].OIL_HISTORY[0].OIL_L
+        const oilLiter = intOilLiter + intPlusMinus
+        console.log('oilLiter:', oilLiter)
+        const oilHistory = {
+          USER_KEY: exUser.data[0].OIL_HISTORY[0].USER_KEY,
+          SHOP_KEY: exUser.data[0].OIL_HISTORY[0].SHOP_KEY,
+          PLUS_MINUS: +plusMinus,
+          OIL_L: intOilLiter + intPlusMinus
+        }
+        console.log('oilHistory:', oilHistory)
+
+        // oil history는 업데이트 할때마다 새로 생성해야함.
+        const createOilHistory = await axios.post('/shop/user/createOilHistory', oilHistory)
+        console.log('createOilHistory:', createOilHistory)
+        
+        user.OIL_L = oilLiter
 
         const updatedUser = await axios.put('/shop/user/updateUser', user)
         

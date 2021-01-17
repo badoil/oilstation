@@ -40,22 +40,19 @@ model OIL_HISTORY {
   REG_DT     DateTime
   UPD_ID     String?
   UPD_DT     DateTime?
-  SHOP       SHOP?     @relation(fields: [SHOP_KEY], references: [SHOP_KEY])
   USER       USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
 
-  @@index([SHOP_KEY], name: "FK_SHOP_TO_OIL_HISTORY")
   @@index([USER_KEY], name: "FK_USER_TO_OIL_HISTORY")
 }
 
 model SHOP {
-  SHOP_KEY    Int           @id @default(autoincrement())
-  SHOP_NAME   String?
-  PASSWORD    String?
-  REG_ID      String
-  REG_DT      DateTime
-  UPD_ID      String?
-  UPD_DT      DateTime?
-  OIL_HISTORY OIL_HISTORY[]
+  SHOP_KEY  Int       @id @default(autoincrement())
+  SHOP_NAME String?
+  PASSWORD  String?
+  REG_ID    String
+  REG_DT    DateTime
+  UPD_ID    String?
+  UPD_DT    DateTime?
 }
 
 model USER {

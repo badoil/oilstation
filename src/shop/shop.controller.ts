@@ -18,6 +18,7 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { SearchShopDto } from '../admin/dto/search.shop.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
+import { CreateOilHistoryDto } from './dto/create.oilHistory.dto';
 
 @Controller('shop')
 export class ShopController {
@@ -43,7 +44,7 @@ export class ShopController {
   @UseGuards(RolesGuard)
   @Get('user/list')
   @Roles('shop')
-  @Render('web/shop/user/shop')
+  @Render('web/shop/user/list')
   async getUsers() {
     const userList = await this.shopService.getUsers();
     console.log('userList:', userList);
@@ -64,7 +65,7 @@ export class ShopController {
   async getSearchUser(@Query() query: string) {
     console.log('query:', query);
     const user = await this.shopService.getSearchUser(query);
-    console.log('user:', user);
+    console.log('controllerGetSearchUser:', user);
     return user;
   }
 
@@ -91,6 +92,15 @@ export class ShopController {
     const newUser = await this.shopService.createUser(bodyData);
     console.log('newUser:', newUser);
     return newUser;
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('shop')
+  @Post('/user/createOilHistory')
+  async createOilHistory(@Body() bodyData: CreateOilHistoryDto) {
+    const oil = this.shopService.createOilHistory(bodyData);
+    console.log('controllerCreateOilHistory:', oil);
+    return oil;
   }
 
   @UseGuards(RolesGuard)
