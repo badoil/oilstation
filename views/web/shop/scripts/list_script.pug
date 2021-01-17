@@ -2,12 +2,12 @@ script.
 
     async function searchUser(){
         try{
-                const userName = document.querySelector('#keyword').value
+                const userName = document.querySelector('#keyword').value  //나중에 유일 데이터인 전화번호로 바꿔야함
                 console.log('userName:', userName)
-                const result =  await axios.get(`/shop/user/searchUser?userName=${userName}`)
+                const result =  await axios.get(`/shop/user/searchUserOil?userName=${userName}`)  //검색, -> 나중에 유일 데이터인 전화번호로 바꿔야함
                 console.log('result:', result)
                 if(result){
-                        document.location.href = `/shop/user/searchUser/list?userName=${result.data[0].NAME}`
+                        document.location.href = `/shop/user/searchUser/list?userName=${result.data[0].NAME}` // 화면 렌더링 
                 }else{
                         alert('찾으시는 라이더가 없습니다. 다시 확인하세요')
                 }

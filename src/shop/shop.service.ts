@@ -30,7 +30,7 @@ export class ShopService {
   }
 
   async getSearchUser(query) {
-    console.log('query:', query);
+    console.log('serviceGetSearchUserQuery:', query);
     let userName = '';
     let phoneNumber = '';
     if (query.userName) {
@@ -67,6 +67,45 @@ export class ShopService {
     return user;
   }
 
+  async getSearchUserOilHistory(query) {
+    console.log('serviceGetSearchUserOilHistoryQuery:', query);
+    let userName = '';
+    let phoneNumber = '';
+    if (query.userName) {
+      userName = query.userName;
+    } else if (query.phoneNumber) {
+      phoneNumber = query.phoneNumber;
+    }
+    const user = await this.prisma.uSER.findMany({
+      where: {
+        OR: [
+          {
+            NAME: userName,
+          },
+          {
+            PHONE_NUMBER: phoneNumber,
+          },
+        ],
+      },
+      include: {
+        OIL_HISTORY: {
+          select: {
+            OIL_KEY: true,
+            USER_KEY: true,
+            SHOP_KEY: true,
+            PLUS_MINUS: true,
+            OIL_L: true,
+            REG_DT: true,
+          },
+          orderBy: {
+            OIL_KEY: 'asc',
+          },
+        },
+      },
+    });
+    return user;
+  }
+
   async createUser(bodyData) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
@@ -86,7 +125,7 @@ export class ShopService {
             OIL_L: +bodyData.OIL_L,
             REG_ID: 'shop_name',
             REG_DT: date,
-            SHOP_KEY: 1,
+            SHOP_KEY: 1, // shop key 변수로 넣어야함
           },
         },
       },

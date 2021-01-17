@@ -1,16 +1,16 @@
 extends ../../layout/layout
 
-block append link
-  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
-block append link
-  link(rel="stylesheet" href="/adminShop.css")
+//- block append link
+//-   link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+//- block append link
+//-   link(rel="stylesheet" href="/adminShop.css")
 block content
   div
     div(class="contents")
       form(method="get" id="listForm")
         input(type="hidden" name="page" id="page" value="")
         fieldset(class="search-field")
-          legend 라이더 검색
+          legend 라이더 검색 및 결과
           div(class="row")
             div(class="col")
               label(for="keyword") 텍스트 검색
@@ -47,10 +47,29 @@ block content
             td #{item.NAME}
             td #{item.PHONE_NUMBER}
             td #{item.OIL_L}
-            td #{item.REG_DT}
+            td #{item.REG_DT}             
+      thead
+        tr
+          th(scope="col")
+            label(class="checkbox")
+            input(type="checkbox" class="chk chkM")
+          th(scope="col") 지점번호
+          th(scope="col") 증감
+          th(scope="col") 오일양
+          th(scope="col") 등록일
+      tbody
+        each item in oilHistory
+          tr
+            td
+              label(class="checkbox")
+              input(type="checkbox" class="chk chkM")
+            td #{item.SHOP_KEY}
+            td #{item.PLUS_MINUS}
+            td #{item.OIL_L}
+            td #{item.REG_DT.toString()}
     
   block scripts
-    include ../scripts/shop_script.pug
+    include ../scripts/list_script.pug
 
 
 

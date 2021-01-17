@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ShopService } from './shop.service';
-import { Response } from 'express';
+import { query, Response } from 'express';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
@@ -63,18 +63,29 @@ export class ShopController {
 
   @Get('user/searchUser')
   async getSearchUser(@Query() query: string) {
-    console.log('query:', query);
+    console.log('controllerGetSearchUserQuery:', query);
     const user = await this.shopService.getSearchUser(query);
+    console.log('controllerGetSearchUser:', user);
+    return user;
+  }
+
+  @Get('user/searchUserOil')
+  async getSearchUserOil(@Query() query: string) {
+    console.log('controllerGetSearchUserQuery:', query);
+    const user = await this.shopService.getSearchUserOilHistory(query);
     console.log('controllerGetSearchUser:', user);
     return user;
   }
 
   @Get('user/searchUser/list')
   @Render('web/shop/user/searchUser')
-  async getSearchUserList(@Query('userName') userName: string) {
-    const userList = await this.shopService.getSearchUser(userName);
+  async getSearchUserOilHistory(@Query() query: string) {
+    const userList = await this.shopService.getSearchUserOilHistory(query);
+    console.log('getSearchUserOilHistoryUserList:', userList);
+    const oilHistory = userList[0].OIL_HISTORY;
     return {
       userList: userList,
+      oilHistory: oilHistory,
     };
   }
 
