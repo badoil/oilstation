@@ -37,12 +37,6 @@ export class AppController {
       message: req.flash('auth'),
     };
   }
-
-  @UseGuards(RolesGuard)
-  @Get('data')
-  getData(@Req() req) {
-    return req.user;
-  }
   @UseGuards(LoginGuard)
   @Post('auth/login')
   login(@Res() res: Response) {
