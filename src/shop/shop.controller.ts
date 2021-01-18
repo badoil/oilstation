@@ -89,11 +89,20 @@ export class ShopController {
 
   @Get('user/searchUser/list')
   @Render('web/shop/user/searchUser')
-  async getSearchUserOilHistory(@Query() query: string) {
-    const userList = await this.shopService.getSearchUserOilHistory(query);
+  async getSearchUserOilHistory(@Query() query: SearchUserDto) {
+    console.log('controllerGetSearchUserOilHistoryQuery:', query);
+    if (query.page == null) {
+      query.page = 1;
+    }
+    query.pageSize = 10;
+    console.log('query', query);
+
+    const userList = await this.shopService.getSearchUserOilHistoryList(query);
+
     console.log('getSearchUserOilHistoryUserList:', userList);
     const oilHistory = userList[0].OIL_HISTORY;
     return {
+      query: query,
       userList: userList,
       // oilHistory: oilHistory,
     };
@@ -143,9 +152,9 @@ export class ShopController {
   @UseGuards(RolesGuard)
   @Roles('shop')
   @Delete('user/deleteUser')
-  async deleteUser(@Query('id') id: string, @Res() res: Response) {
-    const deletedUser = await this.shopService.deleteUser(id, res);
+  async deleteUser(@Query('id') id: string) {
+    const deletedUser = await this.shopService.deleteUser(id);
     console.log('controllerDeleteUser:', deletedUser);
-    return this.deleteUser;
+    return deletedUser;
   }
 }

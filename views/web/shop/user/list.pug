@@ -59,48 +59,10 @@ block content
               td #{item.REG_DT}
               td
                 button(class='btn btn-primary-sm',onclick=`deleteUser(${item.USER_KEY})`) 삭제
+
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 
 
       
 block scripts
   include ./scripts/list_script.pug
-
-
-//- div
-//-     div(class="contents")
-
-//- mixin pageing(currentPage,totalPage,totalCount)
-//-   .table-option
-//-     .table-total-info.let.totalCount 총 #{currentPage} 건
-//-       .pagination.right
-//-         if currntPage > 1
-//-           a.page-arrow.first
-//-           a.page-arrow.prev
-
-    //- nav(aria-label="Page navigation example")
-    //-   ul(class="pagination pagination-sm justify-content-end")
-    //-     li(class="page-item")
-    //-       a(class="page-link", href="#") Previous
-    //-     li(class="page-item")
-    //-       a(class="page-link", href="#") 1
-        
-    //-     li(class="page-item")
-    //-       a(class="page-link", href="#") Next
-
-
-//- block link
-//-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-//- block content
-//-   div(class='container')
-//-     div(class='button-group d-inline float-right mb-3 mt-3')
-//-       button#code-regist(type='submit', class='btn btn-primary btn-lg align-center') 저장
-//-       button#searchBtn(type='button', class='btn btn-default btn-lg align-center ml-2') 검색
-//-     table#usersTable(class='table form-table table-bordered')
-//-       thead(class='bg-warning align-middle')
-//-         th 고객이름
-//-         th 휴대폰번호
-//-         th 남은 오일양
-//-         th 차량번호
-//-       tbody

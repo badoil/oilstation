@@ -120,21 +120,30 @@ export class ShopService {
 
   async getSearchUserOilHistory(query) {
     console.log('serviceGetSearchUserOilHistoryQuery:', query);
-    let userName = '';
-    let phoneNumber = '';
-    if (query.userName) {
-      userName = query.userName;
-    } else if (query.phoneNumber) {
-      phoneNumber = query.phoneNumber;
+
+    let where;
+    if (query.keyword != '') {
+      where = query.keyword;
     }
+    console.log('where:', where);
+    // let userName = '';
+    // let phoneNumber = '';
+    // if (query.userName) {
+    //   userName = query.userName;
+    // } else if (query.phoneNumber) {
+    //   phoneNumber = query.phoneNumber;
+    // }
     const user = await this.prisma.uSER.findMany({
+      // skip: paging.skip,
+      // take: paging.take,
+      // orderBy: { REG_DT: 'desc' },
       where: {
         OR: [
           {
-            NAME: userName,
+            NAME: where,
           },
           {
-            PHONE_NUMBER: phoneNumber,
+            PHONE_NUMBER: where,
           },
         ],
       },
@@ -149,7 +158,7 @@ export class ShopService {
             REG_DT: true,
           },
           orderBy: {
-            OIL_KEY: 'asc',
+            OIL_KEY: 'desc',
           },
         },
         BIKE_NUMBER: {
@@ -159,6 +168,63 @@ export class ShopService {
         },
       },
     });
+    console.log('serviceGetSearchUserOilHistory:', user);
+    return user;
+  }
+
+  async getSearchUserOilHistoryList(query) {
+    console.log('serviceGetSearchUserOilHistoryQuery:', query);
+
+    let where;
+    const paging = await this.getPageUtil(query.page, query.pageSize);
+    console.log('paging', paging);
+    if (query.keyword != '') {
+      where = query.keyword;
+    }
+    console.log('where:', where);
+    // let userName = '';
+    // let phoneNumber = '';
+    // if (query.userName) {
+    //   userName = query.userName;
+    // } else if (query.phoneNumber) {
+    //   phoneNumber = query.phoneNumber;
+    // }
+    const user = await this.prisma.uSER.findMany({
+      skip: paging.skip,
+      take: paging.take,
+      orderBy: { REG_DT: 'desc' },
+      where: {
+        OR: [
+          {
+            NAME: where,
+          },
+          {
+            PHONE_NUMBER: where,
+          },
+        ],
+      },
+      include: {
+        OIL_HISTORY: {
+          select: {
+            OIL_KEY: true,
+            USER_KEY: true,
+            SHOP_KEY: true,
+            PLUS_MINUS: true,
+            OIL_L: true,
+            REG_DT: true,
+          },
+          orderBy: {
+            OIL_KEY: 'desc',
+          },
+        },
+        BIKE_NUMBER: {
+          select: {
+            BIKE_NUMBER: true,
+          },
+        },
+      },
+    });
+    console.log('serviceGetSearchUserOilHistory:', user);
     return user;
   }
 
@@ -258,14 +324,17 @@ export class ShopService {
     //const oilHistory = await this.prisma.oIL_HISTORY.update({});
   }
 
-  async deleteUser(id, res: Response) {
+  async deleteUser(id) {
     const deletedOilHistory = await this.prisma.oIL_HISTORY.deleteMany({
       where: {
         USER_KEY: +id,
       },
     });
     console.log('deletedOilHistory:', deletedOilHistory);
-    if (deletedOilHistory.count === 1) {
+    if (deletedOilHistory.count !== 1) {
+      return {
+        count: deletedOilHistory.count,
+      };
     }
 
     const deletedBikeNumber = await this.prisma.bIKE_NUMBER.deleteMany({
@@ -274,6 +343,11 @@ export class ShopService {
       },
     });
     console.log('deletedBikeNumber:', deletedBikeNumber);
+    if (deletedBikeNumber.count !== 1) {
+      return {
+        count: deletedBikeNumber.count,
+      };
+    }
 
     const deletedUser = await this.prisma.uSER.deleteMany({
       where: {
@@ -281,11 +355,14 @@ export class ShopService {
       },
     });
     console.log('deletedUser:', deletedUser);
+    if (deletedUser.count !== 1) {
+      return {
+        count: deletedUser.count,
+      };
+    }
 
-    return res.status(200).json({
-      success: true,
-      code: 'SUCCESS',
-      msg: '삭제 되었습니다.',
-    });
+    return {
+      count: deletedUser.count,
+    };
   }
 }
