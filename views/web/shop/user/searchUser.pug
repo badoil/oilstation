@@ -48,7 +48,7 @@ block content
             th(scope="col") 차량번호
             th(scope="col") 등록일
         tbody
-          each item in userList
+          each item in userList.userList
             tr
               td
                 label(class="checkbox")
@@ -69,16 +69,16 @@ block content
             th(scope="col") 차량번호
             th(scope="col") 등록일
         tbody
-          each item in userList
+          each item in userList.userList[0].OIL_HISTORY
             tr
               td
                 label(class="checkbox")
                 input(type="checkbox" class="chk chkM")
-              td #{item.OIL_HISTORY[0].SHOP_KEY}
-              td #{item.OIL_HISTORY[0].PLUS_MINUS}
-              td #{item.OIL_HISTORY[0].OIL_L}
-              td #{item.BIKE_NUMBER[0].BIKE_NUMBER}
-              td #{item.OIL_HISTORY[0].REG_DT.toString()}
+              td #{item.SHOP_KEY}
+              td #{item.PLUS_MINUS}
+              td #{item.OIL_L}
+              td #{item.BIKE_NUMBER}
+              td #{item.REG_DT.toString()}
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
     
   block scripts

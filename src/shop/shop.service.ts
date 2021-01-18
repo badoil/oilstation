@@ -201,14 +201,7 @@ export class ShopService {
       take: paging.take,
       orderBy: { REG_DT: 'desc' },
       where: {
-        OR: [
-          {
-            NAME: where,
-          },
-          {
-            PHONE_NUMBER: where,
-          },
-        ],
+        USER_KEY: +where,
       },
       include: {
         OIL_HISTORY: {
@@ -231,6 +224,16 @@ export class ShopService {
         },
       },
     });
+
+    const totalCount = await this.prisma.oIL_HISTORY.count({
+      where: {
+        USER_KEY: +where,
+      },
+    });
+    return {
+      userList: user,
+      totalCount: totalCount,
+    };
     console.log('serviceGetSearchUserOilHistory:', user);
     return user;
   }
@@ -315,7 +318,7 @@ export class ShopService {
     const shopName = req.user.SHOP_NAME;
     const oil = await this.prisma.oIL_HISTORY.create({
       data: {
-        SHOP_KEY: bodyData.SHOP_KEY,
+        SHOP_KEY: req.user.SHOP_KEY,
         PLUS_MINUS: bodyData.PLUS_MINUS,
         OIL_L: bodyData.OIL_L,
         REG_ID: shopName,

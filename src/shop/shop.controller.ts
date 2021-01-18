@@ -21,6 +21,7 @@ import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateOilHistoryDto } from './dto/create.oilHistory.dto';
 import { SearchUserDto } from './dto/search.user.dto';
+import { REFUSED } from 'dns';
 
 @Controller('shop')
 export class ShopController {
@@ -101,11 +102,9 @@ export class ShopController {
     const userList = await this.shopService.getSearchUserOilHistoryList(query);
 
     console.log('getSearchUserOilHistoryUserList:', userList);
-    const oilHistory = userList[0].OIL_HISTORY;
     return {
       query: query,
       userList: userList,
-      // oilHistory: oilHistory,
     };
   }
 
