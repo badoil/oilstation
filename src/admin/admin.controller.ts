@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Render, Req, UseFilters, UseGuards } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Query, Render, Req, UseFilters, UseGuards} from "@nestjs/common";
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create.admin.dto";
 import { CreateShopDto } from "./dto/create.shop.dto";
@@ -13,7 +13,7 @@ import { AuthExceptionFilter } from "src/common/filter/auth-exceptions.filter";
 export class AdminController {
   constructor(
     private readonly adminService: AdminService,
-    private readonly shopService: ShopService,
+    private readonly shopService: ShopService
   ) {}
 
   @UseGuards(RolesGuard)
@@ -105,5 +105,13 @@ export class AdminController {
     console.log(shopData);
     const data = await this.adminService.createShop(shopData, req.user.ID);
     return data;
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('admin')
+  @Delete('/shop/delete/:shopKey')
+  async delete(@Param('shopKey') shopKey: Number,@Req() req){
+    console.log("shopKey > ", shopKey);
+    return await this.adminService.deleteShop(shopKey);
   }
 }

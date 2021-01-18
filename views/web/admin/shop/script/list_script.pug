@@ -1,7 +1,18 @@
 script.
 	function saveView() {
 		let frm = document.getElementById('listForm');
-		console.log(frm);
 		frm.setAttribute("action", "/admin/shop/registerShop");
 		frm.submit();
+	}
+
+	async function deleteShop(shopKey) {
+		const result = await axios.delete('/admin/shop/delete/'+shopKey);
+		if(result.data) {
+			alert('삭제가 완료 되었습니다.');
+			location.reload();
+		}else{
+			alert('지점 삭제 중 서버 오류가 발생했습니다.');
+		}
+
+
 	}

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
+import {query, Response} from 'express';
 import { sharedUtils } from '../common/util/shared.utils';
 import { CreateShopDto } from './dto/create.shop.dto';
 import { CreateAdminDto } from './dto/create.admin.dto';
@@ -106,35 +106,12 @@ export class AdminService {
     });
   }
 
-  async deleteShop(shopName, res: Response) {
-    const shop = await this.prisma.sHOP.findFirst({
+  async deleteShop(shopKey) {
+    return await this.prisma.sHOP.delete({
       where: {
-        SHOP_NAME: shopName,
+        SHOP_KEY: Number(shopKey),
       },
-    });
-    if (!shop) {
-      return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
-    }
-
-    const deletedShop = await this.prisma.sHOP.delete({
-      where: {
-        SHOP_KEY: shop.SHOP_KEY,
-      },
-    });
-
-    return res.status(200).json({
-      success: true,
-      code: 'SUCCESS',
-      msg: '삭제 되었습니다.',
     });
   }
 
-  /*getPageUtil(page, pageSize) {
-    console.log('page', page);
-    console.log('pageSize', pageSize);
-    return {
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    };
-  }*/
 }
