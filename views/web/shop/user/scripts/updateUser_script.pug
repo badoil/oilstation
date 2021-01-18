@@ -49,6 +49,7 @@ script.
         console.log('createOilHistory:', createOilHistory)
         
         user.OIL_L = oilLiter
+        console.log('user:', user)
 
         const updatedUser = await axios.put('/shop/user/updateUser', user)
         

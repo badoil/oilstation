@@ -194,7 +194,7 @@ export class ShopService {
     // if (query.userName) {
     //   userName = query.userName;
     // } else if (query.phoneNumber) {
-    //   phoneNumber = query.phoneNumber;
+    //   phoneNumber = query.phoneNumber;햣
     // }
     const user = await this.prisma.uSER.findMany({
       skip: paging.skip,
@@ -234,8 +234,6 @@ export class ShopService {
       userList: user,
       totalCount: totalCount,
     };
-    console.log('serviceGetSearchUserOilHistory:', user);
-    return user;
   }
 
   async createUser(bodyData, req) {
@@ -275,15 +273,15 @@ export class ShopService {
   }
 
   async updateUser(bodyData, req, res) {
-    let hashedPassword = '';
-    if (bodyData.PASSWORD) {
-      hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
-    }
+    // let hashedPassword = '';
+    // if (bodyData.PASSWORD) {
+    //   hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
+    // }
     const date = new Date();
     const shopName = req.user.SHOP_NAME;
     const user = await this.prisma.uSER.findFirst({
       where: {
-        NAME: bodyData.NAME,
+        PHONE_NUMBER: bodyData.PHONE_NUMBER,
       },
     });
     if (!user) {
@@ -296,9 +294,9 @@ export class ShopService {
         USER_KEY: user.USER_KEY,
       },
       data: {
-        NAME: bodyData.NAME,
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
-        PASSWORD: hashedPassword,
+        NAME: user.NAME,
+        PHONE_NUMBER: user.PHONE_NUMBER,
+        PASSWORD: user.PASSWORD,
         OIL_L: +bodyData.OIL_L,
         UPD_ID: shopName,
         UPD_DT: date,
