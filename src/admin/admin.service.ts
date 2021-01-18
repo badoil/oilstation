@@ -1,10 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { PrismaService } from "src/prisma.service";
-import * as bcrypt from "bcrypt";
-import { Response } from "express";
-//import { ADMIN } from '@prisma/client';
-import { CreateShopDto } from "./dto/create.shop.dto";
-import { CreateAdminDto } from "./dto/create.admin.dto";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
+import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
+import { sharedUtils } from '../common/util/shared.utils';
+import { CreateShopDto } from './dto/create.shop.dto';
+import { CreateAdminDto } from './dto/create.admin.dto';
 
 @Injectable()
 export class AdminService {
@@ -19,14 +19,9 @@ export class AdminService {
   }
 
   async getShop(query) {
-    // 현재 페이지
-    // page = 1
-    // pageSize = 10
-    // page - 1
-    // 2-1 * 10
     // where 조건
     let where;
-    const paging = await this.getPageUtil(query.page, query.pageSize);
+    const paging = await sharedUtils.pageUtil(query.page, query.pageSize);
     console.log('paging', paging);
     if (query.keyword != '') {
       where = { SHOP_NAME: query.keyword };
@@ -134,12 +129,12 @@ export class AdminService {
     });
   }
 
-  getPageUtil(page, pageSize) {
+  /*getPageUtil(page, pageSize) {
     console.log('page', page);
     console.log('pageSize', pageSize);
     return {
       skip: (page - 1) * pageSize,
       take: pageSize,
     };
-  }
+  }*/
 }
