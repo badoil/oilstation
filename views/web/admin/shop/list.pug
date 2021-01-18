@@ -31,21 +31,23 @@ block content
         table(class='table')
           caption 목록 테이블
           colgroup
-            col
-            col
+            col(width='50%')
+            col(width='40%')
+            col(width='10%')
           thead
             tr
               th(scope='col') 지점 이름
               th(scope='col') 등록일
+              th(scope='col') 삭제
             tbody
               each item in result.shopList
                 tr
                   td #{item.SHOP_NAME}
-                  td #{item.REG_DT}
+                  td
+                    +getDateFormat(item.REG_DT)
+                  td
+                    button(class='btn btn-primary-sm',onclick="deleteShop('"+item.SHOP_KEY+"')") 삭제
         +pageing(query.page,query.pageSize,result.totalCount,'listForm')
-
-
-
 
 block scripts
   include ./script/list_script
