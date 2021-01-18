@@ -28,7 +28,7 @@ async function bootstrap() {
   // Passport 로그인
   app.use(
     session({
-      secret: 'changelater', // 나중에 .env 에 넣어줘야함
+      secret: 'changelater', // TODO: 나중에 .env 에 넣어줘야함
       resave: false,
       saveUninitialized: false,
     }),
@@ -39,6 +39,6 @@ async function bootstrap() {
 
   // 전역 Http 예외 처리 필터
   app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
