@@ -27,12 +27,6 @@ block scripts
       const submitBtn = document.querySelector('.submit').value;
       const xhr = new XMLHttpRequest();
 
-      if (!(nameInput.length > 2)) {
-        alert("세 글자 이상 입력해주세요.");
-        document.querySelector('.name-input').value = "";
-        return;
-      }
-
       const blank_pattern = RegExp(/[\s]/g);
       if (blank_pattern.test(nameInput)) {
         alert("공백은 사용할 수 없습니다.");
