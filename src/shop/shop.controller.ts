@@ -7,11 +7,12 @@ import {
   Put,
   Query,
   Render,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { ShopService } from './shop.service';
-import { query, Response } from 'express';
+import { query, Request, Response } from 'express';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
@@ -117,9 +118,9 @@ export class ShopController {
   }
 
   @Post('user/registerUser')
-  async createUser(@Body() bodyData: CreateUserDto) {
+  async createUser(@Body() bodyData: CreateUserDto, @Req() req) {
     console.log('controllerCreateUser: ', bodyData);
-    const newUser = await this.shopService.createUser(bodyData);
+    const newUser = await this.shopService.createUser(bodyData, req);
     console.log('newUser:', newUser);
     return newUser;
   }

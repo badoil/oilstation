@@ -1,7 +1,14 @@
-import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  Body,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Req,
+  Request,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
+import { request, Response } from 'express';
 
 // import { SHOP } from '@prisma/client';
 
@@ -228,10 +235,10 @@ export class ShopService {
     return user;
   }
 
-  async createUser(bodyData) {
+  async createUser(bodyData, req) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
-
+    const shopKey = req.user.SHOP_KEY;
     //shop id 이용해서 shop_key를 알아내야 함
 
     const newUser = await this.prisma.uSER.create({
@@ -247,7 +254,7 @@ export class ShopService {
             OIL_L: +bodyData.OIL_L,
             REG_ID: 'shop_name',
             REG_DT: date,
-            SHOP_KEY: 1, // shop key 변수로 넣어야함
+            SHOP_KEY: shopKey, // shop key 변수로 넣어야함
           },
         },
         BIKE_NUMBER: {
