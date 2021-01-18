@@ -45,12 +45,12 @@ export class UserController {
   @Roles('user')
   @Get('oil')
   @Render('web/front/oil')
-  getOil(@Request() req) {
+  getOil(@Req() req) {
     return { user: req.user };
   }
 
   @UseGuards(RolesGuard)
-  @Get('/logout')
+  @Get('logout')
   logout(@Request() req, @Res() res: Response) {
     req.logout();
     req.flash('auth', '로그아웃 되었습니다.');
