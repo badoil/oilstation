@@ -238,6 +238,7 @@ export class ShopService {
   async createUser(bodyData, req) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
+    const shopName = req.user.SHOP_NAME;
     const shopKey = req.user.SHOP_KEY;
     //shop id 이용해서 shop_key를 알아내야 함
 
@@ -247,12 +248,12 @@ export class ShopService {
         PASSWORD: hashedPassword,
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
         OIL_L: +bodyData.OIL_L,
-        REG_ID: 'shop_name', // shop 이름 들어가야할것
+        REG_ID: shopName, // shop 이름 들어가야할것
         REG_DT: date,
         OIL_HISTORY: {
           create: {
             OIL_L: +bodyData.OIL_L,
-            REG_ID: 'shop_name',
+            REG_ID: shopName,
             REG_DT: date,
             SHOP_KEY: shopKey, // shop key 변수로 넣어야함
           },
@@ -260,7 +261,7 @@ export class ShopService {
         BIKE_NUMBER: {
           create: {
             BIKE_NUMBER: bodyData.PASSWORD,
-            REG_ID: 'req.id',
+            REG_ID: shopName,
             REG_DT: date,
           },
         },
@@ -270,13 +271,13 @@ export class ShopService {
     return newUser;
   }
 
-  async updateUser(bodyData, res) {
+  async updateUser(bodyData, req, res) {
     let hashedPassword = '';
     if (bodyData.PASSWORD) {
       hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     }
     const date = new Date();
-
+    const shopName = req.user.SHOP_NAME;
     const user = await this.prisma.uSER.findFirst({
       where: {
         NAME: bodyData.NAME,
@@ -296,7 +297,7 @@ export class ShopService {
         PHONE_NUMBER: bodyData.PHONE_NUMBER,
         PASSWORD: hashedPassword,
         OIL_L: +bodyData.OIL_L,
-        UPD_ID: 'req.shop',
+        UPD_ID: shopName,
         UPD_DT: date,
       },
     });
@@ -309,14 +310,15 @@ export class ShopService {
     });
   }
 
-  async createOilHistory(bodyData) {
+  async createOilHistory(bodyData, req) {
     const date = new Date();
+    const shopName = req.user.SHOP_NAME;
     const oil = await this.prisma.oIL_HISTORY.create({
       data: {
         SHOP_KEY: bodyData.SHOP_KEY,
         PLUS_MINUS: bodyData.PLUS_MINUS,
         OIL_L: bodyData.OIL_L,
-        REG_ID: 'req.id',
+        REG_ID: shopName,
         REG_DT: date,
         USER: {
           connect: {

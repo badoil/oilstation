@@ -128,8 +128,8 @@ export class ShopController {
   @UseGuards(RolesGuard)
   @Roles('shop')
   @Post('/user/createOilHistory')
-  async createOilHistory(@Body() bodyData: CreateOilHistoryDto) {
-    const oil = this.shopService.createOilHistory(bodyData);
+  async createOilHistory(@Body() bodyData: CreateOilHistoryDto, @Req() req) {
+    const oil = this.shopService.createOilHistory(bodyData, req);
     console.log('controllerCreateOilHistory:', oil);
     return oil;
   }
@@ -137,9 +137,13 @@ export class ShopController {
   @UseGuards(RolesGuard)
   @Roles('shop')
   @Put('/user/updateUser')
-  updateUser(@Body() bodyData: UpdateUserDto, @Res() res: Response) {
+  updateUser(
+    @Body() bodyData: UpdateUserDto,
+    @Req() req,
+    @Res() res: Response,
+  ) {
     console.log('controllerUpdateBodyData:', bodyData);
-    return this.shopService.updateUser(bodyData, res);
+    return this.shopService.updateUser(bodyData, req, res);
   }
 
   @UseGuards(RolesGuard)
