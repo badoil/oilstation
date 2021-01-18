@@ -38,7 +38,7 @@ export class UserController {
   @UseGuards(LoginGuard)
   @Post('auth/login')
   login(@Res() res: Response) {
-    res.redirect('/');
+    res.redirect('/user/oil');
   }
 
   @UseGuards(RolesGuard)
