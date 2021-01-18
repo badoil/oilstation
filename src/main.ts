@@ -40,5 +40,6 @@ async function bootstrap() {
   // 전역 Http 예외 처리 필터
   app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.PORT || 3000);
+  console.log('server listening on port ' + (process.env.PORT || 3000));
 }
 bootstrap();
