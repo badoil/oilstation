@@ -46,7 +46,7 @@ block content
             th(scope="col") 오일양
             th(scope="col") 등록일
         tbody
-          each item in userList
+          each item in userList.shopList
             tr
               td
                 input#checkedUser(type="checkbox", name=`${item.NAME}`)
@@ -59,7 +59,7 @@ block content
 
       
 block scripts
-  include ../scripts/list_script.pug
+  include ./scripts/list_script.pug
 
 
 //- div

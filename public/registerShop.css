@@ -83,10 +83,16 @@ button,
 .check {
   margin-left: 14px;
 }
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+}
+
 .submit {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline;
+  margin-left: 2px;
+  margin-right: 2px;
   margin-top: 15px;
 }
 

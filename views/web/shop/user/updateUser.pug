@@ -1,4 +1,4 @@
-extends ../../layout/layout2
+extends ../../layout/front
 
 block link
   link(rel="stylesheet" href="/registerShop.css")
@@ -25,12 +25,12 @@ block content
           th.oilLiter 오일양
           td
             input.oilLiter-input(type="text", name="OIL-LITER", placeholder="오일양 입력")
-      div
+      div.buttonGroup
         button.submit(onclick='updateUser()') 수정 
         button.submit(onclick='goToList()') 목록 
 
 block scripts
-  include ../scripts/updateUser_script.pug
+  include ./scripts/updateUser_script.pug
 
 
         //- form.informationContainer

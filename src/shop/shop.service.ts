@@ -159,6 +159,13 @@ export class ShopService {
             SHOP_KEY: 1, // shop key 변수로 넣어야함
           },
         },
+        BIKE_NUMBER: {
+          create: {
+            BIKE_NUMBER: bodyData.BIKE_NUMBER,
+            REG_ID: 'req.id',
+            REG_DT: date,
+          },
+        },
       },
     });
     console.log('newUser:', newUser);
