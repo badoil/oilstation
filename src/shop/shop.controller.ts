@@ -56,7 +56,7 @@ export class ShopController {
     console.log('query', query);
 
     const userList = await this.shopService.getUsers(query);
-    console.log('userList:', userList);
+    console.log('controllerGetUser:', userList);
     return {
       query: query,
       userList: userList,
@@ -95,7 +95,7 @@ export class ShopController {
     const oilHistory = userList[0].OIL_HISTORY;
     return {
       userList: userList,
-      oilHistory: oilHistory,
+      // oilHistory: oilHistory,
     };
   }
 
@@ -143,11 +143,9 @@ export class ShopController {
   @UseGuards(RolesGuard)
   @Roles('shop')
   @Delete('user/deleteUser')
-  async deleteUser(@Query() query: string, @Res() res: Response) {
-    const deletedUser = await this.shopService.deleteUser(query, res);
+  async deleteUser(@Query('id') id: string, @Res() res: Response) {
+    const deletedUser = await this.shopService.deleteUser(id, res);
     console.log('controllerDeleteUser:', deletedUser);
-    return {
-      deletedUser,
-    };
+    return this.deleteUser;
   }
 }

@@ -43,8 +43,10 @@ block content
               input(type="checkbox" class="chk chkM")
             th(scope="col") 이름
             th(scope="col") 전화번호
+            th(scope="col") 차량번호
             th(scope="col") 오일양
             th(scope="col") 등록일
+            th(scope="col") 삭제
         tbody
           each item in userList.shopList
             tr
@@ -52,8 +54,11 @@ block content
                 input#checkedUser(type="checkbox", name=`${item.NAME}`)
               td #{item.NAME}
               td #{item.PHONE_NUMBER}
+              td #{item.BIKE_NUMBER[0].BIKE_NUMBER}
               td #{item.OIL_L}
               td #{item.REG_DT}
+              td
+                button(class='btn btn-primary-sm',onclick=`deleteUser(${item.USER_KEY})`) 삭제
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 
 

@@ -32,10 +32,10 @@ script.
         }
     }
 
-    async function deleteUser(){
+    async function deleteUser(id){
         try{
-                //let phoneNumber = '01012341234'
-                const deletedUser = await axios.delete(`/shop/user/deleteUser`)
+                console.log('id:', id)
+                const deletedUser = await axios.delete(`/shop/user/deleteUser?id=${id}`)
                 return console.log('deletedUser:', deletedUser)
         }catch(err){
                 console.error(err)

@@ -5,7 +5,15 @@ extends ../../layout/layout
 //- block append link
 //-   link(rel="stylesheet" href="/adminShop.css")
 block content
-  div
+  section(class='container')
+    .content-header
+      h2(class='title-page') 라이더 검색결과
+      ul(class='bread-crumb')
+        li
+          a(href='/')
+            i(class='fa fa-home')
+        li 라이더 관리
+        li 라이더 검색결과
     div(class="contents")
       form(method="get" id="listForm")
         input(type="hidden" name="page" id="page" value="")
@@ -27,45 +35,49 @@ block content
               button(type="button" class="btn btn-primary-sm delete" onclick="goToUpdateUser()") 라이더 수정
               button(type="button" class="btn btn-success-sm write" onclick="goToSaveUser()") 라이더 등록
     
-    table.table
-      thead
-        tr
-          th(scope="col")
-            label(class="checkbox")
-            input(type="checkbox" class="chk chkM")
-          th(scope="col") 이름
-          th(scope="col") 전화번호
-          th(scope="col") 오일양
-          th(scope="col") 등록일
-      tbody
-        each item in userList
+      table.table
+        thead
           tr
-            td
+            th(scope="col")
               label(class="checkbox")
               input(type="checkbox" class="chk chkM")
-            td #{item.NAME}
-            td #{item.PHONE_NUMBER}
-            td #{item.OIL_L}
-            td #{item.REG_DT}             
-      thead
-        tr
-          th(scope="col")
-            label(class="checkbox")
-            input(type="checkbox" class="chk chkM")
-          th(scope="col") 지점번호
-          th(scope="col") 증감
-          th(scope="col") 오일양
-          th(scope="col") 등록일
-      tbody
-        each item in oilHistory
+            th(scope="col") 이름
+            th(scope="col") 전화번호
+            th(scope="col") 차량번호
+            th(scope="col") 오일양
+            th(scope="col") 등록일
+        tbody
+          each item in userList
+            tr
+              td
+                label(class="checkbox")
+                input(type="checkbox" class="chk chkM")
+              td #{item.NAME}
+              td #{item.PHONE_NUMBER}
+              td #{item.BIKE_NUMBER[0].BIKE_NUMBER}
+              td #{item.OIL_L}
+              td #{item.REG_DT}             
+        thead
           tr
-            td
+            th(scope="col")
               label(class="checkbox")
               input(type="checkbox" class="chk chkM")
-            td #{item.SHOP_KEY}
-            td #{item.PLUS_MINUS}
-            td #{item.OIL_L}
-            td #{item.REG_DT.toString()}
+            th(scope="col") 지점번호
+            th(scope="col") 증감
+            th(scope="col") 차량번호
+            th(scope="col") 오일양
+            th(scope="col") 등록일
+        tbody
+          each item in userList
+            tr
+              td
+                label(class="checkbox")
+                input(type="checkbox" class="chk chkM")
+              td #{item.OIL_HISTORY[0].SHOP_KEY}
+              td #{item.OIL_HISTORY[0].PLUS_MINUS}
+              td #{item.BIKE_NUMBER[0].BIKE_NUMBER}
+              td #{item.OIL_HISTORY[0].OIL_L}
+              td #{item.OIL_HISTORY[0].REG_DT.toString()}
     
   block scripts
     include ./scripts/list_script.pug

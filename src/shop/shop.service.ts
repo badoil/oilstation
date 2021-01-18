@@ -38,12 +38,32 @@ export class ShopService {
       skip: paging.skip,
       take: paging.take,
       orderBy: { REG_DT: 'desc' },
+      include: {
+        OIL_HISTORY: {
+          select: {
+            OIL_KEY: true,
+            USER_KEY: true,
+            SHOP_KEY: true,
+            PLUS_MINUS: true,
+            OIL_L: true,
+            REG_DT: true,
+          },
+          orderBy: {
+            OIL_KEY: 'asc',
+          },
+        },
+        BIKE_NUMBER: {
+          select: {
+            BIKE_NUMBER: true,
+          },
+        },
+      },
     });
 
     const totalCount = await this.prisma.uSER.count({
       where: where,
     });
-    console.log('userList', userList);
+    console.log('serviceGetUserList', userList);
     return {
       shopList: userList,
       totalCount: totalCount,
@@ -132,6 +152,11 @@ export class ShopService {
             OIL_KEY: 'asc',
           },
         },
+        BIKE_NUMBER: {
+          select: {
+            BIKE_NUMBER: true,
+          },
+        },
       },
     });
     return user;
@@ -161,7 +186,7 @@ export class ShopService {
         },
         BIKE_NUMBER: {
           create: {
-            BIKE_NUMBER: bodyData.BIKE_NUMBER,
+            BIKE_NUMBER: bodyData.PASSWORD,
             REG_ID: 'req.id',
             REG_DT: date,
           },
@@ -233,29 +258,26 @@ export class ShopService {
     //const oilHistory = await this.prisma.oIL_HISTORY.update({});
   }
 
-  async deleteUser(query, res: Response) {
-    // let user;
-    // if (query.phoneNumber) {
-    //   user = await this.prisma.uSER.findFirst({
-    //     where: {
-    //       PHONE_NUMBER: query.phoneNumber,
-    //     },
-    //   });
-    //   if (!user) {
-    //     return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
-    //   }
-    // }
+  async deleteUser(id, res: Response) {
     const deletedOilHistory = await this.prisma.oIL_HISTORY.deleteMany({
       where: {
-        USER_KEY: 18,
+        USER_KEY: +id,
       },
     });
     console.log('deletedOilHistory:', deletedOilHistory);
+    if (deletedOilHistory.count === 1) {
+    }
 
-    console.log('query:', query);
+    const deletedBikeNumber = await this.prisma.bIKE_NUMBER.deleteMany({
+      where: {
+        USER_KEY: +id,
+      },
+    });
+    console.log('deletedBikeNumber:', deletedBikeNumber);
+
     const deletedUser = await this.prisma.uSER.deleteMany({
       where: {
-        PHONE_NUMBER: '01012341234',
+        USER_KEY: +id,
       },
     });
     console.log('deletedUser:', deletedUser);

@@ -24,16 +24,15 @@ script.
         const result = await axios.post('/shop/user/registerUser', user)
         console.log('result:', result)
 
-        document.querySelector('.hidden-name').value = 'N'
-
         if(result){
           const answer = confirm('정상적으로 등록되었습니다. 목록으로 가시겠습니까?') 
           console.log('answer:', answer)
           if(answer){
             document.location.href = '/shop/user/list'
-            
           }
         }
+        document.querySelector('.hidden-name').value = 'N'
+
       }catch(err){
         console.error(err)
       }
