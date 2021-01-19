@@ -7,66 +7,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ADMIN {
-  ADMIN_KEY Int       @id @default(autoincrement())
-  ID        String?
-  PASSWORD  String?
-  REG_ID    String
-  REG_DT    DateTime
-  UPD_ID    String?
-  UPD_DT    DateTime?
+model Admin {
+  adminKey Int       @id @default(autoincrement()) @map("ADMIN_KEY")
+  id       String?   @map("ID")
+  password String?   @map("PASSWORD")
+  regDt    String    @map("REG_ID")
+  regId    DateTime  @map("REG_DT")
+  updDt    String?   @map("UPD_ID")
+  updId    DateTime? @map("UPD_DT")
+
+  @@map("ADMIN")
 }
 
-model BIKE_NUMBER {
-  BIKE_NUMBER_KEY Int       @id @default(autoincrement())
-  USER_KEY        Int?
-  BIKE_NUMBER     String?
-  REG_ID          String
-  REG_DT          DateTime
-  UPD_ID          String?
-  UPD_DT          DateTime?
-  USER            USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
+model BikeNumber {
+  bikeNumberKey Int       @id @default(autoincrement()) @map("BIKE_NUMBER_KEY")
+  userKey       Int?      @map("USER_KEY")
+  bikeNumber    String?   @map("BIKE_NUMBER")
+  regId         String    @map("REG_ID")
+  regDt         DateTime  @map("REG_DT")
+  updId         String?   @map("UPD_ID")
+  updDt         DateTime? @map("UPD_DT")
+  User          User?     @relation(fields: [userKey], references: [userKey])
 
-  @@index([USER_KEY], name: "USER_KEY_idx")
+  @@index([userKey], name: "USER_KEY_idx")
+  @@map("BIKE_NUMBER")
 }
 
-model OIL_HISTORY {
-  OIL_KEY    Int       @id @default(autoincrement())
-  USER_KEY   Int?
-  SHOP_KEY   Int?
-  PLUS_MINUS Int?
-  OIL_L      Int?
-  REG_ID     String
-  REG_DT     DateTime
-  UPD_ID     String?
-  UPD_DT     DateTime?
-  USER       USER?     @relation(fields: [USER_KEY], references: [USER_KEY])
+model OilHistory {
+  oilKey    Int       @id @default(autoincrement()) @map("OIL_KEY")
+  userKey   Int?      @map("USER_KEY")
+  shopKey   Int?      @map("SHOP_KEY")
+  plusMinus Int?      @map("PLUS_MINUS")
+  oilL      Int?      @map("OIL_L")
+  regId     String    @map("REG_ID")
+  regDt     DateTime  @map("REG_DT")
+  updId     String?   @map("UPD_ID")
+  updDt     DateTime? @map("UPD_DT")
+  User      User?     @relation(fields: [userKey], references: [userKey])
 
-  @@index([USER_KEY], name: "FK_USER_TO_OIL_HISTORY")
+  @@index([userKey], name: "FK_USER_TO_OIL_HISTORY")
+  @@map("OIL_HISTORY")
 }
 
 model Shop {
   shopKey  Int       @id @default(autoincrement()) @map("SHOP_KEY")
-  shopName String? @map("SHOP_NAME")
-  password  String? @map("PASSWORD")
-  regId  String @map("REG_ID")
-  regDt  DateTime @map("REG_DT")
-  updId  String? @map("UPD_ID")
-  dateTime  DateTime? @map("UPD_DT")
+  shopName String?   @map("SHOP_NAME")
+  password String?   @map("PASSWORD")
+  regId    String    @map("REG_ID")
+  regDt    DateTime  @map("REG_DT")
+  updId    String?   @map("UPD_ID")
+  dateTime DateTime? @map("UPD_DT")
 
   @@map("SHOP")
 }
 
 model User {
-  userKey     Int           @id @default(autoincrement()) @map("USER_KEY")
-  name         String? @map("NAME")
-  phoneNumber String? @map("PHONE_NUMBER")
-  password     String? @map("PASSWORD")
-  oilL        Int? @map("OIL_L")
-  regId       String @map("REG_ID")
-  regDt       DateTime @map("REG_DT")
-  updId       String? @map("UPD_ID")
-  updDt       DateTime? @map("UPD_DT")
+  userKey     Int          @id @default(autoincrement()) @map("USER_KEY")
+  name        String?      @map("NAME")
+  phoneNumber String?      @map("PHONE_NUMBER")
+  password    String?      @map("PASSWORD")
+  oilL        Int?         @map("OIL_L")
+  regId       String       @map("REG_ID")
+  regDt       DateTime     @map("REG_DT")
+  updId       String?      @map("UPD_ID")
+  updDt       DateTime?    @map("UPD_DT")
   BikeNumber  BikeNumber[]
   OilHistroy  OilHistory[]
 

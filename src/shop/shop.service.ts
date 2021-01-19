@@ -17,9 +17,9 @@ export class ShopService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(name: string): Promise<any | undefined> {
-    return this.prisma.sHOP.findFirst({
+    return this.prisma.shop.findFirst({
       where: {
-        SHOP_NAME: name,
+        shopName: name,
       },
     });
   }
