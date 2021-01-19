@@ -56,7 +56,7 @@ model Shop {
   regId    String    @map("REG_ID")
   regDt    DateTime  @map("REG_DT")
   updId    String?   @map("UPD_ID")
-  dateTime DateTime? @map("UPD_DT")
+  updDt    DateTime? @map("UPD_DT")
 
   @@map("SHOP")
 }
