@@ -73,13 +73,13 @@ export class ShopController {
     return name;
   }
 
-  @Get('user/searchUser')
-  async getSearchUser(@Query() query: string) {
-    console.log('controllerGetSearchUserQuery:', query);
-    const user = await this.shopService.getSearchUser(query);
-    console.log('controllerGetSearchUser:', user);
-    return user;
-  }
+  // @Get('user/searchUser')
+  // async getSearchUser(@Query() query: string) {
+  //   console.log('controllerGetSearchUserQuery:', query);
+  //   const user = await this.shopService.getSearchUser(query);
+  //   console.log('controllerGetSearchUser:', user);
+  //   return user;
+  // }
 
   @Get('user/searchUserOil')
   async getSearchUserOil(@Query() query: string) {

@@ -63,6 +63,11 @@ export class ShopService {
       where: where,
     });
     console.log('serviceGetUserList', userList);
+    for (let i = 0; i < userList.length; i++) {
+      delete userList[i].password;
+    }
+    console.log('serviceGetUserList2:', userList);
+
     return {
       shopList: userList,
       totalCount: totalCount,
@@ -70,58 +75,60 @@ export class ShopService {
   }
 
   async checkName(userName) {
-    return await this.prisma.user.findFirst({
+    const user = await this.prisma.user.findFirst({
       where: {
         name: userName,
       },
     });
-  }
-
-  async getSearchUser(query) {
-    console.log('serviceGetSearchUserQuery:', query);
-    let userName = '';
-    let phoneNumber = '';
-    if (query.userName) {
-      userName = query.userName;
-    } else if (query.phoneNumber) {
-      phoneNumber = query.phoneNumber;
-    }
-    const user = await this.prisma.user.findMany({
-      where: {
-        OR: [
-          {
-            name: userName,
-          },
-          {
-            phoneNumber: phoneNumber,
-          },
-        ],
-      },
-      select: {
-        OilHistory: {
-          select: {
-            oilKey: true,
-            userKey: true,
-            shopKey: true,
-            plusMinus: true,
-            oilL: true,
-          },
-          orderBy: {
-            oilKey: 'desc',
-          },
-        },
-      },
-    });
+    console.log('serviceCheckName:', user);
+    delete user.password;
+    console.log('serviceCheckName2:', user);
     return user;
   }
+
+  // async getSearchUser(query) {
+  //   console.log('serviceGetSearchUserQuery:', query);
+  //   let userName = '';
+  //   let phoneNumber = '';
+  //   if (query.userName) {
+  //     userName = query.userName;
+  //   } else if (query.phoneNumber) {
+  //     phoneNumber = query.phoneNumber;
+  //   }
+  //   const user = await this.prisma.user.findMany({
+  //     where: {
+  //       OR: [
+  //         {
+  //           name: userName,
+  //         },
+  //         {
+  //           phoneNumber: phoneNumber,
+  //         },
+  //       ],
+  //     },
+  //     select: {
+  //       OilHistory: {
+  //         select: {
+  //           oilKey: true,
+  //           userKey: true,
+  //           shopKey: true,
+  //           plusMinus: true,
+  //           oilL: true,
+  //         },
+  //         orderBy: {
+  //           oilKey: 'desc',
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return user;
+  // }
 
   async getSearchUserOilHistory(query) {
     console.log('serviceGetSearchUserOilHistoryQuery:', query);
 
     let where;
-    // if (query.keyword != '') {
-    //   where = query.keyword;
-    // }
+
     where = query.keyword;
     console.log('where:', where);
 
@@ -158,6 +165,8 @@ export class ShopService {
       },
     });
     console.log('serviceGetSearchUserOilHistory:', user);
+    user.map((item) => delete item.password);
+    console.log('serviceGetSearchUserOilHistory2:', user);
     return user;
   }
 
@@ -206,6 +215,9 @@ export class ShopService {
         userKey: +where,
       },
     });
+    console.log('serviceOilHistoryList:', user);
+    user.map((item) => delete item.password);
+    console.log('serviceOilHistoryList2:', user);
     return {
       userList: user,
       totalCount: totalCount,
