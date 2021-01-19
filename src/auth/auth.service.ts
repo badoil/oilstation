@@ -18,31 +18,31 @@ export class AuthService {
   ): Promise<any> {
     if (role === 'user') {
       const user = await this.userService.findOne(username);
-      if (!user || !(await bcrypt.compare(pass, user.PASSWORD))) {
+      if (!user || !(await bcrypt.compare(pass, user.password))) {
         return null;
       }
 
-      const { PASSWORD, ...result } = user;
+      const { password, ...result } = user;
       result['role'] = 'user';
       return result;
     }
 
     if (role === 'shop') {
       const shop = await this.shopService.findOne(username);
-      if (!shop || !(await bcrypt.compare(pass, shop.PASSWORD))) {
+      if (!shop || !(await bcrypt.compare(pass, shop.password))) {
         return null;
       }
-      const { PASSWORD, ...result } = shop;
+      const { password, ...result } = shop;
       result['role'] = 'shop';
       return result;
     }
 
     if (role === 'admin') {
       const admin = await this.adminService.findOne(username);
-      if (!admin || !(await bcrypt.compare(pass, admin.PASSWORD))) {
+      if (!admin || !(await bcrypt.compare(pass, admin.password))) {
         return null;
       }
-      const { PASSWORD, ...result } = admin;
+      const { password, ...result } = admin;
       result['role'] = 'admin';
       return result;
     }

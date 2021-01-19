@@ -7,7 +7,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getUser() {
-    const user = this.prisma.uSER.findMany();
+    const user = this.prisma.user.findMany();
 
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
@@ -16,9 +16,9 @@ export class UserService {
     return user;
   }
   async findOne(name: string): Promise<any | undefined> {
-    return this.prisma.uSER.findFirst({
+    return this.prisma.user.findFirst({
       where: {
-        PHONE_NUMBER: name,
+        phoneNumber: name,
       },
     });
   }
