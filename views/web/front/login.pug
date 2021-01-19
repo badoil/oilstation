@@ -2,7 +2,7 @@ extends ../layout/front
 
 block link
   link(rel="stylesheet" href="/login.css")
-    
+
 block content
   .loginContainer
     .loginTitle Sign up
@@ -14,9 +14,8 @@ block content
         .id-description ex. 01023456789
         .Password Password
         input.loginPassword(type="text" name="password" placeholder="등록된 차량 번호" required)
-        .pw-description ex. 서울종로가 1234
+        .pw-description ex. 서울종로가1234
         input(name="role" value="user" type="hidden")
         button.loginBtn(type="submit") Log in
         .descript * 오일스테이션 고객 회원가입은 매장으로 문의해주세요
-      div=message
-    
+      div(style="color:red")=message

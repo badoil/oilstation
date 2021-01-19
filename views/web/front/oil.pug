@@ -1,4 +1,71 @@
 extends ../layout/front
 
 block content
-  .oilContainer=`현재남은 오일은 ${user.OIL_L}L 입니다.`
+  style.
+    #header { font-size: 29px; margin-bottom: 40px; font-weight: bold }
+    #header strong { font-size: 36px; margin-right: 12px; font-weight: bolder }
+    .oil-container { margin: 0 auto; text-align: center }
+    #oil-drum { margin-bottom: 28px; }
+    #oil-drum-side { display: inline-block; vertical-align: top; position: relative;width: 50px;height: 200px;margin-top: 41px; }
+    #oil-drum-current { font-weight: bold; position: absolute; bottom: -11px; right: 22px; width: 50px; z-index: 1; text-align: right}
+    .triangle {
+      width: 0;height: 0;display: inline-block;transform: rotate(-45deg);
+      box-sizing: border-box; border-top: 10px solid transparent; border-right: 10px solid red;
+    }
+    #oil-graph { position: absolute; right: 0; top: 0; width: 8px; height: 200px; margin-right: 20px}
+    #oil-drum-vertical { height: 200px; position: absolute; right: 0}
+    .oil-drum-indicator { width: 7px; position: absolute; right: 0}
+    .indicator-1 { top: 0}
+    .indicator-2 { top: 25%}
+    .indicator-3 { top: 50%}
+    .indicator-4 { top: 75%}
+    .indicator-5 { top: 100%}
+    #oil-drum-img { position: relative; display: inline-block; vertical-align: top; height: 282px; width: 243px}
+    #oil-drum-front { position: absolute; top: 0; left: 0; height: 282px }
+    #oil-drum-back { position: absolute; top: 0; left: 0; height: 282px }
+    #reserve {
+      background-color: #ffcc04; width: 121px; text-align: center; height: 45px;
+      font-size: 27px; line-height: 48px; color: #0d0d0d; text-decoration: none;
+      display: inline-block; border-radius: 6px;
+      margin-bottom: 20px; font-weight: bold;
+    }
+    #extra { font-size: 17px; color: #818181 }
+  script.
+    var liter = #{user.OIL_L};
+    var current = 0;
+    function incrementOne() {
+      if (liter > current) {
+        current++;
+        var $oil = document.getElementById('oil-liter');
+        var $current = document.getElementById('oil-drum-current');
+        $oil.textContent = current + 'L';
+        $current.style.bottom = (current * 4) - 10 + 'px';
+        timerId = setTimeout(incrementOne, 30);
+      }
+    }
+    var timerId = setTimeout(incrementOne, 100);
+  .oil-container
+    header#header
+      strong= user.NAME
+      span 님, 환영합니다
+    #oil-drum
+      #oil-drum-side
+        #oil-drum-current
+          span#oil-liter 0L
+          span.triangle
+        #oil-graph
+          img.oil-drum-indicator.indicator-1(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-2(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-3(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-4(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-5(src="/rectangle-2-copy-2@3x.png")
+          img#oil-drum-vertical(src="/rectangle-2-copy-5@3x.png")
+      #oil-drum-img
+        img#oil-drum-front(src="/outframe-03@3x.png")
+        div#oil-drum-flow
+        img#oil-drum-back(src="/emthy-01@3x.png")
+    a(href="#")#reserve 매장 예약
+    #extra
+      span * 오일 구매는 오프라인 매장에서 가능하며
+      br
+      span 저장된 오일은 모든 오일스테이션 지점에서 사용 가능합니다.
