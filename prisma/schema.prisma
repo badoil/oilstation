@@ -45,26 +45,30 @@ model OIL_HISTORY {
   @@index([USER_KEY], name: "FK_USER_TO_OIL_HISTORY")
 }
 
-model SHOP {
-  SHOP_KEY  Int       @id @default(autoincrement())
-  SHOP_NAME String?
-  PASSWORD  String?
-  REG_ID    String
-  REG_DT    DateTime
-  UPD_ID    String?
-  UPD_DT    DateTime?
+model Shop {
+  shopKey  Int       @id @default(autoincrement()) @map("SHOP_KEY")
+  shopName String? @map("SHOP_NAME")
+  password  String? @map("PASSWORD")
+  regId  String @map("REG_ID")
+  regDt  DateTime @map("REG_DT")
+  updId  String? @map("UPD_ID")
+  dateTime  DateTime? @map("UPD_DT")
+
+  @@map("SHOP")
 }
 
-model USER {
-  USER_KEY     Int           @id @default(autoincrement())
-  NAME         String?
-  PHONE_NUMBER String?
-  PASSWORD     String?
-  OIL_L        Int?
-  REG_ID       String
-  REG_DT       DateTime
-  UPD_ID       String?
-  UPD_DT       DateTime?
-  BIKE_NUMBER  BIKE_NUMBER[]
-  OIL_HISTORY  OIL_HISTORY[]
+model User {
+  userKey     Int           @id @default(autoincrement()) @map("USER_KEY")
+  name         String? @map("NAME")
+  phoneNumber String? @map("PHONE_NUMBER")
+  password     String? @map("PASSWORD")
+  oilL        Int? @map("OIL_L")
+  regId       String @map("REG_ID")
+  regDt       DateTime @map("REG_DT")
+  updId       String? @map("UPD_ID")
+  updDt       DateTime? @map("UPD_DT")
+  BikeNumber  BikeNumber[]
+  OilHistroy  OilHistory[]
+
+  @@map("USER")
 }
