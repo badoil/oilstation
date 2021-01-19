@@ -7,13 +7,15 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getUser() {
-    const user = this.prisma.user.findMany();
-
+    const user = await this.prisma.user.findMany({});
     if (!user) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
     }
 
-    return user;
+    return user.map((elem) => {
+      const { password, ...result } = elem;
+      return result;
+    });
   }
   async findOne(name: string): Promise<any | undefined> {
     return this.prisma.user.findFirst({
