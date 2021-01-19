@@ -35,6 +35,9 @@ async function bootstrap() {
 
   const prod: boolean = process.env.NODE_ENV === 'production';
 
+  if (prod){
+    app.set('trust proxy', 1);
+  }
   // Passport 로그인
   app.use(
     session({
