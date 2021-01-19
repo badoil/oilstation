@@ -40,6 +40,7 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
+        secure: true,
         sameSite: 'none',
       },
     }),
