@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import {query, Response} from 'express';
 import { sharedUtils } from '../common/util/shared.utils';
 import { CreateShopDto } from './dto/create.shop.dto';
 import { CreateAdminDto } from './dto/create.admin.dto';
@@ -11,9 +10,9 @@ export class AdminService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(name: string): Promise<any | undefined> {
-    return this.prisma.aDMIN.findFirst({
+    return this.prisma.admin.findFirst({
       where: {
-        ID: name,
+        id: name,
       },
     });
   }
@@ -24,16 +23,16 @@ export class AdminService {
     const paging = await sharedUtils.pageUtil(query.page, query.pageSize);
     console.log('paging', paging);
     if (query.keyword != '') {
-      where = { SHOP_NAME: query.keyword };
+      where = { shopName: query.keyword };
     }
-    const shopList = await this.prisma.sHOP.findMany({
+    const shopList = await this.prisma.shop.findMany({
       where: where,
       skip: paging.skip,
       take: paging.take,
-      orderBy: { REG_DT: 'desc' },
+      orderBy: { regDt: 'desc' },
     });
 
-    const totalCount = await this.prisma.sHOP.count({
+    const totalCount = await this.prisma.shop.count({
       where: where,
     });
     console.log('shopList', shopList);
@@ -44,9 +43,9 @@ export class AdminService {
   }
 
   async findByShopName(shopName) {
-    return await this.prisma.sHOP.findMany({
+    return await this.prisma.shop.findMany({
       where: {
-        SHOP_NAME: shopName,
+        shopName: shopName,
       },
     });
   }
@@ -54,12 +53,12 @@ export class AdminService {
   async createAdmin(adminData: CreateAdminDto) {
     const password = await bcrypt.hash(adminData.PASSWORD, 12);
     const date = new Date();
-    return this.prisma.aDMIN.create({
+    return this.prisma.admin.create({
       data: {
-        ID: adminData.ID,
-        PASSWORD: password,
-        REG_ID: 'SYSTEM',
-        REG_DT: date,
+        id: adminData.ID,
+        password: password,
+        regId: 'SYSTEM',
+        regDt: date,
       },
     });
   }
@@ -68,12 +67,12 @@ export class AdminService {
     const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
-    return this.prisma.sHOP.create({
+    return this.prisma.shop.create({
       data: {
-        SHOP_NAME: shopData.SHOP_NAME,
-        PASSWORD: password,
-        REG_ID: adminID || 'SYSTEM',
-        REG_DT: date,
+        shopName: shopData.SHOP_NAME,
+        password: password,
+        regId: adminID || 'SYSTEM',
+        regDt: date,
       },
     });
   }
@@ -82,36 +81,35 @@ export class AdminService {
     const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
-    const shop = await this.prisma.sHOP.findFirst({
+    const shop = await this.prisma.shop.findFirst({
       where: {
-        SHOP_NAME: shopData.SHOP_NAME,
+        shopName: shopData.SHOP_NAME,
       },
     });
     if (!shop) {
       return new HttpException('NOT_JOIN', HttpStatus.FORBIDDEN);
     }
 
-    return this.prisma.sHOP.update({
+    return this.prisma.shop.update({
       where: {
-        SHOP_KEY: shop.SHOP_KEY,
+        shopKey: shop.shopKey,
       },
       data: {
-        SHOP_NAME: shopData.SHOP_NAME,
-        PASSWORD: password,
+        shopName: shopData.shopName,
+        password: password,
         // REG_ID: 'SYSTEM',
         // REG_DT:
-        UPD_ID: 'req.admin',
-        UPD_DT: date,
+        updId: 'req.admin',
+        updDt: date,
       },
     });
   }
 
   async deleteShop(shopKey) {
-    return await this.prisma.sHOP.delete({
+    return await this.prisma.shop.delete({
       where: {
-        SHOP_KEY: Number(shopKey),
+        shopKey: Number(shopKey),
       },
     });
   }
-
 }

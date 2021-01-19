@@ -1,9 +1,5 @@
 extends ../../layout/layout
 
-//- block append link
-//-   link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
-//- block append link
-//-   link(rel="stylesheet" href="/adminShop.css")
 block content
   section(class='container')
     .content-header
@@ -51,14 +47,14 @@ block content
           each item in userList.shopList
             tr
               td
-                input#checkedUser(type="checkbox", name=`${item.NAME}`)
-              td #{item.NAME}
-              td #{item.PHONE_NUMBER}
-              td #{item.BIKE_NUMBER[0].BIKE_NUMBER}
-              td #{item.OIL_L}
-              td #{item.REG_DT}
+                input#checkedUser(type="checkbox", name=`${item.name}`)
+              td #{item.name}
+              td #{item.phoneNumber}
+              td #{item.bikeNumber[0].bikeNumber}
+              td #{item.oilL}
+              td #{item.regDt}
               td
-                button(class='btn btn-primary-sm',onclick=`deleteUser(${item.USER_KEY})`) 삭제
+                button(class='btn btn-primary-sm',onclick=`deleteUser(${item.userKey})`) 삭제
 
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 
