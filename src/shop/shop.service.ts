@@ -1,14 +1,6 @@
-import {
-  Body,
-  HttpException,
-  HttpStatus,
-  Injectable,
-  Req,
-  Request,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { request, Response } from 'express';
 
 // import { SHOP } from '@prisma/client';
 
@@ -40,34 +32,34 @@ export class ShopService {
     if (query.keyword != '') {
       where = { NAME: query.keyword };
     }
-    const userList = await this.prisma.uSER.findMany({
+    const userList = await this.prisma.user.findMany({
       where: where,
       skip: paging.skip,
       take: paging.take,
-      orderBy: { REG_DT: 'desc' },
+      orderBy: { regDt: 'desc' },
       include: {
-        OIL_HISTORY: {
+        OilHistroy: {
           select: {
-            OIL_KEY: true,
-            USER_KEY: true,
-            SHOP_KEY: true,
-            PLUS_MINUS: true,
-            OIL_L: true,
-            REG_DT: true,
+            oilKey: true,
+            userKey: true,
+            shopKey: true,
+            plusMinus: true,
+            oilL: true,
+            regDt: true,
           },
           orderBy: {
-            OIL_KEY: 'asc',
+            oilKey: 'asc',
           },
         },
-        BIKE_NUMBER: {
+        BikeNumber: {
           select: {
-            BIKE_NUMBER: true,
+            bikeNumber: true,
           },
         },
       },
     });
 
-    const totalCount = await this.prisma.uSER.count({
+    const totalCount = await this.prisma.user.count({
       where: where,
     });
     console.log('serviceGetUserList', userList);
@@ -75,14 +67,12 @@ export class ShopService {
       shopList: userList,
       totalCount: totalCount,
     };
-    // const users = await this.prisma.uSER.findMany(); //  currntPage,totalPage,totalCount
-    // return users;
   }
 
   async checkName(userName) {
-    return await this.prisma.uSER.findFirst({
+    return await this.prisma.user.findFirst({
       where: {
-        NAME: userName,
+        name: userName,
       },
     });
   }
@@ -96,28 +86,28 @@ export class ShopService {
     } else if (query.phoneNumber) {
       phoneNumber = query.phoneNumber;
     }
-    const user = await this.prisma.uSER.findMany({
+    const user = await this.prisma.user.findMany({
       where: {
         OR: [
           {
-            NAME: userName,
+            name: userName,
           },
           {
-            PHONE_NUMBER: phoneNumber,
+            phoneNumber: phoneNumber,
           },
         ],
       },
       select: {
-        OIL_HISTORY: {
+        OilHistroy: {
           select: {
-            OIL_KEY: true,
-            USER_KEY: true,
-            SHOP_KEY: true,
-            PLUS_MINUS: true,
-            OIL_L: true,
+            oilKey: true,
+            userKey: true,
+            shopKey: true,
+            plusMinus: true,
+            oilL: true,
           },
           orderBy: {
-            OIL_KEY: 'desc',
+            oilKey: 'desc',
           },
         },
       },
@@ -133,44 +123,35 @@ export class ShopService {
       where = query.keyword;
     }
     console.log('where:', where);
-    // let userName = '';
-    // let phoneNumber = '';
-    // if (query.userName) {
-    //   userName = query.userName;
-    // } else if (query.phoneNumber) {
-    //   phoneNumber = query.phoneNumber;
-    // }
-    const user = await this.prisma.uSER.findMany({
-      // skip: paging.skip,
-      // take: paging.take,
-      // orderBy: { REG_DT: 'desc' },
+
+    const user = await this.prisma.user.findMany({
       where: {
         OR: [
           {
-            NAME: where,
+            name: where,
           },
           {
-            PHONE_NUMBER: where,
+            phoneNumber: where,
           },
         ],
       },
       include: {
-        OIL_HISTORY: {
+        OilHistroy: {
           select: {
-            OIL_KEY: true,
-            USER_KEY: true,
-            SHOP_KEY: true,
-            PLUS_MINUS: true,
-            OIL_L: true,
-            REG_DT: true,
+            oilKey: true,
+            userKey: true,
+            shopKey: true,
+            plusMinus: true,
+            oilL: true,
+            regDt: true,
           },
           orderBy: {
-            OIL_KEY: 'desc',
+            oilKey: 'desc',
           },
         },
-        BIKE_NUMBER: {
+        BikeNumber: {
           select: {
-            BIKE_NUMBER: true,
+            bikeNumber: true,
           },
         },
       },
@@ -189,45 +170,39 @@ export class ShopService {
       where = query.keyword;
     }
     console.log('where:', where);
-    // let userName = '';
-    // let phoneNumber = '';
-    // if (query.userName) {
-    //   userName = query.userName;
-    // } else if (query.phoneNumber) {
-    //   phoneNumber = query.phoneNumber;햣
-    // }
-    const user = await this.prisma.uSER.findMany({
+
+    const user = await this.prisma.user.findMany({
       skip: paging.skip,
       take: paging.take,
-      orderBy: { REG_DT: 'desc' },
+      orderBy: { regDt: 'desc' },
       where: {
-        USER_KEY: +where,
+        userKey: +where,
       },
       include: {
-        OIL_HISTORY: {
+        OilHistroy: {
           select: {
-            OIL_KEY: true,
-            USER_KEY: true,
-            SHOP_KEY: true,
-            PLUS_MINUS: true,
-            OIL_L: true,
-            REG_DT: true,
+            oilKey: true,
+            userKey: true,
+            shopKey: true,
+            plusMinus: true,
+            oilL: true,
+            regDt: true,
           },
           orderBy: {
-            OIL_KEY: 'desc',
+            oilKey: 'desc',
           },
         },
-        BIKE_NUMBER: {
+        BikeNumber: {
           select: {
-            BIKE_NUMBER: true,
+            bikeNumber: true,
           },
         },
       },
     });
 
-    const totalCount = await this.prisma.oIL_HISTORY.count({
+    const totalCount = await this.prisma.oilHistory.count({
       where: {
-        USER_KEY: +where,
+        userKey: +where,
       },
     });
     return {
@@ -241,29 +216,28 @@ export class ShopService {
     const date = new Date();
     const shopName = req.user.SHOP_NAME;
     const shopKey = req.user.SHOP_KEY;
-    //shop id 이용해서 shop_key를 알아내야 함
 
-    const newUser = await this.prisma.uSER.create({
+    const newUser = await this.prisma.user.create({
       data: {
-        NAME: bodyData.NAME,
-        PASSWORD: hashedPassword,
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
-        OIL_L: +bodyData.OIL_L,
-        REG_ID: shopName, // shop 이름 들어가야할것
-        REG_DT: date,
-        OIL_HISTORY: {
+        name: bodyData.NAME,
+        password: hashedPassword,
+        phoneNumber: bodyData.PHONE_NUMBER,
+        oilL: +bodyData.OIL_L,
+        regId: shopName,
+        regDt: date,
+        OilHistroy: {
           create: {
-            OIL_L: +bodyData.OIL_L,
-            REG_ID: shopName,
-            REG_DT: date,
-            SHOP_KEY: shopKey, // shop key 변수로 넣어야함
+            oilL: +bodyData.OIL_L,
+            regId: shopName,
+            regDt: date,
+            shopKey: shopKey,
           },
         },
-        BIKE_NUMBER: {
+        BikeNumber: {
           create: {
-            BIKE_NUMBER: bodyData.PASSWORD,
-            REG_ID: shopName,
-            REG_DT: date,
+            bikeNumber: bodyData.PASSWORD,
+            regId: shopName,
+            regDt: date,
           },
         },
       },
@@ -273,15 +247,11 @@ export class ShopService {
   }
 
   async updateUser(bodyData, req, res) {
-    // let hashedPassword = '';
-    // if (bodyData.PASSWORD) {
-    //   hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
-    // }
     const date = new Date();
     const shopName = req.user.SHOP_NAME;
-    const user = await this.prisma.uSER.findFirst({
+    const user = await this.prisma.user.findFirst({
       where: {
-        PHONE_NUMBER: bodyData.PHONE_NUMBER,
+        phoneNumber: bodyData.PHONE_NUMBER,
       },
     });
     if (!user) {
@@ -289,17 +259,17 @@ export class ShopService {
     }
     console.log('serviceUser:', user);
 
-    const userUpdate = await this.prisma.uSER.update({
+    const userUpdate = await this.prisma.user.update({
       where: {
-        USER_KEY: user.USER_KEY,
+        userKey: user.userKey,
       },
       data: {
-        NAME: user.NAME,
-        PHONE_NUMBER: user.PHONE_NUMBER,
-        PASSWORD: user.PASSWORD,
-        OIL_L: +bodyData.OIL_L,
-        UPD_ID: shopName,
-        UPD_DT: date,
+        name: user.name,
+        phoneNumber: user.phoneNumber,
+        password: user.password,
+        oilL: +bodyData.OIL_L,
+        updId: shopName,
+        updDt: date,
       },
     });
 
@@ -314,30 +284,28 @@ export class ShopService {
   async createOilHistory(bodyData, req) {
     const date = new Date();
     const shopName = req.user.SHOP_NAME;
-    const oil = await this.prisma.oIL_HISTORY.create({
+    const oil = await this.prisma.oilHistory.create({
       data: {
-        SHOP_KEY: req.user.SHOP_KEY,
-        PLUS_MINUS: bodyData.PLUS_MINUS,
-        OIL_L: bodyData.OIL_L,
-        REG_ID: shopName,
-        REG_DT: date,
-        USER: {
+        shopKey: req.user.SHOP_KEY,
+        plusMinus: bodyData.PLUS_MINUS,
+        oilL: bodyData.OIL_L,
+        regId: shopName,
+        regDt: date,
+        User: {
           connect: {
-            USER_KEY: bodyData.USER_KEY,
+            userKey: bodyData.USER_KEY,
           },
         },
       },
     });
     console.log('oil: ', oil);
     return oil;
-
-    //const oilHistory = await this.prisma.oIL_HISTORY.update({});
   }
 
   async deleteUser(id) {
-    const deletedOilHistory = await this.prisma.oIL_HISTORY.deleteMany({
+    const deletedOilHistory = await this.prisma.oilHistory.deleteMany({
       where: {
-        USER_KEY: +id,
+        userKey: +id,
       },
     });
     console.log('deletedOilHistory:', deletedOilHistory);
@@ -347,9 +315,9 @@ export class ShopService {
       };
     }
 
-    const deletedBikeNumber = await this.prisma.bIKE_NUMBER.deleteMany({
+    const deletedBikeNumber = await this.prisma.bikeNumber.deleteMany({
       where: {
-        USER_KEY: +id,
+        userKey: +id,
       },
     });
     console.log('deletedBikeNumber:', deletedBikeNumber);
@@ -359,9 +327,9 @@ export class ShopService {
       };
     }
 
-    const deletedUser = await this.prisma.uSER.deleteMany({
+    const deletedUser = await this.prisma.user.deleteMany({
       where: {
-        USER_KEY: +id,
+        userKey: +id,
       },
     });
     console.log('deletedUser:', deletedUser);
