@@ -11,10 +11,10 @@ model Admin {
   adminKey Int       @id @default(autoincrement()) @map("ADMIN_KEY")
   id       String?   @map("ID")
   password String?   @map("PASSWORD")
-  regDt    DateTime    @map("REG_ID")
-  regId    String  @map("REG_DT")
-  updDt    DateTime?   @map("UPD_ID")
-  updId    String? @map("UPD_DT")
+  regId    String    @map("REG_ID")
+  regDt    DateTime  @map("REG_DT")
+  updId    String?   @map("UPD_ID")
+  updDt    DateTime? @map("UPD_DT")
 
   @@map("ADMIN")
 }
