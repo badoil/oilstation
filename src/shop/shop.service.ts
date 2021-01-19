@@ -38,7 +38,7 @@ export class ShopService {
       take: paging.take,
       orderBy: { regDt: 'desc' },
       include: {
-        OilHistroy: {
+        OilHistory: {
           select: {
             oilKey: true,
             userKey: true,
@@ -98,7 +98,7 @@ export class ShopService {
         ],
       },
       select: {
-        OilHistroy: {
+        OilHistory: {
           select: {
             oilKey: true,
             userKey: true,
@@ -119,9 +119,10 @@ export class ShopService {
     console.log('serviceGetSearchUserOilHistoryQuery:', query);
 
     let where;
-    if (query.keyword != '') {
-      where = query.keyword;
-    }
+    // if (query.keyword != '') {
+    //   where = query.keyword;
+    // }
+    where = query.keyword;
     console.log('where:', where);
 
     const user = await this.prisma.user.findMany({
@@ -136,7 +137,7 @@ export class ShopService {
         ],
       },
       include: {
-        OilHistroy: {
+        OilHistory: {
           select: {
             oilKey: true,
             userKey: true,
@@ -179,7 +180,7 @@ export class ShopService {
         userKey: +where,
       },
       include: {
-        OilHistroy: {
+        OilHistory: {
           select: {
             oilKey: true,
             userKey: true,
@@ -225,7 +226,7 @@ export class ShopService {
         oilL: +bodyData.OIL_L,
         regId: shopName,
         regDt: date,
-        OilHistroy: {
+        OilHistory: {
           create: {
             oilL: +bodyData.OIL_L,
             regId: shopName,

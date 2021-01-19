@@ -52,8 +52,9 @@ block content
               td #{item.name}
               td #{item.phoneNumber}
               td #{item.oilL}
-              td #{item.bikeNumber[0].bikeNumber}
-              td #{item.regDt}             
+              td #{item.BikeNumber[0].bikeNumber}
+              td 
+                +getDateFormat(item.regDt)             
         thead
           tr
             th(scope="col")
@@ -65,7 +66,7 @@ block content
             th(scope="col") 차량번호
             th(scope="col") 등록일
         tbody
-          each item in userList.userList[0].oilHistory
+          each item in userList.userList[0].OilHistory
             tr
               td
                 label(class="checkbox")
@@ -74,7 +75,8 @@ block content
               td #{item.plusMinus}
               td #{item.oilL}
               td #{item.bikeNumber}
-              td #{item.regDt.toString()}
+              td 
+                +getDateFormat(item.regDt)
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
     
   block scripts

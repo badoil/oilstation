@@ -33,12 +33,12 @@ script.
 
         // exUser에서 user_key, shop_key 모두 얻을 수 있을것
         const intPlusMinus = +plusMinus
-        const intOilLiter = +exUser.data[0].OIL_HISTORY[0].OIL_L
+        const intOilLiter = +exUser.data[0].OilHistory[0].oilL
         const oilLiter = intOilLiter + intPlusMinus
         console.log('oilLiter:', oilLiter)
         const oilHistory = {
-          USER_KEY: exUser.data[0].OIL_HISTORY[0].USER_KEY,
-          SHOP_KEY: exUser.data[0].OIL_HISTORY[0].SHOP_KEY,
+          USER_KEY: exUser.data[0].OilHistory[0].userKey,
+          SHOP_KEY: exUser.data[0].OilHistory[0].shopKey,
           PLUS_MINUS: +plusMinus,
           OIL_L: intOilLiter + intPlusMinus
         }
