@@ -39,6 +39,9 @@ async function bootstrap() {
       secret: 'changelater', // TODO: 나중에 .env 에 넣어줘야함
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        sameSite: 'none',
+      },
     }),
   );
   app.use(passport.initialize());
