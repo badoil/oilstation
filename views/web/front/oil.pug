@@ -1,4 +1,168 @@
 extends ../layout/front
 
 block content
-  .oilContainer=`현재남은 오일은 ${user.oilL}L 입니다.`
+  style.
+    #header { font-size: 29px; margin-bottom: 40px; font-weight: bold }
+    #header strong { font-size: 36px; margin-right: 12px; font-weight: bolder }
+    .oil-container { margin: 0 auto; text-align: center }
+    #oil-drum { margin-bottom: 28px; }
+    #oil-drum-side { display: inline-block; vertical-align: top; position: relative;width: 50px;height: 200px;margin-top: 41px; }
+    #oil-drum-current { font-weight: bold; position: absolute; bottom: -11px; right: 23px; width: 50px; z-index: 1; text-align: right}
+    .triangle {
+      width: 0;height: 0;display: inline-block;transform: rotate(-45deg);
+      box-sizing: border-box; border-top: 10px solid transparent; border-right: 10px solid red;
+    }
+    #oil-graph { position: absolute; right: 0; top: 0; width: 8px; height: 200px; margin-right: 20px}
+    #oil-drum-vertical { height: 200px; position: absolute; right: 0}
+    .oil-drum-indicator { width: 7px; position: absolute; right: 0}
+    .indicator-1 { top: 0}
+    .indicator-2 { top: 25%}
+    .indicator-3 { top: 50%}
+    .indicator-4 { top: 75%}
+    .indicator-5 { top: 100%}
+    #oil-drum-img { position: relative; display: inline-block; vertical-align: top; height: 282px; width: 243px}
+    #oil-drum-front {
+      position: absolute; top: 0;
+      left: -29px;
+      height: 282px;
+      z-index: 100;
+      width: 244px;
+    }
+    #oil-drum-back { position: absolute; top: 0; left: 0; height: 282px }
+    #oil-drum-flow { height: 100%;width: 175px;left: 3px; bottom:0;position: absolute; overflow: hidden }
+    #reserve {
+      background-color: #ffcc04; width: 121px; text-align: center; height: 45px;
+      font-size: 27px; line-height: 48px; color: #0d0d0d; text-decoration: none;
+      display: inline-block; border-radius: 6px;
+      margin-bottom: 20px; font-weight: bold;
+    }
+    #extra { font-size: 17px; color: #818181 }
+
+    .water {
+      position: absolute;
+      height: 0;
+      width: 100%;
+      z-index: 5;
+      bottom: 0;
+      left: 0;
+      background: #ffcc04;
+    }
+
+    .water-inner {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .water-wave {
+      width: 200%;
+      position: absolute;
+      bottom: 100%;
+    }
+
+    .water-wave-back {
+      right: 0;
+      fill: #aaa; /*#2c7fbe;*/
+      -webkit-animation: wave-back 1.9s infinite linear;
+      animation: wave-back 1.9s infinite linear;
+    }
+
+    .water-wave-front {
+      left: 0;
+      fill: #ffcc04;
+      margin-bottom: -1px;
+      -webkit-animation: wave-front 1.2s infinite linear;
+      animation: wave-front 1.2s infinite linear;
+    }
+
+    @-webkit-keyframes wave-front {
+      100% {
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @keyframes wave-front {
+      100% {
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @-webkit-keyframes wave-back {
+      100% {
+        -webkit-transform: translate(50%, 0);
+        transform: translate(50%, 0);
+      }
+    }
+
+    @keyframes wave-back {
+      100% {
+        -webkit-transform: translate(50%, 0);
+        transform: translate(50%, 0);
+      }
+    }
+  script.
+    var maxLiter = Math.min(50, #{user.oilL});
+    var liter = #{user.oilL};
+    var current = 0;
+    function incrementOne() {
+      if (liter > current) {
+        if (maxLiter >= current) {
+          var $current = document.getElementById('oil-drum-current');
+          var $flow = document.getElementById('water');
+          $current.style.bottom = (current * 4) - 10 + 'px';
+          $flow.style.height = (current * 4) + 40 + 'px';
+        }
+        current++;
+        var $oil = document.getElementById('oil-liter');
+        $oil.textContent = current + 'L';
+
+        timerId = setTimeout(incrementOne, 30);
+      }
+    }
+    var timerId = setTimeout(incrementOne, 100);
+  .oil-container
+    header#header
+      strong= user.name
+      span 님, 환영합니다
+    #oil-drum
+      #oil-drum-side
+        #oil-drum-current
+          span#oil-liter 0L
+          span.triangle
+        #oil-graph
+          img.oil-drum-indicator.indicator-1(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-2(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-3(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-4(src="/rectangle-2-copy-2@3x.png")
+          img.oil-drum-indicator.indicator-5(src="/rectangle-2-copy-2@3x.png")
+          img#oil-drum-vertical(src="/rectangle-2-copy-5@3x.png")
+      #oil-drum-img
+        img#oil-drum-front(src="/outframe_04.png")
+        div#oil-drum-flow
+          svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="display: none;")
+            symbol#wave
+              path(d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z")
+              path(d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z")
+              path(d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z")
+              path(d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z")
+
+          #water.water
+            svg(viewBox="0 0 560 20" class="water-wave water-wave-back")
+              use(xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wave")
+            svg(viewBox="0 0 560 20" class="water-wave water-wave-front")
+              use(xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wave")
+            .water-inner
+              .bubble.bubble1
+              .bubble.bubble2
+              .bubble.bubble3
+        img#oil-drum-back(src="/emthy-01@3x.png")
+    a(href="#")#reserve 매장 예약
+    #extra
+      span * 오일 구매는 오프라인 매장에서 가능하며
+      br
+      span 저장된 오일은 모든 오일스테이션 지점에서 사용 가능합니다.
