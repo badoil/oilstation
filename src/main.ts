@@ -8,6 +8,8 @@ import * as dotenv from 'dotenv';
 import passport from 'passport';
 import session from 'express-session';
 import flash from 'connect-flash';
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -24,6 +26,12 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');
+
+  // Sentry 설정
+  Sentry.init({
+    dsn:
+      'https://25196d056a8f4360a2ef1cc271ccf536@o489321.ingest.sentry.io/5597767',
+  });
 
   // Passport 로그인
   app.use(
