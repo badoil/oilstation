@@ -52,7 +52,8 @@ block content
               td #{item.phoneNumber}
               td #{item.BikeNumber[0].bikeNumber}
               td #{item.oilL}
-              td #{item.regDt}
+              td 
+                +getDateFormat(item.regDt)
               td
                 button(class='btn btn-primary-sm',onclick=`deleteUser(${item.userKey})`) 삭제
 
