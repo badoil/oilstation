@@ -33,6 +33,8 @@ async function bootstrap() {
       'https://25196d056a8f4360a2ef1cc271ccf536@o489321.ingest.sentry.io/5597767',
   });
 
+  const prod: boolean = process.env.NODE_ENV === 'production';
+
   // Passport 로그인
   app.use(
     session({
@@ -40,11 +42,12 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: true,
-        sameSite: 'none',
+        secure: prod ? true : false,
+        sameSite: prod ? 'none' : 'lax',
       },
     }),
   );
+
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
