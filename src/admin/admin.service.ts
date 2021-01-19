@@ -23,7 +23,7 @@ export class AdminService {
     const paging = await sharedUtils.pageUtil(query.page, query.pageSize);
     console.log('paging', paging);
     if (query.keyword != '') {
-      where = { SHOP_NAME: query.keyword };
+      where = { shopName: query.keyword };
     }
     const shopList = await this.prisma.shop.findMany({
       where: where,
