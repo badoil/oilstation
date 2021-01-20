@@ -1,0 +1,27 @@
+script.
+
+    function goToList(){
+      try{
+        document.location.href = '/shop/user/list'
+      }
+      catch(err){
+        console.error(err)
+      }
+    }
+
+    async function addBikeNumber(userKey){
+      console.log('userKey:', userKey)
+      const bikeNumber = document.querySelector('.phoneNumber-input').value
+
+      //body 만들어서 날려야함
+      bikeNumber = {
+        userKey: userKey,
+        bikeNumber: bikeNumber
+      }
+
+      const addBikeNumber = await axios.post(`/shop/user/addBikeNumber`, bikeNumber)
+      console.log('addBikeNumber:', addBikeNumber)
+
+    }
+
+    

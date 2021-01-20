@@ -55,3 +55,17 @@ script.
         console.error(err)
       }
     }
+
+    async function goToAddBikeNumberPage(userKey){
+        try{
+                console.log('userKey:', userKey)
+                document.location.href = `/shop/user/addBikeNumber?userKey=${userKey}`
+
+                //- console.log('id:', id)
+                //- const addBikeNumber = await axios.post(`/shop/user/addBikeNumber?id=${id}`)
+                //- return console.log('addBikeNumber:', addBikeNumber)
+
+        }catch(err){
+                console.error(err)
+        }
+    }

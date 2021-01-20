@@ -86,44 +86,6 @@ export class ShopService {
     return user;
   }
 
-  // async getSearchUser(query) {
-  //   console.log('serviceGetSearchUserQuery:', query);
-  //   let userName = '';
-  //   let phoneNumber = '';
-  //   if (query.userName) {
-  //     userName = query.userName;
-  //   } else if (query.phoneNumber) {
-  //     phoneNumber = query.phoneNumber;
-  //   }
-  //   const user = await this.prisma.user.findMany({
-  //     where: {
-  //       OR: [
-  //         {
-  //           name: userName,
-  //         },
-  //         {
-  //           phoneNumber: phoneNumber,
-  //         },
-  //       ],
-  //     },
-  //     select: {
-  //       OilHistory: {
-  //         select: {
-  //           oilKey: true,
-  //           userKey: true,
-  //           shopKey: true,
-  //           plusMinus: true,
-  //           oilL: true,
-  //         },
-  //         orderBy: {
-  //           oilKey: 'desc',
-  //         },
-  //       },
-  //     },
-  //   });
-  //   return user;
-  // }
-
   async getSearchUserOilHistory(query) {
     console.log('serviceGetSearchUserOilHistoryQuery:', query);
 
@@ -224,6 +186,17 @@ export class ShopService {
     };
   }
 
+  async getBikeNumber(userKey) {
+    console.log('serviceGetBikeNumberUserkey:', userKey);
+    const bikeNumber = await this.prisma.bikeNumber.findFirst({
+      where: {
+        userKey: +userKey,
+      },
+    });
+    console.log('serviceGetBikeNumber:', bikeNumber);
+    return bikeNumber;
+  }
+
   async createUser(bodyData, req) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
@@ -257,6 +230,25 @@ export class ShopService {
     });
     console.log('newUser:', newUser);
     return newUser;
+  }
+
+  async addBikeNumber(bodyData, req) {
+    const date = new Date();
+    const shopName = req.user.SHOP_NAME;
+
+    const bikeNumber = await this.prisma.bikeNumber.create({
+      data: {
+        bikeNumber: bodyData.bikeNumber,
+        regId: shopName,
+        regDt: date,
+        User: {
+          connect: {
+            userKey: bodyData.userKey, // user key 프론트에서 가져와서 넣어야 함
+          },
+        },
+      },
+    });
+    return bikeNumber;
   }
 
   async updateUser(bodyData, req, res) {

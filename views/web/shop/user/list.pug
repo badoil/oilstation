@@ -36,18 +36,20 @@ block content
           tr
             th(scope="col")
               label(class="checkbox")
-              input(type="checkbox" class="chk chkM")
+              input(type="checkbox")
             th(scope="col") 이름
             th(scope="col") 전화번호
             th(scope="col") 차량번호
             th(scope="col") 오일양
             th(scope="col") 등록일
             th(scope="col") 삭제
+            th(scope="col") 번호판추가
         tbody
           each item in userList.shopList
             tr
               td
-                input#checkedUser(type="checkbox", name=`${item.name}`)
+                label
+                input#checkedUser(type="checkbox" name=`${item.name}`)
               td #{item.name}
               td #{item.phoneNumber}
               td #{item.BikeNumber[0].bikeNumber}
@@ -56,6 +58,8 @@ block content
                 +getDateFormat(item.regDt)
               td
                 button(class='btn btn-primary-sm',onclick=`deleteUser(${item.userKey})`) 삭제
+              td
+                button(class='btn btn-primary-sm', onclick=`goToAddBikeNumberPage(${item.userKey})`) 번호판추가
 
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 

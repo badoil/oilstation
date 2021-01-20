@@ -22,6 +22,7 @@ import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateOilHistoryDto } from './dto/create.oilHistory.dto';
 import { SearchUserDto } from './dto/search.user.dto';
 import { REFUSED } from 'dns';
+import { CreateBikeNumberDto } from './dto/create.bikeNumber.dto';
 
 @Controller('shop')
 export class ShopController {
@@ -73,14 +74,6 @@ export class ShopController {
     return name;
   }
 
-  // @Get('user/searchUser')
-  // async getSearchUser(@Query() query: string) {
-  //   console.log('controllerGetSearchUserQuery:', query);
-  //   const user = await this.shopService.getSearchUser(query);
-  //   console.log('controllerGetSearchUser:', user);
-  //   return user;
-  // }
-
   @Get('user/searchUserOil')
   async getSearchUserOil(@Query() query: string) {
     console.log('controllerGetSearchUserQuery:', query);
@@ -116,6 +109,18 @@ export class ShopController {
     return {};
   }
 
+  @UseGuards(RolesGuard)
+  @Roles('shop')
+  @Get('/user/addBikeNumber')
+  @Render('web/shop/user/addBikeNumber')
+  async getBikeNumber(@Query('userKey') userKey: string) {
+    const bikeNumber = await this.shopService.getBikeNumber(userKey);
+    console.log('controllerGetBikeNumber: ', bikeNumber);
+    return {
+      userKey: bikeNumber.userKey,
+    };
+  }
+
   @Post('user/registerUser')
   async createUser(@Body() bodyData: CreateUserDto, @Req() req) {
     console.log('controllerCreateUser: ', bodyData);
@@ -128,9 +133,18 @@ export class ShopController {
   @Roles('shop')
   @Post('/user/createOilHistory')
   async createOilHistory(@Body() bodyData: CreateOilHistoryDto, @Req() req) {
-    const oil = this.shopService.createOilHistory(bodyData, req);
+    const oil = await this.shopService.createOilHistory(bodyData, req);
     console.log('controllerCreateOilHistory:', oil);
     return oil;
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('shop')
+  @Post('/user/addBikeNumber')
+  async addBikeNumber(@Body() bodyData: CreateBikeNumberDto, @Req() req) {
+    const bikeNumber = await this.shopService.addBikeNumber(bodyData, req);
+    console.log('controllerAddBikeNumber:', bikeNumber);
+    return bikeNumber;
   }
 
   @UseGuards(RolesGuard)

@@ -1,0 +1,24 @@
+extends ../../layout/front
+
+block link
+  link(rel="stylesheet" href="/registerShop.css")
+
+block content
+  .container
+    .registerContainer
+      .title 번호판 추가
+      table(width="550px" height="150px" align="center")
+        tr.userPhoneNumber
+          th.phoneNumber 번호판
+          td
+            input.phoneNumber-input(type="text", name="BIKE_NUMBER", placeholder="번호판 입력")
+            input.check(type="button" onclick="addBikeNumber(#{userKey})" value="번호판 추가")
+        
+      div.buttonGroup
+        button.submit(onclick='goToList()') 목록 
+
+block scripts
+  include ./scripts/addBikeNumber_script.pug
+
+
+        //- button.submit(onclick=`addBikeNumber(${item.userKey})`) 입력 
