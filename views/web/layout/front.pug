@@ -7,8 +7,24 @@ html
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     block link
       
-  body(class='body')
+  body(class='body' onload="update_screen_size()" onresize="update_screen_size()")
     div(class='wrap')
       block content
       
       block scripts
+      script.
+        async function update_screen_size() {
+          console.log("Inner width : "+window.innerWidth);
+          console.log("Scroll width : " + document.body.scrollWidth);
+          console.log("Inner height : "+window.innerHeight);
+          console.log("Scroll height : " + document.body.scrollHeight);
+          
+          const data = {
+            innerWidth: window.innerWidth,
+            scrollWidth: document.body.scrollWidth,
+            innerHeight: window.innerHeight,
+            scrollHeight: document.body.scrollHeight,
+          }
+          const result = await axios.post('/currentSize', data);
+        }
+      
