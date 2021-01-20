@@ -29,7 +29,7 @@ export class UserController {
   @Get('auth')
   @Render('web/front/login')
   getLoginForm(@Req() req) {
-    if (req.user.role === 'user') {
+    if (req.user && req.user.role === 'user') {
       return response.redirect('/user/oil');
     }
     return {
