@@ -28,9 +28,9 @@ export class UserController {
 
   @Get('auth')
   @Render('web/front/login')
-  getLoginForm(@Req() req) {
+  getLoginForm(@Req() req, @Res() res: Response) {
     if (req.user && req.user.role === 'user') {
-      return response.redirect('/user/oil');
+      return res.redirect('/user/oil');
     }
     return {
       user: req.user,
