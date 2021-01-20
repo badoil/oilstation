@@ -2,6 +2,12 @@ extends ../layout/front
 
 block content
   style.
+    @font-face {
+     font-family: NIXGONM-Vb;
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+    }
     #header { font-size: 29px; margin-bottom: 40px; font-weight: bold }
     #header strong { font-size: 36px; margin-right: 12px; font-weight: bolder }
     .oil-container { margin: 0 auto; text-align: center; margin-top: 100px }
@@ -32,9 +38,10 @@ block content
     #oil-drum-flow { height: 100%;width: 175px;left: 3px; bottom:0;position: absolute; overflow: hidden }
     #reserve {
       background-color: #ffcc04; width: 121px; text-align: center; height: 45px;
-      font-size: 27px; line-height: 48px; color: #0d0d0d; text-decoration: none;
+      font-size: 22px; line-height: 48px; color: #0d0d0d; text-decoration: none;
       display: inline-block; border-radius: 6px;
       margin-bottom: 20px; font-weight: bold;
+      font-family: NIXGONM-Vb;
     }
     #extra { font-size: 17px; color: #818181 }
 
@@ -161,7 +168,7 @@ block content
               .bubble.bubble2
               .bubble.bubble3
         img#oil-drum-back(src="/emthy-01@3x.png")
-    a(href="#")#reserve 매장 예약
+    a(href="https://booking.naver.com/booking/6/bizes/461693")#reserve 매장 예약
     #extra
       span * 오일 구매는 오프라인 매장에서 가능하며
       br
