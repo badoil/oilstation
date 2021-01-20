@@ -37,9 +37,11 @@ jobs:
         env:
           CI: false
   
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
-        shell: bash
+      - uses: papeloto/action-zip@v1
+        with:
+          files: dist/
+          recursive: false
+          dest: result.zip
         
       - name: S3 Sync
         uses: jakejarvis/s3-sync-action@master
