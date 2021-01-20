@@ -31,4 +31,7 @@
     top: -20% !important;
     left: 30% !important;
   }
+  #welcome {
+    display: block !important;
+  }
 }
