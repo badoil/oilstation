@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Post,
@@ -42,10 +41,5 @@ export class AppController {
   @Post('auth/login')
   login(@Res() res: Response) {
     res.redirect('/');
-  }
-
-  @Post('currentSize')
-  getSize(@Body() data) {
-    console.log(data);
   }
 }
