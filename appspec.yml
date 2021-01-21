@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/deploy
+hooks:
+  BeforeInstall:
+    - location: cleanup.sh
+      timeout: 180
+      runas: root
+  AfterInstall:
+    - location: deploy.sh
+      timeout: 180
+      runas: root
