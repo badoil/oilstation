@@ -6,10 +6,9 @@ import { join } from 'path';
 import { HttpExceptionFilter } from './common/filter/http-exception.filter';
 import * as dotenv from 'dotenv';
 import passport from 'passport';
-import session from 'cookie-session';
+import session from 'express-session';
 import flash from 'connect-flash';
 import * as Sentry from '@sentry/node';
-import * as Tracing from '@sentry/tracing';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
