@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginGuard } from 'src/common/guards/login.guard';
-import { Response } from 'express';
+import { response, Response } from 'express';
 import { AuthExceptionFilter } from 'src/common/filter/auth-exceptions.filter';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorator/roles.decorator';
@@ -28,7 +28,10 @@ export class UserController {
 
   @Get('auth')
   @Render('web/front/login')
-  getLoginForm(@Req() req) {
+  getLoginForm(@Req() req, @Res() res: Response) {
+    if (req.user && req.user.role === 'user') {
+      return res.redirect('/user/oil');
+    }
     return {
       user: req.user,
       message: req.flash('auth'),

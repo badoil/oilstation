@@ -1,0 +1,37 @@
+@media screen and (max-width: 400px) {
+  .wrap {
+    transform: scale(0.5);
+  }
+  .loginContainer {
+    width: 500px !important;
+    height: 0 !important;
+    margin: 0 !important;
+    left: -50% !important;
+    top: -50% !important;
+  }
+  .loginForm {
+    height: 0 !important;
+  }
+
+  .oil-container {
+    position: absolute !important;
+    margin-top: 0 !important;
+    top: -20 !important;
+  }
+
+  #oil-drum {
+    transform: scale(0.7) !important;
+    margin-bottom: 15px !important;
+  }
+  #oil-drum-side {
+    display: block !important;
+  }
+  #oil-drum-img {
+    position: absolute !important;
+    top: -20% !important;
+    left: 30% !important;
+  }
+  #welcome {
+    display: block !important;
+  }
+}

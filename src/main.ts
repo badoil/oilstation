@@ -9,7 +9,6 @@ import passport from 'passport';
 import session from 'express-session';
 import flash from 'connect-flash';
 import * as Sentry from '@sentry/node';
-import * as Tracing from '@sentry/tracing';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -35,7 +34,7 @@ async function bootstrap() {
 
   const prod: boolean = process.env.NODE_ENV === 'production';
 
-  if (prod){
+  if (prod) {
     app.set('trust proxy', 1);
   }
   // Passport 로그인
