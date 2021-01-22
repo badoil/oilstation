@@ -64,21 +64,21 @@ export class AdminService {
   }
 
   async createShop(shopData: CreateShopDto, adminID?: string) {
-    const password = await bcrypt.hash(shopData.PASSWORD, 12);
+    //const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
     return this.prisma.shop.create({
       data: {
         shopName: shopData.SHOP_NAME,
-        password: password,
+        password: shopData.PASSWORD,
         regId: adminID || 'SYSTEM',
         regDt: date,
       },
     });
   }
 
-  async updateShop(shopData) {
-    const password = await bcrypt.hash(shopData.PASSWORD, 12);
+  async updateShop(shopData, req) {
+    //const password = await bcrypt.hash(shopData.PASSWORD, 12);
     const date = new Date();
 
     const shop = await this.prisma.shop.findFirst({
@@ -96,10 +96,10 @@ export class AdminService {
       },
       data: {
         shopName: shopData.shopName,
-        password: password,
+        password: shopData.PASSWORD,
         // REG_ID: 'SYSTEM',
         // REG_DT:
-        updId: 'req.admin',
+        updId: req.user.id,
         updDt: date,
       },
     });

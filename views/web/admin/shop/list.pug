@@ -31,18 +31,21 @@ block content
         table(class='table')
           caption 목록 테이블
           colgroup
-            col(width='50%')
-            col(width='40%')
-            col(width='10%')
+            col(width='30%')
+            col(width='30%')
+            col(width='20%')
+            col(width='20%')
           thead
             tr
-              th(scope='col') 지점 이름
+              th(scope='col') 지점이름
+              th(scope='col') 비밀번호
               th(scope='col') 등록일
               th(scope='col') 삭제
             tbody
               each item in result.shopList
                 tr
                   td #{item.shopName}
+                  td #{item.password}
                   td
                     +getDateFormat(item.regDt)
                   td

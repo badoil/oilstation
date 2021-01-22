@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Render,
   Req,
@@ -88,10 +89,10 @@ export class AdminController {
 	  return this.adminService.getShop(searchText);
 	}*/
 
-  /*  @Put('shop')
-  updateShop(@Body() bodyData) {
-    return this.adminService.updateShop(bodyData);
-  }*/
+  @Put('shop')
+  updateShop(@Body() bodyData, @Req() req) {
+    return this.adminService.updateShop(bodyData, req);
+  }
 
   @UseGuards(RolesGuard)
   @Roles('admin')

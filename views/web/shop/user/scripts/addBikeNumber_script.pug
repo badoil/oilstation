@@ -10,18 +10,31 @@ script.
     }
 
     async function addBikeNumber(userKey){
-      console.log('userKey:', userKey)
+       
       const bikeNumber = document.querySelector('.phoneNumber-input').value
+      //const userkey = document.querySelector('.name-input').value
+      console.log('userKey:', userKey)
+
+      return console.log('bikeNumber:', bikeNumber)
 
       //body 만들어서 날려야함
-      bikeNumber = {
+      const bodyData = {
         userKey: userKey,
         bikeNumber: bikeNumber
       }
+      console.log('bodyData:', bodyData)
+      
+      const result = await axios.post(`/shop/user/addBikeNumber`, bodyData)
+      console.log('addBikeNumber:', result)
 
-      const addBikeNumber = await axios.post(`/shop/user/addBikeNumber`, bikeNumber)
-      console.log('addBikeNumber:', addBikeNumber)
+      if(result){
+          const answer = confirm('정상적으로 등록되었습니다. 목록으로 가시겠습니까?') 
+          console.log('answer:', answer)
+          if(answer){
+            document.location.href = '/shop/user/list'
+          }
+        }
 
     }
 
-    
+

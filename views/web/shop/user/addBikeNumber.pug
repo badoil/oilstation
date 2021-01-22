@@ -9,13 +9,18 @@ block content
       .title 번호판 추가
       table(width="550px" height="150px" align="center")
         tr.userPhoneNumber
-          th.phoneNumber 번호판
+          th.phoneNumber 새로운 번호판
           td
             input.phoneNumber-input(type="text", name="BIKE_NUMBER", placeholder="번호판 입력")
-            input.check(type="button" onclick="addBikeNumber(#{userKey})" value="번호판 추가")
+            //- input.check(type="button" onclick="addBikeNumber(#{userKey})" value="번호판입력")
+        //- tr.userName
+        //-   th.name 라이더키
+        //-   td
+        //-     input.name-input(type="text", name="RIDER_KEY")
         
       div.buttonGroup
-        button.submit(onclick='goToList()') 목록 
+        button.submit(onclick='goToList()') 목록
+        button.submit(onclick='addBikeNumber(#{userKey})') 변호판입력
 
 block scripts
   include ./scripts/addBikeNumber_script.pug
