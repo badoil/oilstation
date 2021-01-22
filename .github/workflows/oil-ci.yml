@@ -62,4 +62,4 @@ jobs:
           aws-region: 'ap-northeast-2'
       
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name oil-cd --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name oil-dev --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=result.zip
+        run: aws deploy create-deployment --application-name oil-cd --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name oil-bluegreen --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=result.zip
