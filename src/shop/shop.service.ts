@@ -86,6 +86,32 @@ export class ShopService {
     return user;
   }
 
+  async getSearchUser(query){
+    console.log('serviceGetSearchUserQuery: ', query.phoneNumber)
+    const user = await this.prisma.user.findMany({
+      where: {
+        phoneNumber: query.phoneNumber
+      },
+      include: {
+        OilHistory: {
+          select: {
+            oilKey: true,
+            userKey: true,
+            shopKey: true,
+            plusMinus: true,
+            oilL: true,
+            regDt: true,
+          },
+          orderBy: {
+            oilKey: 'desc',
+          },
+        }
+      }
+    })
+
+    return user;
+  }
+
   async getSearchUserOilHistory(query) {
     console.log('serviceGetSearchUserOilHistoryQuery:', query);
 
@@ -200,8 +226,9 @@ export class ShopService {
   async createUser(bodyData, req) {
     const hashedPassword = await bcrypt.hash(bodyData.PASSWORD, 12);
     const date = new Date();
-    const shopName = req.user.SHOP_NAME;
-    const shopKey = req.user.SHOP_KEY;
+    console.log('req.user:', req.user)
+    const shopName = req.user.shopName;
+    const shopKey = req.user.shopKey;
 
     const newUser = await this.prisma.user.create({
       data: {
@@ -288,10 +315,10 @@ export class ShopService {
 
   async createOilHistory(bodyData, req) {
     const date = new Date();
-    const shopName = req.user.SHOP_NAME;
+    const shopName = req.user.shopName;
     const oil = await this.prisma.oilHistory.create({
       data: {
-        shopKey: req.user.SHOP_KEY,
+        shopKey: req.user.shopKey,
         plusMinus: bodyData.PLUS_MINUS,
         oilL: bodyData.OIL_L,
         regId: shopName,

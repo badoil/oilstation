@@ -74,6 +74,14 @@ export class ShopController {
     return name;
   }
 
+  @Get('user/searchUser')
+  async getSearchUser(@Query() query: string){
+    console.log('controllerGetSearchUserQuery:', query)
+    const user = await this.shopService.getSearchUser(query)
+    console.log('controllerGetSearchUser: ', user)
+    return user;
+  }
+
   @Get('user/searchUserOil')
   async getSearchUserOil(@Query() query: string) {
     console.log('controllerGetSearchUserQuery:', query);
@@ -124,6 +132,7 @@ export class ShopController {
   @Post('user/registerUser')
   async createUser(@Body() bodyData: CreateUserDto, @Req() req) {
     console.log('controllerCreateUser: ', bodyData);
+    console.log('req.user:', req.user)
     const newUser = await this.shopService.createUser(bodyData, req);
     console.log('newUser:', newUser);
     return newUser;
