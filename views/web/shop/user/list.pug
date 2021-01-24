@@ -43,7 +43,7 @@ block content
             th(scope="col") 오일양
             th(scope="col") 등록일
             th(scope="col") 삭제
-            //- th(scope="col") 번호판추가
+            th(scope="col") 번호판추가
         tbody
           each item in userList.shopList
             tr
@@ -58,8 +58,8 @@ block content
                 +getDateFormat(item.regDt)
               td
                 button(class='btn btn-primary-sm',onclick=`deleteUser(${item.userKey})`) 삭제
-              //- td
-              //-   button(class='btn btn-primary-sm', onclick=`goToAddBikeNumberPage(${item.userKey})`) 번호판추가
+              td
+                button(class='btn btn-primary-sm', onclick=`goToAddBikeNumberPage(${item.userKey})`) 번호판추가
 
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
 

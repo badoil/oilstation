@@ -12,6 +12,7 @@ block content
           th.phoneNumber 새로운 번호판
           td
             input.phoneNumber-input(type="text", name="BIKE_NUMBER", placeholder="번호판 입력")
+            //- input.user-key(type="hidden" name="USER_KEY", value=userKey) 
             //- input.check(type="button" onclick="addBikeNumber(#{userKey})" value="번호판입력")
         //- tr.userName
         //-   th.name 라이더키
@@ -20,7 +21,7 @@ block content
         
       div.buttonGroup
         button.submit(onclick='goToList()') 목록
-        button.submit(onclick='addBikeNumber(#{userKey})') 변호판입력
+        button.submit(onclick=`addBikeNumber(${userKey})`) 변호판입력
 
 block scripts
   include ./scripts/addBikeNumber_script.pug

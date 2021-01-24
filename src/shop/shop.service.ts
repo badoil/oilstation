@@ -261,7 +261,7 @@ export class ShopService {
 
   async addBikeNumber(bodyData, req) {
     const date = new Date();
-    const shopName = req.user.SHOP_NAME;
+    const shopName = req.user.shopName;
 
     const bikeNumber = await this.prisma.bikeNumber.create({
       data: {
