@@ -20,7 +20,7 @@ block content
               label(for="keyword") 텍스트 검색
                 span(style="font-size: x-small") 지점명 검색
                   div(class="input-group-select")
-                    input(type="text", id="keyword", name="keyword", placeholder="검색어 입력", value=query.keyword)
+                    input(type="text", id="keyword", name="keyword", placeholder="검색어 입력")
           div(class="btn-group")
             button#searchBtn( type="button" class="btn btn-success-md btn-search submit" onclick='searchUser()') 검색
     div(class="contents")
@@ -60,24 +60,31 @@ block content
             th(scope="col")
               label(class="checkbox")
               input(type="checkbox" class="chk chkM")
-            th(scope="col") 지점번호
+            th(scope="col") 매장이름
             th(scope="col") 증감
             th(scope="col") 오일양
             th(scope="col") 차량번호
             th(scope="col") 등록일
+            //- th(scope="col") 삭제
         tbody
           each item in userList.userList[0].OilHistory
             tr
               td
                 label(class="checkbox")
                 input(type="checkbox" class="chk chkM")
-              td #{item.shopKey}
+              td #{item.regId}
               td #{item.plusMinus}
               td #{item.oilL}
               td #{item.bikeNumber}
               td 
                 +getDateFormat(item.regDt)
+              //- td
+              //-   button(class='btn btn-primary-sm',onclick=`deleteOilHistory(${item.oilKey}, ${item.userKey}, ${item.plusMinus})`) 삭제
       +pageing(query.page, query.pageSize, userList.totalCount, 'listForm')
     
   block scripts
     include ./scripts/list_script.pug
+
+
+
+    //- value=query.keyword

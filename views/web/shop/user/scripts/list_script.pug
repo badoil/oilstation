@@ -69,3 +69,24 @@ script.
                 console.error(err)
         }
     }
+
+    async function deleteOilHistory(oilKey, userKey, plusMinus){
+        try{
+                console.log('oilKey: ', oilKey)
+                console.log('userKey: ', userKey)
+                console.log('plusMinus: ', plusMinus)
+                const oilHistory = await axios.delete(`/shop/user/deleteOilHistory?oilKey=${oilKey}`)
+                console.log('oilHistory: ', oilHistory)
+                if(deletedUser.count < 1){
+                        alert('삭제에 실패했습니다.')
+                }
+                const user = {
+                        userKey: userKey,
+                        
+                }
+
+                location.reload();
+        }catch(err){
+                console.error(err)
+        }
+    }

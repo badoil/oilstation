@@ -184,4 +184,14 @@ export class ShopController {
     console.log('controllerDeleteUser:', deletedUser);
     return deletedUser;
   }
+
+  @UseGuards(RolesGuard)
+  @Roles('shop')
+  @Delete('user/deleteOilHistory')
+  async deleteOilHistory(@Query('oilKey') oilKey: string){
+    const oil = await this.shopService.deleteOilHistory(oilKey)
+    console.log('oil:', oil)
+
+    return oil;
+  }
 }

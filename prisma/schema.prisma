@@ -37,6 +37,7 @@ model OilHistory {
   oilKey    Int       @id @default(autoincrement()) @map("OIL_KEY")
   userKey   Int?      @map("USER_KEY")
   shopKey   Int?      @map("SHOP_KEY")
+  shopName  String?   @map("SHOP_NAME")
   plusMinus Int?      @map("PLUS_MINUS")
   oilL      Int?      @map("OIL_L")
   regId     String    @map("REG_ID")

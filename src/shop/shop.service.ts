@@ -184,6 +184,7 @@ export class ShopService {
             shopKey: true,
             plusMinus: true,
             oilL: true,
+            regId: true,
             regDt: true,
           },
           orderBy: {
@@ -319,6 +320,7 @@ export class ShopService {
     const oil = await this.prisma.oilHistory.create({
       data: {
         shopKey: req.user.shopKey,
+        shopName: req.user.shopName,
         plusMinus: bodyData.PLUS_MINUS,
         oilL: bodyData.OIL_L,
         regId: shopName,
@@ -341,7 +343,7 @@ export class ShopService {
       },
     });
     console.log('deletedOilHistory:', deletedOilHistory);
-    if (deletedOilHistory.count !== 1) {
+    if (deletedOilHistory.count === 0) {
       return {
         count: deletedOilHistory.count,
       };
@@ -353,7 +355,7 @@ export class ShopService {
       },
     });
     console.log('deletedBikeNumber:', deletedBikeNumber);
-    if (deletedBikeNumber.count !== 1) {
+    if (deletedBikeNumber.count === 0) {
       return {
         count: deletedBikeNumber.count,
       };
@@ -365,7 +367,7 @@ export class ShopService {
       },
     });
     console.log('deletedUser:', deletedUser);
-    if (deletedUser.count !== 1) {
+    if (deletedUser.count === 0) {
       return {
         count: deletedUser.count,
       };
@@ -374,5 +376,23 @@ export class ShopService {
     return {
       count: deletedUser.count,
     };
+  }
+
+  async deleteOilHistory(oilKey){
+    const deletedOil = await this.prisma.oilHistory.deleteMany({
+      where: {
+        oilKey: oilKey
+      }
+    })
+    if(deletedOil.count === 0){
+      return {
+        count: deletedOil.count
+      }
+    }
+
+    return {
+      count: deletedOil.count
+    }
+    
   }
 }
