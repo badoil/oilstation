@@ -115,7 +115,7 @@ block content
       }
     }
   script.
-    var maxLiter = Math.min(50, #{user.oilL});
+    var maxLiter = Math.min(1,000,000, #{user.oilL});
     var liter = #{user.oilL};
     var current = 0;
     function incrementOne() {
@@ -128,7 +128,7 @@ block content
         }
         current++;
         var $oil = document.getElementById('oil-liter');
-        $oil.textContent = current + 'L';
+        $oil.textContent = current + 'P';
 
         timerId = setTimeout(incrementOne, 30);
       }
@@ -142,7 +142,7 @@ block content
     #oil-drum
       #oil-drum-side
         #oil-drum-current
-          span#oil-liter 0L
+          span#oil-liter 0P
           span.triangle
         #oil-graph
           img.oil-drum-indicator.indicator-1(src="/rectangle-2-copy-2@3x.png")
@@ -173,6 +173,6 @@ block content
         img#oil-drum-back(src="/emthy-01@3x.png")
     a(href="https://booking.naver.com/booking/6/bizes/461693" target="_blank")#reserve 매장 예약
     #extra
-      span * 오일 구매는 오프라인 매장에서 가능하며
+      span * 멤버십 포인트는 오프라인 매장에서 구매할 수 있으며
       br
-      span 저장된 오일은 모든 오일스테이션 지점에서 사용 가능합니다.
+      span 모든 오일스테이션 지점에서 사용 가능합니다.
